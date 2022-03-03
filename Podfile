@@ -7,7 +7,14 @@ target 'FirebaseToDo' do
 
   # Pods for FirebaseToDo
 
-pod 'Firebase/Auth'
+pod 'Firebase/Analytics'
+pod 'Firebase/Storage'
+pod 'FirebaseDatabase'
+pod 'FirebaseStorage'
 pod 'Firebase/Firestore'
+
+pod 'Firebase/Database'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
 
 end

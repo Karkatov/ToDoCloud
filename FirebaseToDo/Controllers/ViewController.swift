@@ -78,15 +78,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray4
         
+        view.backgroundColor = .systemGray4
         atributtedTextName()
         showStartAnimation()
-        
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
+    
     }
 }
 
@@ -191,25 +192,23 @@ extension ViewController {
             print("2")
             return }
         
-        let firebase = Firebase.Auth.auth().signIn(withEmail: <#T##String#>, password: <#T##String#>)
-        
     }
     
     @objc func registration() {
-        
+        let secondVC = TableViewController()
+                navigationController?.pushViewController(secondVC, animated: true)
+                print("DONE")
     }
     
     @objc func nextWindow() {
         
-        let secondVC = SecondViewController()
-        navigationController?.pushViewController(secondVC, animated: true)
-        print("DONE")
+        
     }
     
     func displayWarning(withText text: String) {
         warningTextLabel.text = text
         
-        UIView.animate(withDuration: 7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
             print(1)
         } completion: { [weak self] complite in
