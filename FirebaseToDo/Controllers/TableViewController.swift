@@ -6,19 +6,28 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class TableViewController: UIViewController {
 
+    var user: UserModel!
+    var ref: DatabaseReference!
+    var tasks: [Task] = []
+    
         private let myArray = ["First","Second","Third"]
         private var tableView = UITableView()
 
         override func viewDidLoad() {
             super.viewDidLoad()
 
+            guard let currentUser = Auth.auth().currentUser else { return }
+            user = UserModel(user: currentUser)
+            ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
+            
+            
             let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-            
             navigationItem.rightBarButtonItem = rightBarButtonItem
-            
             tableView.frame = view.bounds
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
             tableView.dataSource = self
@@ -57,13 +66,16 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         alertController.addTextField { tf in
             tf.autocapitalizationType = .sentences
             
-            tf.clearButtonMode = .always 
+            tf.clearButtonMode = .always
         }
-        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { action in
-            alertController.textFields?.first
+        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
+            
+            guard let tf = alertController.textFields?.first, tf.text != "" else { return }
+        
+            let task = Task(title: tf.text!, userID: (self?.user.uid)!)
         }
         
-        let cancelButton = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancelButton = UIAlertAction(title: "Отмена", style: .default)
         
         alertController.addAction(saveButton)
         alertController.addAction(cancelButton)
