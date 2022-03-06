@@ -20,11 +20,12 @@ class TableViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-
-            guard let currentUser = Auth.auth().currentUser else { return }
-            user = UserModel(user: currentUser)
-            ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
             
+            
+//            guard let currentUser = Auth.auth().currentUser else { return }
+//            user = UserModel(user: currentUser)
+//            ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
+//            
             
             let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
             navigationItem.rightBarButtonItem = rightBarButtonItem
