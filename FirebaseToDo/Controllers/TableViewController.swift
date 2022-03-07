@@ -22,18 +22,22 @@ class TableViewController: UIViewController {
             super.viewDidLoad()
             
             
-//            guard let currentUser = Auth.auth().currentUser else { return }
-//            user = UserModel(user: currentUser)
-//            ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
-//            
             
-            let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-            navigationItem.rightBarButtonItem = rightBarButtonItem
             tableView.frame = view.bounds
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
             tableView.dataSource = self
             tableView.delegate = self
             self.view.addSubview(tableView)
+            
+            let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+                        navigationItem.rightBarButtonItem = rightBarButtonItem
+                        
+                       navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+            
+                        guard let currentUser = Auth.auth().currentUser else { return }
+                        user = UserModel(user: currentUser)
+                        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
+            
         }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -82,4 +86,16 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         alertController.addAction(cancelButton)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @objc func signOut() {
+        do { try Auth.auth().signOut()
+            
+        }
+        catch { print("already logged out") }
+        
+        self.dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
+        
+    }
+    
 }

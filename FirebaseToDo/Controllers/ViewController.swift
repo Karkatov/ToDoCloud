@@ -4,11 +4,13 @@
 //
 //  Created by Duxxless on 01.03.2022.
 //
+
 import UIKit
 import Firebase
 
 class ViewController: UIViewController {
     
+    let secondVC = TableViewController()
     let userDefaults = UserDefaults.standard
     
     let emailTF: UITextField = {
@@ -78,6 +80,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.hidesBackButton = true
+        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            if user != nil {
+                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+            }
+        }
+        
         view.backgroundColor = .systemGray4
         atributtedTextName()
         showStartAnimation()
@@ -86,7 +95,13 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        emailTF.text = ""
+        passwordTF.text = ""
     }
 }
 
@@ -117,7 +132,7 @@ extension ViewController {
         view.addSubview(loginButton)
         
         registerButton.frame = CGRect(x: view.bounds.size.width / 2  - 75, y: passwordTF.frame.origin.y + 150 , width: 150, height: 40)
-        registerButton.addTarget(self, action: #selector(registration), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         view.addSubview(registerButton)
     }
     
@@ -129,7 +144,7 @@ extension ViewController {
         gradientLayer.colors = [colorTop, colorBottom]
         gradientLayer.locations = [0.0, 1.0]
         
-       return gradientLayer
+        return gradientLayer
     }
     
     func atributtedTextName() {
@@ -187,20 +202,39 @@ extension ViewController {
     @objc func loginPapped() {
         
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
-            displayWarning(withText: warningTextLabel.text!)
-            print("2")
+            displayWarning(withText: "Ошибка")
             return }
         
-    }
-    
-    @objc func registration() {
-        let secondVC = TableViewController()
-                navigationController?.pushViewController(secondVC, animated: true)
-                print("DONE")
-    }
-    
-    @objc func nextWindow() {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
+            if error != nil {
+                self?.displayWarning(withText: "Ошибка")
+                return
+            }
+            
+            if user != nil {
+                self?.navigationController?.popToViewController(self!.secondVC, animated: true)
+                return
+            }
+            
+            self?.displayWarning(withText: "Пользователь не найден")
+        }
         
+    }
+    
+    @objc func registerTapped() {
+        guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
+            displayWarning(withText: "Заполните поля")
+            return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
+            
+            if error == nil {
+                if user != nil {
+                    self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+                    return
+                }
+            }
+        }
         
     }
     
