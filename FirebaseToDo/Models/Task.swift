@@ -14,7 +14,7 @@ struct Task {
     let title: String
     let userID: String
     let ref: DatabaseReference?
-    var complited: Bool = false
+    var completed: Bool = false
     
     
     // создаем данные
@@ -26,17 +26,10 @@ struct Task {
     }
     // получаем данные
     init(snapshot: DataSnapshot) {
-        
         let snapshotValue = snapshot.value as! [String : AnyObject]
         title = snapshotValue["title"] as! String
         userID = snapshotValue["userID"] as! String
-        complited = snapshotValue["complited"] as! Bool
+        completed = snapshotValue["completed"] as! Bool
         ref = snapshot.ref
-    }
-    
-    func convertToDictionary() -> Any {
-        return ["title" : title,
-                "userID" : userID,
-                "complited" : complited]
     }
 }

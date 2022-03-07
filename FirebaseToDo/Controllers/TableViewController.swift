@@ -13,7 +13,7 @@ class TableViewController: UIViewController {
 
     var user: UserModel!
     var ref: DatabaseReference!
-    var tasks: [Task] = []
+    var tasks = Array<Task>()
     
         private let myArray = ["First","Second","Third"]
         private var tableView = UITableView()
@@ -74,8 +74,10 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             
                 let task = Task(title: tf.text!, userID: (self?.user.uid)!)
                 let taskRef = self?.ref.child(task.title.lowercased())
-                taskRef?.setValue(task.convertToDictionary)
-                print("Done")
+                taskRef?.setValue(["title" : task.title,
+                                   "userID" : task.userID,
+                                   "completed" : task.completed])
+                
             }
             
             let cancelButton = UIAlertAction(title: "Отмена", style: .default)
@@ -83,7 +85,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             alertController.addAction(saveButton)
             alertController.addAction(cancelButton)
             present(alertController, animated: true, completion: nil)
-        print("2")
         }
 
     func setButtons() {
