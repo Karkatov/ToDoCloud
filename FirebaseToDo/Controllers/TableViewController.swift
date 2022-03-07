@@ -21,22 +21,9 @@ class TableViewController: UIViewController {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            
-            
-            tableView.frame = view.bounds
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-            tableView.dataSource = self
-            tableView.delegate = self
-            self.view.addSubview(tableView)
-            
-            let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-                        navigationItem.rightBarButtonItem = rightBarButtonItem
-                        
-                       navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
-            
-                        guard let currentUser = Auth.auth().currentUser else { return }
-                        user = UserModel(user: currentUser)
-                        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
+            setTableView()
+            setButtons()
+            createUser()
             
         }
     
@@ -64,28 +51,58 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    @objc func addNote() {
-        print("DONE")
-        let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
+    
+    func createUser() {
         
-        alertController.addTextField { tf in
-            tf.autocapitalizationType = .sentences
-            
-            tf.clearButtonMode = .always
-        }
-        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
-            
-            guard let tf = alertController.textFields?.first, tf.text != "" else { return }
-        
-            let task = Task(title: tf.text!, userID: (self?.user.uid)!)
-        }
-        
-        let cancelButton = UIAlertAction(title: "Отмена", style: .default)
-        
-        alertController.addAction(saveButton)
-        alertController.addAction(cancelButton)
-        present(alertController, animated: true, completion: nil)
+        guard let currentUser = Auth.auth().currentUser else { return }
+        user = UserModel(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
     }
+    
+    @objc func addNote() {
+            print("DONE")
+            let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
+            
+            alertController.addTextField { tf in
+                tf.autocapitalizationType = .sentences
+                
+                tf.clearButtonMode = .always
+            }
+            let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
+                
+                guard let tf = alertController.textFields?.first, tf.text != "" else { return }
+            
+                let task = Task(title: tf.text!, userID: (self?.user.uid)!)
+                let taskRef = self?.ref.child(task.title.lowercased())
+                taskRef?.setValue(task.convertToDictionary)
+                print("Done")
+            }
+            
+            let cancelButton = UIAlertAction(title: "Отмена", style: .default)
+            
+            alertController.addAction(saveButton)
+            alertController.addAction(cancelButton)
+            present(alertController, animated: true, completion: nil)
+        print("2")
+        }
+
+    func setButtons() {
+        
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+                    navigationItem.rightBarButtonItem = rightBarButtonItem
+                    
+                   navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+    }
+    
+    func setTableView() {
+        tableView.frame = view.bounds
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        self.view.addSubview(tableView)
+    }
+    
+    
     
     @objc func signOut() {
         do { try Auth.auth().signOut()

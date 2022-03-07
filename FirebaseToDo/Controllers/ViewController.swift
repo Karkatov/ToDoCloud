@@ -11,7 +11,6 @@ import Firebase
 class ViewController: UIViewController {
     
     let secondVC = TableViewController()
-    let userDefaults = UserDefaults.standard
     
     let emailTF: UITextField = {
         let tf = UITextField()
@@ -81,11 +80,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
-        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            if user != nil {
-                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
-            }
-        }
+        checkUser()
         
         view.backgroundColor = .systemGray4
         atributtedTextName()
@@ -102,6 +97,8 @@ class ViewController: UIViewController {
         
         emailTF.text = ""
         passwordTF.text = ""
+        passwordTF.text = "Sktrue53"
+        emailTF.text = "Duxxless53@ya.ru"
     }
 }
 
@@ -230,10 +227,11 @@ extension ViewController {
             
             if error == nil {
                 if user != nil {
-                    self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+                    self?.navigationController?.popToViewController(self!.secondVC, animated: true)
                     return
                 }
             }
+            self!.displayWarning(withText: "Что-то пошло не так")
         }
         
     }
@@ -247,6 +245,15 @@ extension ViewController {
         } completion: { [weak self] complite in
             self?.warningTextLabel.alpha = 0
             print(3)
+        }
+    }
+    
+    func checkUser() {
+        
+        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            if user != nil {
+                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+            }
         }
     }
 }
