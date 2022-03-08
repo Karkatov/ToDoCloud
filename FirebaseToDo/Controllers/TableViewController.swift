@@ -20,13 +20,20 @@ class TableViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
+        
+        
+
             
             setTableView()
             setButtons()
             createUser()
-            
+            setTabBar()
         }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
     override func viewDidDisappear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -50,6 +57,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         return cell
     }
+    
     
     
     func createUser() {
@@ -89,10 +97,17 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 
     func setButtons() {
         
-        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-                    navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        
+        let addNewNote
+        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+         
+        let showWeather = UIBarButtonItem(image: UIImage(systemName: "sun.min"), style: .plain, target: self, action: #selector(weatherTapped))
+        
+       
+        navigationItem.rightBarButtonItems = [addNewNote, showWeather]
                     
-                   navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
     }
     
     func setTableView() {
@@ -103,7 +118,12 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         self.view.addSubview(tableView)
     }
     
-    
+    @objc func weatherTapped() {
+        
+        let weatherVC = WeatherViewController(nibName: nil, bundle: nil)
+//        navigationController!.pushViewController(weatherVC, animated: true)
+        self.navigationController?.setViewControllers([weatherVC], animated: true)
+    }
     
     @objc func signOut() {
         do { try Auth.auth().signOut()
@@ -116,4 +136,10 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    
+    func setTabBar() {
+        
+        
+        
+    }
 }

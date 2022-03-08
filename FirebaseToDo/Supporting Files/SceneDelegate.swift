@@ -10,18 +10,16 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let navigationController = UINavigationController()
-        let viewController = ViewController()
-    
-        navigationController.viewControllers = [viewController]
-        window.rootViewController = navigationController
+        //TabBarController
+
+        let tabBar = createTabBarController()
+        window.rootViewController = tabBar
         
         self.window = window
         window.makeKeyAndVisible()
@@ -53,6 +51,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    func setOne() -> UINavigationController {
+        let vc = UINavigationController(rootViewController: WeatherViewController())
+        vc.title = "ViewController"
+        
+        vc.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 2)
+        return vc
+    }
+    
+    func setTwo() -> UINavigationController {
+        let vc = UINavigationController(rootViewController: TableViewController())
+        vc.title = "SecondViewController"
+        
+        vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
+        return vc
+    }
+    
+    func setThree() -> UINavigationController {
+        let vc = UINavigationController(rootViewController: ViewController())
+        vc.title = "SecondViewController"
+        
+        vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 0)
+        return vc
+    }
+    func createTabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        UITabBar.appearance().backgroundColor = .systemBrown
+        tabBarController.viewControllers = [setThree(), setOne()]
+        return tabBarController
+    }
+    
 }
 
