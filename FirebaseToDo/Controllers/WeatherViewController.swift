@@ -25,18 +25,22 @@ class WeatherViewController: UIViewController {
     let networkWeatherManager = NetworkWeatherManager()
     let networkTranslate = NetworkTranslate()
     
+    let userDefaults = UserDefaults()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "3333"
+
         spiner.startAnimating()
         setStyle()
         setLayout()
-        
-        networkWeatherManager.fetchCurrentWeather(forCity: "London") {   currentWeather in
-            
-            self.updateInterfaceWith(weather: currentWeather)
-            self.array = currentWeather.weatherDetail()
-            
+    
+        if let city = userDefaults.object(forKey: "city") as? String {
+            print(city)
+            networkWeatherManager.fetchCurrentWeather(forCity: city) {   currentWeather in
+                self.updateInterfaceWith(weather: currentWeather)
+                self.array = currentWeather.weatherDetail()
+            }
         }
     }
 }
@@ -129,8 +133,9 @@ extension WeatherViewController {
             DispatchQueue.main.async {
                 self.spiner.startAnimating()
             }
+            //UserDefaults
+            self.userDefaults.set(city, forKey: "city")
             self.networkWeatherManager.fetchCurrentWeather(forCity: city) { currentWeather in
-                
                 self.updateInterfaceWith(weather: currentWeather)
                 self.array = currentWeather.weatherDetail()
             }
@@ -166,7 +171,7 @@ extension WeatherViewController {
     }
     
     func updateInterfaceWith(weather: CurrentWeather) {
-        
+
         self.temperatureLabel.alpha = 0
         self.wheatherIconImageView.alpha = 0
         self.feelsLikeTemperatureLabel.alpha = 0
@@ -186,6 +191,7 @@ extension WeatherViewController {
         
         DispatchQueue.main.async {
             self.cityLabel.text = weather.cityName
+            
         }
         
         dispatch(object: self.feelsLikeTemperatureLabel, time: 0.7, duration: 1)

@@ -20,15 +20,12 @@ class TableViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-        
-        
-
-            
             setTableView()
             setButtons()
             createUser()
             setTabBar()
         }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -143,3 +140,4 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
 }
+

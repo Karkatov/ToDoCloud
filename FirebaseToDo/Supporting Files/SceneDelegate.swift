@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //TabBarController
 
         let tabBar = createTabBarController()
+        
         window.rootViewController = tabBar
         
         self.window = window
@@ -50,34 +51,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
     func setOne() -> UINavigationController {
-        let vc = UINavigationController(rootViewController: WeatherViewController())
+            let vc = UINavigationController(rootViewController: ViewController())
+            
+            vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 0)
+            return vc
+        }
+    func setTwo() -> UINavigationController {
+            let vc = UINavigationController(rootViewController: WeatherViewController())
+            
+            vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
+            return vc
+        }
+
+    func setThree() -> UINavigationController {
+        let vc = UINavigationController(rootViewController: ViewControllerValute())
         vc.title = "ViewController"
         
-        vc.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 2)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "doc.richtext"), tag: 2)
         return vc
     }
     
-    func setTwo() -> UINavigationController {
-        let vc = UINavigationController(rootViewController: TableViewController())
-        vc.title = "SecondViewController"
-        
-        vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
-        return vc
-    }
     
-    func setThree() -> UINavigationController {
-        let vc = UINavigationController(rootViewController: ViewController())
-        vc.title = "SecondViewController"
-        
-        vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 0)
-        return vc
-    }
+    
+    
     func createTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
         UITabBar.appearance().backgroundColor = .systemBrown
-        tabBarController.viewControllers = [setThree(), setOne()]
+        tabBarController.viewControllers = [setOne(), setTwo(), setThree()]
         return tabBarController
     }
     
