@@ -23,12 +23,14 @@ class ViewControllerValute: UIViewController {
         tableViewController.tableView.backgroundColor = UIColor(red: 0/255, green: 36/255, blue: 67/255, alpha: 1)
         setTableView()
         setRefresh()
-        
+        navigationController?.navigationBar.isTranslucent = false
+        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
+        navigationController?.navigationBar.barTintColor = .yellow
+    
     }
     
     override func viewDidLayoutSubviews() {
-        
-        tableViewController.tableView.frame = CGRect(x: 0, y: 91, width: view.bounds.size.width, height: view.bounds.size.height)
+        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -50,6 +52,7 @@ class ViewControllerValute: UIViewController {
         tableViewController.tableView.delegate = self
         tableViewController.tableView.dataSource = self
         view.addSubview(tableViewController.tableView)
+        
     }
     
     func setRefresh() {
@@ -90,6 +93,7 @@ extension ViewControllerValute: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return valutes.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         

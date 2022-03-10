@@ -107,14 +107,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarController?.tabBar.isHidden = true
-        self.title = "11111"
         navigationItem.hidesBackButton = true
+        
         checkUser()
-        
-        
-        
-        //view.backgroundColor = .systemGray4
         atributtedTextName()
         showStartAnimation()
     }
@@ -246,10 +241,13 @@ extension ViewController {
             }
             
             if user != nil {
-                self?.navigationController?.popToViewController(self!.secondVC, animated: true)
+                
+                let tableVC = TableViewController()
+                self?.navigationController?.pushViewController(tableVC, animated: true)
                 return
             }
             
+            self?.tabBarController?.tabBar.layer.cornerRadius = 30
             self?.displayWarning(withText: "Пользователь не найден")
         }
         
@@ -280,7 +278,6 @@ extension ViewController {
         
         Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             if user != nil {
-                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
             }
         }
     }

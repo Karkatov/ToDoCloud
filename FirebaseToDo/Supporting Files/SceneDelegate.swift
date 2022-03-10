@@ -54,13 +54,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setOne() -> UINavigationController {
             let vc = UINavigationController(rootViewController: ViewController())
             
-            vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 0)
+            vc.tabBarItem = UITabBarItem(title: "Заметки", image: UIImage(systemName: "bookmark.fill"), tag: 0)
             return vc
         }
     func setTwo() -> UINavigationController {
             let vc = UINavigationController(rootViewController: WeatherViewController())
             
-            vc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
+            vc.tabBarItem = UITabBarItem(title: "Погода", image: UIImage(systemName: "sun.max.fill"), tag: 1)
             return vc
         }
 
@@ -68,19 +68,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc = UINavigationController(rootViewController: ViewControllerValute())
         vc.title = "ViewController"
         
-        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "doc.richtext"), tag: 2)
+        vc.tabBarItem = UITabBarItem(title: "Курс", image: UIImage(systemName: "chart.bar.fill"), tag: 2)
+        return vc
+    }
+    
+    func setFour() -> UINavigationController {
+        let vc = UINavigationController(rootViewController: TableViewController())
+        
+        vc.tabBarItem = UITabBarItem(title: "Курс", image: UIImage(systemName: "chart.bar.fill"), tag: 3)
         return vc
     }
     
     
-    
-    
     func createTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
-        UITabBar.appearance().backgroundColor = .systemBrown
         tabBarController.viewControllers = [setOne(), setTwo(), setThree()]
         return tabBarController
     }
-    
 }
 

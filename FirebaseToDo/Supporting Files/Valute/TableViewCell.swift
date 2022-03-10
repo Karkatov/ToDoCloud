@@ -48,8 +48,9 @@ class CustomTableViewCell: UITableViewCell {
         return layer
     }()
     let borderView = UIView()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super .init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = UIColor(red: 0/255,
                                               green: 36/255,
                                               blue: 67/255,

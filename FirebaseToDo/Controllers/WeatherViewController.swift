@@ -30,7 +30,6 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         spiner.startAnimating()
         setStyle()
         setLayout()
@@ -43,7 +42,13 @@ class WeatherViewController: UIViewController {
             }
         }
     }
+    override func viewDidLayoutSubviews() {
+        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
+        
+    }
 }
+
+
 // MARK: - Methods
 extension WeatherViewController {
     

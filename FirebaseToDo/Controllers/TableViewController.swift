@@ -10,31 +10,45 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class TableViewController: UIViewController {
-
+    
     var user: UserModel!
     var ref: DatabaseReference!
     var tasks = Array<Task>()
     
-        private let myArray = ["First","Second","Third"]
-        private var tableView = UITableView()
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            setTableView()
-            setButtons()
-            createUser()
-            setTabBar()
-        }
+    private let myArray = ["First","Second","Third"]
+    private var tableView = UITableView()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        setTableView()
+        setButtons()
+        createUser()
+        setTabBar()
+        
+        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
+        
+        tabBarController?.tabBar.isHidden = false
+        
+        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
+            
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 150)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
+        
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    override func viewDidLayoutSubviews() {
+        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
     }
 }
 
@@ -54,9 +68,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         return cell
     }
-    
-    
-    
+
     func createUser() {
         
         guard let currentUser = Auth.auth().currentUser else { return }
@@ -65,45 +77,42 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func addNote() {
-            print("DONE")
-            let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
+        print("DONE")
+        let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { tf in
+            tf.autocapitalizationType = .sentences
             
-            alertController.addTextField { tf in
-                tf.autocapitalizationType = .sentences
-                
-                tf.clearButtonMode = .always
-            }
-            let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
-                
-                guard let tf = alertController.textFields?.first, tf.text != "" else { return }
-            
-                let task = Task(title: tf.text!, userID: (self?.user.uid)!)
-                let taskRef = self?.ref.child(task.title.lowercased())
-                taskRef?.setValue(["title" : task.title,
-                                   "userID" : task.userID,
-                                   "completed" : task.completed])
-                
-            }
-            
-            let cancelButton = UIAlertAction(title: "Отмена", style: .default)
-            
-            alertController.addAction(saveButton)
-            alertController.addAction(cancelButton)
-            present(alertController, animated: true, completion: nil)
+            tf.clearButtonMode = .always
         }
-
+        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
+            
+            guard let tf = alertController.textFields?.first, tf.text != "" else { return }
+            
+            let task = Task(title: tf.text!, userID: (self?.user.uid)!)
+            let taskRef = self?.ref.child(task.title.lowercased())
+            taskRef?.setValue(["title" : task.title,
+                               "userID" : task.userID,
+                               "completed" : task.completed])
+            
+        }
+        
+        let cancelButton = UIAlertAction(title: "Отмена", style: .default)
+        
+        alertController.addAction(saveButton)
+        alertController.addAction(cancelButton)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func setButtons() {
-        
-        
         
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-         
+        
         let showWeather = UIBarButtonItem(image: UIImage(systemName: "sun.min"), style: .plain, target: self, action: #selector(weatherTapped))
         
-       
         navigationItem.rightBarButtonItems = [addNewNote, showWeather]
-                    
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
     }
     
@@ -117,26 +126,20 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func weatherTapped() {
         
-        let weatherVC = WeatherViewController(nibName: nil, bundle: nil)
-//        navigationController!.pushViewController(weatherVC, animated: true)
-        self.navigationController?.setViewControllers([weatherVC], animated: true)
     }
     
     @objc func signOut() {
+        
         do { try Auth.auth().signOut()
-            
         }
         catch { print("already logged out") }
         
         self.dismiss(animated: true, completion: nil)
-        navigationController?.popToRootViewController(animated: true)
-        
+        navigationController?.popViewController(animated: true)
     }
     
     
     func setTabBar() {
-        
-        
         
     }
 }

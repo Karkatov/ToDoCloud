@@ -124,13 +124,8 @@ class SignUpView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "11111"
         navigationItem.hidesBackButton = true
         checkUser()
-        
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -255,7 +250,7 @@ extension SignUpView {
     func displayWarning(withText text: String) {
         warningTextLabel.text = text
         
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
             print(1)
         } completion: { [weak self] complite in
