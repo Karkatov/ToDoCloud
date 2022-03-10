@@ -43,8 +43,6 @@ class WeatherViewController: UIViewController {
         }
     }
     override func viewDidLayoutSubviews() {
-        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
-        
     }
 }
 

@@ -24,16 +24,13 @@ class TableViewController: UIViewController {
         setTableView()
         setButtons()
         createUser()
-        setTabBar()
-        
-        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
-        
+    
         tabBarController?.tabBar.isHidden = false
         
-        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
             self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
             
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 150)
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 200)
         }
     }
     
@@ -48,7 +45,8 @@ class TableViewController: UIViewController {
         }
     }
     override func viewDidLayoutSubviews() {
-        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
+        super.viewDidLayoutSubviews()
+        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
 }
 
@@ -109,7 +107,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         
-        let showWeather = UIBarButtonItem(image: UIImage(systemName: "sun.min"), style: .plain, target: self, action: #selector(weatherTapped))
+        let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))
         
         navigationItem.rightBarButtonItems = [addNewNote, showWeather]
         
@@ -124,7 +122,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         self.view.addSubview(tableView)
     }
     
-    @objc func weatherTapped() {
+    @objc func showTray() {
         
     }
     
@@ -136,11 +134,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
         self.dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
-    }
-    
-    
-    func setTabBar() {
-        
     }
 }
 

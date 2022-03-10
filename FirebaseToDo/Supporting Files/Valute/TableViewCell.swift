@@ -38,40 +38,32 @@ class CustomTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
         imageView.layer.shadowColor = UIColor.black.cgColor
-        imageView.layer.borderWidth = 2
+        imageView.layer.borderWidth = 1
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    let borderLayer: CALayer = {
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.white.cgColor
-        return layer
-    }()
-    let borderView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        contentView.layer.borderWidth = 0.5
+      contentView.layer.backgroundColor = UIColor.white.cgColor
+       
         contentView.backgroundColor = UIColor(red: 0/255,
                                               green: 36/255,
                                               blue: 67/255,
                                               alpha: 1)
-        borderView.layer.addSublayer(borderLayer)
+
         contentView.addSubview(flagImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(charLabel)
         contentView.addSubview(valueLabel)
-        contentView.addSubview(borderView)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        borderLayer.frame = CGRect(x: 20,
-                                   y: 80,
-                                   width: UIScreen.main.bounds.size.width - 40,
-                                   height: 1)
         
         flagImageView.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).inset(20)

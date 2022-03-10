@@ -117,11 +117,13 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
+        tabBarController?.tabBar.isHidden = true
+        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = true
+        
         
         passwordTF.text = "Sktrue53"
         emailTF.text = "Duxxless53@ya.ru"

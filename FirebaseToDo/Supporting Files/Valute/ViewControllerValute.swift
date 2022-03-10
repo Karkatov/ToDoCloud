@@ -19,18 +19,13 @@ class ViewControllerValute: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        self.view.backgroundColor = UIColor(red: 0/255, green: 36/255, blue: 67/255, alpha: 1)
-        tableViewController.tableView.backgroundColor = UIColor(red: 0/255, green: 36/255, blue: 67/255, alpha: 1)
         setTableView()
         setRefresh()
-        navigationController?.navigationBar.isTranslucent = false
-        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
-        navigationController?.navigationBar.barTintColor = .yellow
+        
     
     }
     
     override func viewDidLayoutSubviews() {
-        tabBarController?.setMyHeightTabBar(tabBarController: tabBarController!)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -41,14 +36,23 @@ class ViewControllerValute: UIViewController {
     
     private func setTableView() {
         
+        let backgroundColor = UIColor(red: 0/255, green: 36/255, blue: 67/255, alpha: 1)
+        
+        self.view.backgroundColor = backgroundColor
+        tableViewController.tableView.backgroundColor = backgroundColor
         navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.title = "Kурс валют"
+        navigationItem.title = "Kурс рубля"
+        navigationController?.navigationBar.barTintColor  = backgroundColor
         
         let sortButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(sortValue))
         navigationItem.rightBarButtonItem = sortButton
         
         tableViewController.tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
-        tableViewController.tableView.frame = view.frame
+        tableViewController.tableView.frame = CGRect(x: 0,
+                                                     y: 85,
+                                                     width: view.frame.size.width,
+                                                     height: view.frame.size.height - 175)
+        
         tableViewController.tableView.delegate = self
         tableViewController.tableView.dataSource = self
         view.addSubview(tableViewController.tableView)
@@ -57,7 +61,7 @@ class ViewControllerValute: UIViewController {
     
     func setRefresh() {
         tableViewController.tableView.refreshControl = refresh
-        refresh.tintColor = .red
+        refresh.tintColor = .white
         refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
     
