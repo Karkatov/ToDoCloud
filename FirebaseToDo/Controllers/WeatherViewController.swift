@@ -7,11 +7,9 @@
 
 import UIKit
 
-
-class WeatherViewController: UIViewController {
+class WeatherVC: UIViewController {
     
     var array = [String]()
-    
     let defaultColor = UIColor(named: "DarkWhite")
     let backgroundImageView = UIImageView()
     let wheatherIconImageView = UIImageView()
@@ -24,9 +22,7 @@ class WeatherViewController: UIViewController {
     let spiner = UIActivityIndicatorView()
     let networkWeatherManager = NetworkWeatherManager()
     let networkTranslate = NetworkTranslate()
-    
     let userDefaults = UserDefaults()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +31,6 @@ class WeatherViewController: UIViewController {
         setLayout()
     
         if let city = userDefaults.object(forKey: "city") as? String {
-            print(city)
             networkWeatherManager.fetchCurrentWeather(forCity: city) {   currentWeather in
                 self.updateInterfaceWith(weather: currentWeather)
                 self.array = currentWeather.weatherDetail()
@@ -46,14 +41,13 @@ class WeatherViewController: UIViewController {
     }
 }
 
-
 // MARK: - Methods
-extension WeatherViewController {
+extension WeatherVC {
     
     func setStyle() {
         
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.image = UIImage(named: "Background")
+        backgroundImageView.image = UIImage(named: "blur")
         backgroundImageView.contentMode = .scaleAspectFill
         
         wheatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,13 +95,11 @@ extension WeatherViewController {
         locationButton.tintColor = defaultColor
         locationButton.addTarget(self, action: #selector(findPosition), for: .touchUpInside)
         
-        
         spiner.translatesAutoresizingMaskIntoConstraints = false
         spiner.style = .large
         spiner.color = defaultColor
         spiner.hidesWhenStopped = true
         spiner.startAnimating()
-        
     }
     
     func makeTemperatureText(temperature: String) -> NSAttributedString {
@@ -155,7 +147,7 @@ extension WeatherViewController {
     
     @objc func showDetail() {
         
-        let secondVC = SecondViewController()
+        let secondVC = DetailWeatherVC()
         secondVC.detail = array
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
@@ -167,7 +159,6 @@ extension WeatherViewController {
     }
     
     func showAnimation() {
-        
         self.wheatherIconImageView.pulsateImage()
         dispatch(object: temperatureLabel, time: 0.3, duration: 0.3)
         dispatch(object: feelsLikeTemperatureLabel, time: 0.5, duration: 0.5)
@@ -191,10 +182,8 @@ extension WeatherViewController {
             self.temperatureLabel.attributedText = self.makeTemperatureText(temperature: weather.temperatureString)
         }
         
-        
         DispatchQueue.main.async {
             self.cityLabel.text = weather.cityName
-            
         }
         
         dispatch(object: self.feelsLikeTemperatureLabel, time: 0.7, duration: 1)

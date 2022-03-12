@@ -11,7 +11,6 @@ import Firebase
 class SignUpView: UIViewController {
     
     let secondVC = TableViewController()
-    
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -27,7 +26,6 @@ class SignUpView: UIViewController {
         
         var placehold = NSMutableAttributedString(string: "Имя", attributes: text)
         tf.attributedPlaceholder = placehold
-        
         return tf
     }()
     
@@ -68,7 +66,6 @@ class SignUpView: UIViewController {
         tf.attributedPlaceholder = placehold
         return tf
     }()
-    
     let warningTextLabel: UILabel = {
         let label = UILabel()
         label.text = "Пользователь не найден"
@@ -78,7 +75,6 @@ class SignUpView: UIViewController {
         label.alpha = 0
         return label
     }()
-    
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 7
@@ -90,7 +86,6 @@ class SignUpView: UIViewController {
         button.isHidden = true
         return button
     }()
-    
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -101,7 +96,6 @@ class SignUpView: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         return button
     }()
-    
     let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -118,7 +112,6 @@ class SignUpView: UIViewController {
         let imageView = UIImageView()
         let image = UIImage(named: "blur")
         imageView.image = image
-        
         return imageView
     }()
     
@@ -131,11 +124,6 @@ class SignUpView: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
     }
 }
 
@@ -159,44 +147,38 @@ extension SignUpView {
         view.addSubview(passwordTF)
         
         passwordTwoTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
-                                  y: view.bounds.size.height / 2 + 50,
-                                  width: 300,
-                                  height: 40)
+                                     y: view.bounds.size.height / 2 + 50,
+                                     width: 300,
+                                     height: 40)
         view.addSubview(passwordTwoTF)
         
-        warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTF.frame.origin.y + 50, width: 300, height: 30)
+        warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                        y: passwordTF.frame.origin.y + 50,
+                                        width: 300,
+                                        height: 30)
         view.addSubview(warningTextLabel)
         
-        registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTwoTF.frame.origin.y + 100 , width: 300,
-                                   height: 40)
+        registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                      y: passwordTwoTF.frame.origin.y + 100 ,
+                                      width: 300,
+                                      height: 40)
         registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         view.addSubview(registerButton)
         
-        cancelButton.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTwoTF.frame.origin.y + 150, width: 300,
-                                      height: 40)
+        cancelButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                    y: passwordTwoTF.frame.origin.y + 150,
+                                    width: 300,
+                                    height: 40)
         cancelButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
         view.addSubview(cancelButton)
-    
         view.addSubview(passwordTwoTF)
         
         warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,
                                         y: passwordTwoTF.frame.origin.y + 50,
                                         width: 310,
                                         height: 30)
-
-    }
-    
-    func setGradientBackground() -> CAGradientLayer {
-        let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 0.5).cgColor
-        let colorBottom = UIColor(red: 100.0/255.0, green: 200.0/255.0, blue: 58.0/255.0, alpha: 0.5).cgColor
         
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
-        
-        return gradientLayer
     }
-    
     
     func setAnimation(button: UIButton?, label: UILabel?, textField: UITextField?, duration: CFTimeInterval) {
         let animationLayer = CABasicAnimation(keyPath: "opacity")
@@ -214,7 +196,7 @@ extension SignUpView {
         
         label?.layer.add(animationLayer, forKey: nil)
     }
-
+    
     @objc func registerTapped() {
         guard passwordTF.text == passwordTwoTF.text else {
             self.displayWarning(withText: "Пароль не подтвержден")
@@ -225,22 +207,16 @@ extension SignUpView {
         
         self.dismiss(animated: true)
         
-        
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
             
             if error == nil {
-                
-                
                 if user != nil {
-                    
                     self?.navigationController?.popToViewController(self!.secondVC, animated: true)
                     return
                 }
             }
             self!.displayWarning(withText: "Что-то пошло не так")
-            //self!.dismiss(animated: true)
         }
-        
     }
     
     @objc func closeView() {
@@ -249,13 +225,11 @@ extension SignUpView {
     
     func displayWarning(withText text: String) {
         warningTextLabel.text = text
-        
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
-            print(1)
+
         } completion: { [weak self] complite in
             self?.warningTextLabel.alpha = 0
-            print(3)
         }
     }
     

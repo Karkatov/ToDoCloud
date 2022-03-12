@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return vc
         }
     func setTwo() -> UINavigationController {
-            let vc = UINavigationController(rootViewController: WeatherViewController())
+            let vc = UINavigationController(rootViewController: WeatherVC())
             
             vc.tabBarItem = UITabBarItem(title: "Погода", image: UIImage(systemName: "sun.max.fill"), tag: 1)
             return vc

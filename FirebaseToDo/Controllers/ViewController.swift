@@ -11,7 +11,6 @@ import Firebase
 class ViewController: UIViewController {
     
     let secondVC = TableViewController()
-    
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -28,10 +27,8 @@ class ViewController: UIViewController {
         
         var placehold = NSMutableAttributedString(string: "Имя", attributes: text)
         tf.attributedPlaceholder = placehold
-        
         return tf
     }()
-    
     let passwordTF: UITextField = {
         let tf = UITextField()
         tf.isSecureTextEntry = true
@@ -51,7 +48,6 @@ class ViewController: UIViewController {
         tf.attributedPlaceholder = placehold
         return tf
     }()
-    
     let nameAppLabel: UILabel = {
         let label = UILabel()
         label.text = "FirebaseToDo"
@@ -61,7 +57,6 @@ class ViewController: UIViewController {
         label.isHidden = true
         return label
     }()
-    
     let warningTextLabel: UILabel = {
         let label = UILabel()
         label.text = "Пользователь не найден"
@@ -82,7 +77,6 @@ class ViewController: UIViewController {
         button.isHidden = true
         return button
     }()
-    
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -100,7 +94,6 @@ class ViewController: UIViewController {
         let imageView = UIImageView()
         let image = UIImage(named: "blur")
         imageView.image = image
-        
         return imageView
     }()
     
@@ -108,7 +101,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
-        
         checkUser()
         atributtedTextName()
         showStartAnimation()
@@ -123,60 +115,13 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+    
         passwordTF.text = "Sktrue53"
         emailTF.text = "Duxxless53@ya.ru"
     }
 }
 
 extension ViewController {
-    
-    func setLayout() {
-        
-        backgroundImageView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
-        view.addSubview(backgroundImageView)
-        
-        
-        nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155, y: 150, width: 310, height: 40)
-        view.addSubview(nameAppLabel)
-        
-        emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
-                               y: view.bounds.size.height / 2 - 25,
-                               width: 300,
-                               height: 40)
-        view.addSubview(emailTF)
-        
-        passwordTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
-                                  y: view.bounds.size.height / 2 + 25,
-                                  width: 300,
-                                  height: 40)
-        view.addSubview(passwordTF)
-        
-        warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTF.frame.origin.y + 50, width: 310, height: 30)
-        view.addSubview(warningTextLabel)
-        
-        loginButton.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTF.frame.origin.y + 100 , width: 300,
-                                   height: 40)
-        loginButton.addTarget(self, action: #selector(loginPapped), for: .touchUpInside)
-        view.addSubview(loginButton)
-        
-        registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150, y: passwordTF.frame.origin.y + 150, width: 300,
-                                      height: 40)
-        registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
-        view.addSubview(registerButton)
-    }
-    
-    func setGradientBackground() -> CAGradientLayer {
-        let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 0.5).cgColor
-        let colorBottom = UIColor(red: 100.0/255.0, green: 200.0/255.0, blue: 58.0/255.0, alpha: 0.5).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
-        
-        return gradientLayer
-    }
     
     func atributtedTextName() {
         
@@ -243,42 +188,36 @@ extension ViewController {
             }
             
             if user != nil {
-                
                 let tableVC = TableViewController()
                 self?.navigationController?.pushViewController(tableVC, animated: true)
                 return
             }
-            
             self?.tabBarController?.tabBar.layer.cornerRadius = 30
             self?.displayWarning(withText: "Пользователь не найден")
         }
-        
     }
     
     @objc func registerTapped() {
-    
+        
         let signUpview = SignUpView()
         signUpview.emailTF.text = self.emailTF.text
         present(signUpview, animated: true)
     }
     
-
-    
     func displayWarning(withText text: String) {
-        warningTextLabel.text = text
         
+        warningTextLabel.text = text
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
-            print(1)
+            
         } completion: { [weak self] complite in
             self?.warningTextLabel.alpha = 0
-            print(3)
         }
     }
     
     func checkUser() {
         
-        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+        Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
             }
         }

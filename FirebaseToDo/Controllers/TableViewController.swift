@@ -20,11 +20,13 @@ class TableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         setTableView()
+        tableView.animateTableView()
         setButtons()
+        
         createUser()
-    
+        
         tabBarController?.tabBar.isHidden = false
         
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
@@ -36,7 +38,6 @@ class TableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,7 +67,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         return cell
     }
-
+    
     func createUser() {
         
         guard let currentUser = Auth.auth().currentUser else { return }
@@ -75,7 +76,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func addNote() {
-        print("DONE")
         let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { tf in
@@ -92,7 +92,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             taskRef?.setValue(["title" : task.title,
                                "userID" : task.userID,
                                "completed" : task.completed])
-            
         }
         
         let cancelButton = UIAlertAction(title: "Отмена", style: .default)
@@ -106,15 +105,27 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+        addNewNote.tintColor = .white
         
         let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))
+        showWeather.tintColor = .white
         
         navigationItem.rightBarButtonItems = [addNewNote, showWeather]
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+        let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+        signOut.tintColor = .white
+        navigationItem.leftBarButtonItem = signOut
     }
     
     func setTableView() {
+        
+        let backgroundColor = UIColor(red: 25/255,
+                                      green: 75/255,
+                                      blue: 109/255,
+                                      alpha: 1)
+        tableView.backgroundColor = backgroundColor
+        navigationController?.tabBarController?.tabBar.backgroundColor = backgroundColor
+        navigationController?.navigationBar.barTintColor = backgroundColor
         tableView.frame = view.bounds
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         tableView.dataSource = self
