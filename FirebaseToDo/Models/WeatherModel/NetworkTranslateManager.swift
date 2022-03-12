@@ -32,6 +32,7 @@ class NetworkTranslate {
                 let curretTranslate = self.parceTranslateJSON(data: data)
                 guard let translateCity = curretTranslate?.translateCapitalized else { return }
                 complitionHander(translateCity)
+                print("----------\(translateCity)-----------")
                 
             } else {
                 if let error = error as NSError? {

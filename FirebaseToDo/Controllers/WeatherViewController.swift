@@ -31,9 +31,10 @@ class WeatherVC: UIViewController {
         setLayout()
     
         if let city = userDefaults.object(forKey: "city") as? String {
-            networkWeatherManager.fetchCurrentWeather(forCity: city) {   currentWeather in
-                self.updateInterfaceWith(weather: currentWeather)
-                self.array = currentWeather.weatherDetail()
+            print(city)
+            networkWeatherManager.fetchCurrentWeather(forCity: city) { [weak self]  currentWeather in
+                self?.updateInterfaceWith(weather: currentWeather)
+                self?.array = currentWeather.weatherDetail()
             }
         }
     }
@@ -130,15 +131,15 @@ extension WeatherVC {
             }
             //UserDefaults
             self.userDefaults.set(city, forKey: "city")
-            self.networkWeatherManager.fetchCurrentWeather(forCity: city) { currentWeather in
-                self.updateInterfaceWith(weather: currentWeather)
-                self.array = currentWeather.weatherDetail()
+            self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [weak self] currentWeather in
+                self?.updateInterfaceWith(weather: currentWeather)
+                self?.array = currentWeather.weatherDetail()
             }
-            self.networkWeatherManager.boolComplition = { error in
+            self.networkWeatherManager.boolComplition = { [weak self] error in
                 if error == false {
-                    self.errorAlertController()
+                    self?.errorAlertController()
                     DispatchQueue.main.async {
-                        self.spiner.stopAnimating()
+                        self?.spiner.stopAnimating()
                     }
                 }
             }
