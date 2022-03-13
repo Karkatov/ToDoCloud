@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 
 class ViewController: UIViewController {
+    var check = false
+    let ud = UserDefaults.standard
     
     let secondVC = TableViewController()
     let emailTF: UITextField = {
@@ -99,9 +101,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.hidesBackButton = true
+        check = ud.object(forKey: "check") as! Bool
         checkUser()
+        print(check)
+        navigationItem.hidesBackButton = true
+        
         atributtedTextName()
         showStartAnimation()
     }
@@ -116,6 +120,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
+        tabBarController?.tabBar.isHidden = true
         passwordTF.text = "Sktrue53"
         emailTF.text = "Duxxless53@ya.ru"
     }
@@ -190,6 +195,11 @@ extension ViewController {
             if user != nil {
                 let tableVC = TableViewController()
                 self?.navigationController?.pushViewController(tableVC, animated: true)
+                self!.check = true
+                self!.ud.set(self!.check, forKey: "check")
+                self!.ud.set(email, forKey: "email")
+                self!.ud.set(password, forKey: "password")
+                print(self!.check)
                 return
             }
             self?.tabBarController?.tabBar.layer.cornerRadius = 30
@@ -216,10 +226,16 @@ extension ViewController {
     }
     
     func checkUser() {
-        
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if user != nil {
+        print(check)
+        if check == true {
+            let saveEmail = (ud.object(forKey: "email") as? String)!
+            let savePassword = (ud.object(forKey: "password") as? String)!
+            Auth.auth().signIn(withEmail: saveEmail, password: savePassword) { [weak self] (user, error) in
+                
+                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+                self?.dismiss(animated: true, completion: nil)
             }
+            
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
