@@ -15,7 +15,7 @@ class TableViewController: UIViewController {
     var ref: DatabaseReference!
     var tasks = Array<Task>()
     
-    private let myArray = ["First","Second","Third"]
+    var editButton = UIBarButtonItem()
     private var tableView = UITableView()
     
     override func viewDidLoad() {
@@ -39,6 +39,16 @@ class TableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        ref.observe(.value) { [weak self] (snapshot) in
+            var _tasks = Array<Task>()
+            for item in snapshot.children {
+                let task = Task(snapshot: item as! DataSnapshot)
+                _tasks.append(task)
+            }
+            self?.tasks = _tasks
+            self?.tableView.reloadData()
+        }
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -53,20 +63,62 @@ class TableViewController: UIViewController {
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Num: \(indexPath.row)")
-        print("Value: \(myArray[indexPath.row])")
-    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        let task = tasks[indexPath.row]
+        let isCompleted = task.completed
+        cell.textLabel!.text = task.title
+        toogleCompletion(cell, isCompleted: isCompleted)
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard editingStyle == .delete else { return }
+        let task = tasks[indexPath.row]
+        task.ref?.removeValue()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        let task = tasks[indexPath.row]
+        let isCompleted = !task.completed
+        
+        toogleCompletion(cell, isCompleted: isCompleted)
+        task.ref?.updateChildValues(["completed" : isCompleted])
+        
+    }
+    
+    func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
+        cell.accessoryType = isCompleted ? .checkmark : .none
+    }
+    //    override func setEditing(_ editing: Bool, animated: Bool) {
+    //        super.setEditing(editing, animated: animated)
+    //
+//        if editing {
+//            self.editButton.title = "Готово"
+//            tableView.setEditing(editing, animated: true)
+//        } else {
+//            tableView.endEditing(true)
+//            self.editButton.title = "Изменить"
+//        }
+//    }
+    
+    
     
     func createUser() {
         
@@ -114,7 +166,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
         let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
         signOut.tintColor = .white
-        navigationItem.leftBarButtonItem = signOut
+        //navigationItem.leftBarButtonItem = signOut
+        editButton = editButtonItem
+        navigationItem.leftBarButtonItem = editButton
     }
     
     func setTableView() {

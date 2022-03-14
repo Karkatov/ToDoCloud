@@ -9,8 +9,10 @@ import UIKit
 import Firebase
 
 class RegisterViewController: UIViewController {
+   
     let vc = LoginViewController()
     var ref = DatabaseReference()
+    
     let tableVC = TableViewController()
     let emailTF: UITextField = {
         let tf = UITextField()
@@ -221,14 +223,16 @@ extension RegisterViewController {
                 print(error!.localizedDescription)
                     return
                 }
+            
+            //блок UserDefaults
             let userRef = self?.ref.child((user?.user.uid)!)
             userRef?.setValue(["email" : user?.user.email])
-            
             self?.vc.check = true
             self?.vc.ud.set(self?.vc.check, forKey: "check")
             self?.vc.ud.set(self?.emailTF.text!, forKey: "email")
             self?.vc.ud.set(self?.passwordTF.text!, forKey: "password")
             
+            //отсутствует переход на TableVC
             self?.dismiss(animated: true)
         }
     }
