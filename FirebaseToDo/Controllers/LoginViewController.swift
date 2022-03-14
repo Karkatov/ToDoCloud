@@ -8,10 +8,10 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
+    
     var check = false
     let ud = UserDefaults.standard
-    
     let secondVC = TableViewController()
     let emailTF: UITextField = {
         let tf = UITextField()
@@ -90,7 +90,6 @@ class ViewController: UIViewController {
         button.isHidden = true
         return button
     }()
-    var gradient = CAGradientLayer()
     
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -126,7 +125,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController {
+extension LoginViewController {
     
     func atributtedTextName() {
         
@@ -142,6 +141,7 @@ extension ViewController {
         atributedString.append(NSAttributedString(string: "ToDo", attributes: text2))
         nameAppLabel.attributedText = atributedString
     }
+    
     
     func setAnimation(button: UIButton?, label: UILabel?, textField: UITextField?, duration: CFTimeInterval) {
         let animationLayer = CABasicAnimation(keyPath: "opacity")
@@ -209,7 +209,7 @@ extension ViewController {
     
     @objc func registerTapped() {
         
-        let signUpview = SignUpView()
+        let signUpview = RegisterViewController()
         signUpview.emailTF.text = self.emailTF.text
         present(signUpview, animated: true)
     }

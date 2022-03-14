@@ -145,8 +145,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
         self.dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
-        let vc = ViewController()
+        let vc = LoginViewController()
         vc.check = false
+        print(vc.check)
         vc.ud.set(vc.check, forKey: "check")
     }
 }

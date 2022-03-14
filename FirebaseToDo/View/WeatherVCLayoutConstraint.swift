@@ -64,7 +64,7 @@ extension WeatherVC {
     }
 }
 
-extension ViewController {
+extension LoginViewController {
     func setLayout() {
     
         backgroundImageView.frame = CGRect(x: 0,

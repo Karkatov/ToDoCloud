@@ -52,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     func setOne() -> UINavigationController {
-            let vc = UINavigationController(rootViewController: ViewController())
+            let vc = UINavigationController(rootViewController: LoginViewController())
             
             vc.tabBarItem = UITabBarItem(title: "Заметки", image: UIImage(systemName: "bookmark.fill"), tag: 0)
             return vc

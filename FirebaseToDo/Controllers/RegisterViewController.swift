@@ -8,9 +8,10 @@
 import UIKit
 import Firebase
 
-class SignUpView: UIViewController {
-    
-    let secondVC = TableViewController()
+class RegisterViewController: UIViewController {
+    let vc = LoginViewController()
+    var ref = DatabaseReference()
+    let tableVC = TableViewController()
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -117,8 +118,9 @@ class SignUpView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference().child("users")
         navigationItem.hidesBackButton = true
-        checkUser()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -127,7 +129,7 @@ class SignUpView: UIViewController {
     }
 }
 
-extension SignUpView {
+extension RegisterViewController {
     
     func setLayout() {
         
@@ -203,19 +205,31 @@ extension SignUpView {
             return }
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
             displayWarning(withText: "Заполните поля")
-            return }
-        
-        self.dismiss(animated: true)
+            return
+        }
+        var count = 0
+        for _ in passwordTF.text! {
+            count += 1 }
+        if count < 6 {
+            
+            displayWarning(withText: "Пароль слишком короткий")
+            return
+        }
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
-            
-            if error == nil {
-                if user != nil {
-                    self?.navigationController?.popToViewController(self!.secondVC, animated: true)
+            guard error == nil, user != nil else {
+                print(error!.localizedDescription)
                     return
                 }
-            }
-            self!.displayWarning(withText: "Что-то пошло не так")
+            let userRef = self?.ref.child((user?.user.uid)!)
+            userRef?.setValue(["email" : user?.user.email])
+            
+            self?.vc.check = true
+            self?.vc.ud.set(self?.vc.check, forKey: "check")
+            self?.vc.ud.set(self?.emailTF.text!, forKey: "email")
+            self?.vc.ud.set(self?.passwordTF.text!, forKey: "password")
+            
+            self?.dismiss(animated: true)
         }
     }
     
@@ -227,21 +241,14 @@ extension SignUpView {
         warningTextLabel.text = text
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
-
+            
         } completion: { [weak self] complite in
             self?.warningTextLabel.alpha = 0
         }
     }
     
-    func checkUser() {
-        
-        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            if user != nil {
-                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
-            }
-        }
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+        
     }
 }
