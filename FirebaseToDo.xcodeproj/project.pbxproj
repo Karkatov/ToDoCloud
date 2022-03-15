@@ -33,7 +33,7 @@
 		FA9AFCFD27D6C3F500A2C42E /* CurrentCityTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFCF727D6C3F500A2C42E /* CurrentCityTranslate.swift */; };
 		FA9AFD0527D6C41A00A2C42E /* ExtentionWeatherVC + AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFCFE27D6C41900A2C42E /* ExtentionWeatherVC + AlertController.swift */; };
 		FA9AFD0627D6C41A00A2C42E /* DetailWeatherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFCFF27D6C41900A2C42E /* DetailWeatherVC.swift */; };
-		FA9AFD0727D6C41A00A2C42E /* WeatherVCLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0027D6C41900A2C42E /* WeatherVCLayoutConstraint.swift */; };
+		FA9AFD0727D6C41A00A2C42E /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0027D6C41900A2C42E /* LayoutConstraint.swift */; };
 		FA9AFD0827D6C41A00A2C42E /* ExtensionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0127D6C41900A2C42E /* ExtensionImageView.swift */; };
 		FA9AFD0927D6C41A00A2C42E /* ExtensionUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0227D6C41900A2C42E /* ExtensionUIButton.swift */; };
 		FA9AFD0A27D6C41A00A2C42E /* ExtensionUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0327D6C41900A2C42E /* ExtensionUILabel.swift */; };
@@ -75,7 +75,7 @@
 		FA9AFCF727D6C3F500A2C42E /* CurrentCityTranslate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentCityTranslate.swift; sourceTree = "<group>"; };
 		FA9AFCFE27D6C41900A2C42E /* ExtentionWeatherVC + AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExtentionWeatherVC + AlertController.swift"; sourceTree = "<group>"; };
 		FA9AFCFF27D6C41900A2C42E /* DetailWeatherVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailWeatherVC.swift; sourceTree = "<group>"; };
-		FA9AFD0027D6C41900A2C42E /* WeatherVCLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherVCLayoutConstraint.swift; sourceTree = "<group>"; };
+		FA9AFD0027D6C41900A2C42E /* LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraint.swift; sourceTree = "<group>"; };
 		FA9AFD0127D6C41900A2C42E /* ExtensionImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionImageView.swift; sourceTree = "<group>"; };
 		FA9AFD0227D6C41900A2C42E /* ExtensionUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUIButton.swift; sourceTree = "<group>"; };
 		FA9AFD0327D6C41900A2C42E /* ExtensionUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUILabel.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			children = (
 				FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */,
 				FA24672227D80A61003232FD /* TableViewCell.swift */,
-				FA9AFD0027D6C41900A2C42E /* WeatherVCLayoutConstraint.swift */,
+				FA9AFD0027D6C41900A2C42E /* LayoutConstraint.swift */,
 				FA82252E27CD712E00920730 /* LaunchScreen.storyboard */,
 				FA82252927CD712E00920730 /* Main.storyboard */,
 				FA82252C27CD712E00920730 /* Assets.xcassets */,
@@ -366,7 +366,7 @@
 				FA9AFD0627D6C41A00A2C42E /* DetailWeatherVC.swift in Sources */,
 				FA24672727D80A61003232FD /* ViewControllerValute.swift in Sources */,
 				FA9AFD0D27D6C49400A2C42E /* Constans.swift in Sources */,
-				FA9AFD0727D6C41A00A2C42E /* WeatherVCLayoutConstraint.swift in Sources */,
+				FA9AFD0727D6C41A00A2C42E /* LayoutConstraint.swift in Sources */,
 				FA9AFD0927D6C41A00A2C42E /* ExtensionUIButton.swift in Sources */,
 				FA9AFD0527D6C41A00A2C42E /* ExtentionWeatherVC + AlertController.swift in Sources */,
 				FA58737327CE14B100BF7ED7 /* ExtensionCollor.swift in Sources */,

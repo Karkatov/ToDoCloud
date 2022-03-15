@@ -13,6 +13,13 @@ class LoginViewController: UIViewController {
     var check = false
     let ud = UserDefaults.standard
     let secondVC = TableViewController()
+    let spiner: UIActivityIndicatorView = {
+        let spin = UIActivityIndicatorView()
+        spin.color = .white
+        spin.style = .large
+        spin.hidesWhenStopped = true
+        return spin
+    }()
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -100,7 +107,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        check = ud.object(forKey: "check") as! Bool
+        
+        check = ud.object(forKey: "check") as? Bool ?? false
         checkUser()
         print(check)
         navigationItem.hidesBackButton = true
@@ -182,13 +190,17 @@ extension LoginViewController {
     
     @objc func loginPapped() {
         
+        spiner.startAnimating()
+        
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
             displayWarning(withText: "Ошибка")
+            spiner.stopAnimating()
             return }
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
             if error != nil {
                 self?.displayWarning(withText: "Ошибка")
+                self?.spiner.stopAnimating()
                 return
             }
             
@@ -199,9 +211,10 @@ extension LoginViewController {
                 self!.ud.set(self!.check, forKey: "check")
                 self!.ud.set(email, forKey: "email")
                 self!.ud.set(password, forKey: "password")
-                print(self!.check)
+                self?.spiner.stopAnimating()
                 return
             }
+            self?.spiner.stopAnimating()
             self?.tabBarController?.tabBar.layer.cornerRadius = 30
             self?.displayWarning(withText: "Пользователь не найден")
         }
@@ -228,10 +241,11 @@ extension LoginViewController {
     func checkUser() {
         print(check)
         if check == true {
+            spiner.startAnimating()
             let saveEmail = (ud.object(forKey: "email") as? String)!
             let savePassword = (ud.object(forKey: "password") as? String)!
             Auth.auth().signIn(withEmail: saveEmail, password: savePassword) { [weak self] (user, error) in
-                
+                self?.spiner.stopAnimating()
                 self?.navigationController?.pushViewController(self!.secondVC, animated: true)
                 self?.dismiss(animated: true, completion: nil)
             }

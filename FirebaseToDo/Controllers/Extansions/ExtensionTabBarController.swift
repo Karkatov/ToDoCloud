@@ -17,9 +17,8 @@ extension UITabBarController {
         tabBar.clipsToBounds = true
         tabBar.tintColor = .systemRed
         tabBar.backgroundColor = .systemGray5
- 
+        tabBar.itemPositioning = .centered
         tabBar.tintColor = .systemRed
-        
         tabBar.isTranslucent = false
         return tabBarController
     }

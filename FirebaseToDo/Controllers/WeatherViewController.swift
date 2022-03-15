@@ -29,13 +29,17 @@ class WeatherVC: UIViewController {
         spiner.startAnimating()
         setStyle()
         setLayout()
-    
+        
         if let city = userDefaults.object(forKey: "city") as? String {
-            print(city)
             networkWeatherManager.fetchCurrentWeather(forCity: city) { [weak self]  currentWeather in
                 self?.updateInterfaceWith(weather: currentWeather)
                 self?.array = currentWeather.weatherDetail()
+                return
             }
+        }
+        networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [weak self]  currentWeather in
+            self?.updateInterfaceWith(weather: currentWeather)
+            self?.array = currentWeather.weatherDetail()
         }
     }
     override func viewDidLayoutSubviews() {

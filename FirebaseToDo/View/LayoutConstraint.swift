@@ -110,5 +110,8 @@ extension LoginViewController {
                                       height: 40)
         registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         view.addSubview(registerButton)
+        
+        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: nameAppLabel.frame.origin.y + 100, width: 50, height: 50)
+        view.addSubview(spiner)
     }
 }

@@ -30,7 +30,7 @@ class TableViewController: UIViewController {
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
             self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
             
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 200)
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 190)
         }
     }
     
@@ -197,8 +197,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
                                       blue: 109/255,
                                       alpha: 1)
         tableView.backgroundColor = backgroundColor
-        navigationController?.tabBarController?.tabBar.backgroundColor = backgroundColor
-        navigationController?.navigationBar.barTintColor = backgroundColor
+        
         tableView.frame = view.bounds
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         tableView.dataSource = self
