@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E78BF0F4CFA4A076A41FF94 /* Pods_FirebaseToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E537CEA877275F7D27152A3 /* Pods_FirebaseToDo.framework */; };
+		FA11E27B27E0A43B005D3DC8 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */; };
 		FA2466EB27D7A250003232FD /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2466EA27D7A24F003232FD /* RegisterViewController.swift */; };
 		FA24672627D80A61003232FD /* NetworkRateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672027D80A60003232FD /* NetworkRateManager.swift */; };
 		FA24672727D80A61003232FD /* ViewControllerValute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672127D80A61003232FD /* ViewControllerValute.swift */; };
@@ -47,6 +48,7 @@
 		5E537CEA877275F7D27152A3 /* Pods_FirebaseToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DC52A1F710E4CE0291E430 /* Pods-FirebaseToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseToDo.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseToDo/Pods-FirebaseToDo.debug.xcconfig"; sourceTree = "<group>"; };
 		C37FD49384D30470B5253FD3 /* Pods-FirebaseToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseToDo.release.xcconfig"; path = "Target Support Files/Pods-FirebaseToDo/Pods-FirebaseToDo.release.xcconfig"; sourceTree = "<group>"; };
+		FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskTableViewCell.swift; path = FirebaseToDo/Controllers/TaskTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		FA2466EA27D7A24F003232FD /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FA24672027D80A60003232FD /* NetworkRateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRateManager.swift; sourceTree = "<group>"; };
 		FA24672127D80A61003232FD /* ViewControllerValute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerValute.swift; sourceTree = "<group>"; };
@@ -192,6 +194,8 @@
 		FAA06DC027DBC8AD0005F327 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */,
+				FA24672227D80A61003232FD /* TableViewCell.swift */,
 				FA9AFD0027D6C41900A2C42E /* WeatherVCLayoutConstraint.swift */,
 				FA82252E27CD712E00920730 /* LaunchScreen.storyboard */,
 				FA82252927CD712E00920730 /* Main.storyboard */,
@@ -207,7 +211,6 @@
 				FA2466EA27D7A24F003232FD /* RegisterViewController.swift */,
 				FA58737427CE705600BF7ED7 /* TableViewController.swift */,
 				FA24672127D80A61003232FD /* ViewControllerValute.swift */,
-				FA24672227D80A61003232FD /* TableViewCell.swift */,
 				FA9AFD0427D6C41A00A2C42E /* WeatherViewController.swift */,
 				FA9AFCFF27D6C41900A2C42E /* DetailWeatherVC.swift */,
 				FAA06DBF27DBBE530005F327 /* Extansions */,
@@ -354,6 +357,7 @@
 			files = (
 				FA24672627D80A61003232FD /* NetworkRateManager.swift in Sources */,
 				FA9AFCF927D6C3F500A2C42E /* CurrentCityTranslateData.swift in Sources */,
+				FA11E27B27E0A43B005D3DC8 /* TaskTableViewCell.swift in Sources */,
 				FA24672A27D80A61003232FD /* CurrencyRateData.swift in Sources */,
 				FA9AFD0B27D6C41A00A2C42E /* WeatherViewController.swift in Sources */,
 				FAD18EE627CF8B1500DE2567 /* Task.swift in Sources */,

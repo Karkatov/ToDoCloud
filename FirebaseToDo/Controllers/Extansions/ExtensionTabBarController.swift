@@ -16,8 +16,11 @@ extension UITabBarController {
         tabBar.layer.cornerRadius = 30
         tabBar.clipsToBounds = true
         tabBar.tintColor = .systemRed
-        tabBar.barTintColor = .white
-        tabBar.isTranslucent = true
+        tabBar.backgroundColor = .systemGray5
+ 
+        tabBar.tintColor = .systemRed
+        
+        tabBar.isTranslucent = false
         return tabBarController
     }
 }

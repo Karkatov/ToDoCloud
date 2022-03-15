@@ -39,6 +39,10 @@ class ViewControllerValute: UIViewController {
                                       blue: 109/255,
                                       alpha: 1)
         
+        let myView = UIView()
+        myView.backgroundColor = backgroundColor
+        myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        view.addSubview(myView)
         self.view.backgroundColor = backgroundColor
         tableView.backgroundColor = backgroundColor
         navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -53,6 +57,7 @@ class ViewControllerValute: UIViewController {
                                                      y: 85,
                                                      width: view.frame.size.width,
                                                      height: view.frame.size.height - 175)
+        
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)

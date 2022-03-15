@@ -27,10 +27,10 @@ extension WeatherVC {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
             backgroundImageView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: +65),
             
             cityLabel.bottomAnchor.constraint(equalTo: searchCityButton.bottomAnchor),
-            cityLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 3),
+            cityLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             
             weatherWeek.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             weatherWeek.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -49,7 +49,7 @@ extension WeatherVC {
             temperatureLabel.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: wheatherIconImageView.bottomAnchor, multiplier: 10),
             temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            searchCityButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            searchCityButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             searchCityButton.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             searchCityButton.widthAnchor.constraint(equalToConstant: 45),
             searchCityButton.heightAnchor.constraint(equalToConstant: 45),
@@ -70,7 +70,7 @@ extension LoginViewController {
         backgroundImageView.frame = CGRect(x: 0,
                                            y: 0,
                                            width: view.bounds.size.width,
-                                           height: view.bounds.size.height)
+                                           height: UIScreen.main.bounds.size.height)
         view.addSubview(backgroundImageView)
         
         nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,

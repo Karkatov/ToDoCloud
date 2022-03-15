@@ -26,9 +26,7 @@ class TableViewController: UIViewController {
         setButtons()
         
         createUser()
-        
         tabBarController?.tabBar.isHidden = false
-        
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
             self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
             
@@ -57,7 +55,9 @@ class TableViewController: UIViewController {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         tabBarController?.setMyTabBar(tabBarController: tabBarController!)
+        
     }
 }
 
@@ -117,6 +117,25 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 //            self.editButton.title = "Изменить"
 //        }
 //    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -184,6 +203,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         tableView.dataSource = self
         tableView.delegate = self
+        
         self.view.addSubview(tableView)
     }
     

@@ -12687,6 +12687,7 @@
 		F9CA5BD55D0B98C800BA350CA26A4C68 /* is_epollexclusive_available.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = is_epollexclusive_available.h; path = src/core/lib/iomgr/is_epollexclusive_available.h; sourceTree = "<group>"; };
 		F9E5EF0F198CAEB5B56AF6979A60860E /* tcp_server_custom.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_server_custom.cc; path = src/core/lib/iomgr/tcp_server_custom.cc; sourceTree = "<group>"; };
 		F9EA3F3AF7AA0F08933A9CE55A626C5B /* civil_time.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = civil_time.h; path = absl/time/internal/cctz/include/cctz/civil_time.h; sourceTree = "<group>"; };
+		FA11E27C27E0AEF0005D3DC8 /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
 		FA1B514994A564A21B0005BA52B68C06 /* asn1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1.h; path = src/include/openssl/asn1.h; sourceTree = "<group>"; };
 		FA3F35300E8BBB4FE7855401E372180C /* gRPC-C++-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "gRPC-C++-Info.plist"; sourceTree = "<group>"; };
 		FA53EC6874D130BE169872FC6C90056F /* FIRMultiFactorInfo+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FIRMultiFactorInfo+Internal.h"; path = "FirebaseAuth/Sources/MultiFactor/FIRMultiFactorInfo+Internal.h"; sourceTree = "<group>"; };
@@ -16614,6 +16615,7 @@
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
+				FA11E27C27E0AEF0005D3DC8 /* ExtensionUIView.swift */,
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				8275CCB4E8732497B1021FCBC240F3C2 /* Frameworks */,
 				F9E1FFD3F071B0FE873404106C687DDA /* Pods */,
