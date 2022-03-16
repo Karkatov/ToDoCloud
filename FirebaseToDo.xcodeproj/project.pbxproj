@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1E78BF0F4CFA4A076A41FF94 /* Pods_FirebaseToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E537CEA877275F7D27152A3 /* Pods_FirebaseToDo.framework */; };
-		FA11E27B27E0A43B005D3DC8 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */; };
 		FA2466EB27D7A250003232FD /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2466EA27D7A24F003232FD /* RegisterViewController.swift */; };
 		FA24672627D80A61003232FD /* NetworkRateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672027D80A60003232FD /* NetworkRateManager.swift */; };
 		FA24672727D80A61003232FD /* ViewControllerValute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672127D80A61003232FD /* ViewControllerValute.swift */; };
@@ -42,15 +41,15 @@
 		FAA4496E27D12BC500D327FA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4496D27D12BC500D327FA /* Users.swift */; };
 		FAD18EE627CF8B1500DE2567 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD18EE527CF8B1500DE2567 /* Task.swift */; };
 		FAD5898427D9356900C493FE /* ExtensionTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */; };
-		FAEE111627E24164007548BB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111527E24164007548BB /* CollectionViewController.swift */; };
+		FAEE111627E24164007548BB /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111527E24164007548BB /* TasksViewController.swift */; };
 		FAEE111827E24177007548BB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111727E24177007548BB /* CollectionViewCell.swift */; };
+		FAEE111C27E28A04007548BB /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5E537CEA877275F7D27152A3 /* Pods_FirebaseToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DC52A1F710E4CE0291E430 /* Pods-FirebaseToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseToDo.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseToDo/Pods-FirebaseToDo.debug.xcconfig"; sourceTree = "<group>"; };
 		C37FD49384D30470B5253FD3 /* Pods-FirebaseToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseToDo.release.xcconfig"; path = "Target Support Files/Pods-FirebaseToDo/Pods-FirebaseToDo.release.xcconfig"; sourceTree = "<group>"; };
-		FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskTableViewCell.swift; path = FirebaseToDo/Controllers/TaskTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		FA2466EA27D7A24F003232FD /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FA24672027D80A60003232FD /* NetworkRateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRateManager.swift; sourceTree = "<group>"; };
 		FA24672127D80A61003232FD /* ViewControllerValute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerValute.swift; sourceTree = "<group>"; };
@@ -86,8 +85,9 @@
 		FAA4496D27D12BC500D327FA /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		FAD18EE527CF8B1500DE2567 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTabBarController.swift; sourceTree = "<group>"; };
-		FAEE111527E24164007548BB /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewController.swift; path = FirebaseToDo/View/CollectionViewController.swift; sourceTree = SOURCE_ROOT; };
+		FAEE111527E24164007548BB /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksViewController.swift; path = FirebaseToDo/View/TasksViewController.swift; sourceTree = SOURCE_ROOT; };
 		FAEE111727E24177007548BB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = FirebaseToDo/Controllers/CollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				FAEE111727E24177007548BB /* CollectionViewCell.swift */,
-				FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */,
 				FA24672227D80A61003232FD /* TableViewCell.swift */,
 				FA9AFD0027D6C41900A2C42E /* LayoutConstraint.swift */,
 				FA82252E27CD712E00920730 /* LaunchScreen.storyboard */,
@@ -212,7 +211,8 @@
 		FAA4496F27D12BF100D327FA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FAEE111527E24164007548BB /* CollectionViewController.swift */,
+				FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */,
+				FAEE111527E24164007548BB /* TasksViewController.swift */,
 				FA82252727CD712E00920730 /* LoginViewController.swift */,
 				FA2466EA27D7A24F003232FD /* RegisterViewController.swift */,
 				FA58737427CE705600BF7ED7 /* TableViewController.swift */,
@@ -363,7 +363,6 @@
 			files = (
 				FA24672627D80A61003232FD /* NetworkRateManager.swift in Sources */,
 				FA9AFCF927D6C3F500A2C42E /* CurrentCityTranslateData.swift in Sources */,
-				FA11E27B27E0A43B005D3DC8 /* TaskTableViewCell.swift in Sources */,
 				FA24672A27D80A61003232FD /* CurrencyRateData.swift in Sources */,
 				FA9AFD0B27D6C41A00A2C42E /* WeatherViewController.swift in Sources */,
 				FAD18EE627CF8B1500DE2567 /* Task.swift in Sources */,
@@ -373,7 +372,7 @@
 				FA24672727D80A61003232FD /* ViewControllerValute.swift in Sources */,
 				FA9AFD0D27D6C49400A2C42E /* Constans.swift in Sources */,
 				FA9AFD0727D6C41A00A2C42E /* LayoutConstraint.swift in Sources */,
-				FAEE111627E24164007548BB /* CollectionViewController.swift in Sources */,
+				FAEE111627E24164007548BB /* TasksViewController.swift in Sources */,
 				FA9AFD0927D6C41A00A2C42E /* ExtensionUIButton.swift in Sources */,
 				FA9AFD0527D6C41A00A2C42E /* ExtentionWeatherVC + AlertController.swift in Sources */,
 				FA58737327CE14B100BF7ED7 /* ExtensionCollor.swift in Sources */,
@@ -389,6 +388,7 @@
 				FA804A9527DD29D7009E4762 /* ExtensionTableView.swift in Sources */,
 				FAEE111827E24177007548BB /* CollectionViewCell.swift in Sources */,
 				FA24672827D80A61003232FD /* TableViewCell.swift in Sources */,
+				FAEE111C27E28A04007548BB /* TasksCollectionViewCell.swift in Sources */,
 				FA82252627CD712E00920730 /* SceneDelegate.swift in Sources */,
 				FAA4496E27D12BC500D327FA /* Users.swift in Sources */,
 				FA9AFCFC27D6C3F500A2C42E /* CurrentWeather.swift in Sources */,

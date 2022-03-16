@@ -188,7 +188,7 @@ extension LoginViewController {
         }
     }
     
-    @objc func loginPapped() {
+    @objc func loginTapped() {
         
         spiner.startAnimating()
         
@@ -205,13 +205,17 @@ extension LoginViewController {
             }
             
             if user != nil {
-                let tableVC = TableViewController()
-                self?.navigationController?.pushViewController(tableVC, animated: true)
+                
                 self!.check = true
                 self!.ud.set(self!.check, forKey: "check")
                 self!.ud.set(email, forKey: "email")
                 self!.ud.set(password, forKey: "password")
+                
+                let tableVC = TableViewController()
+                self?.navigationController?.pushViewController(tableVC, animated: true)
+                
                 self?.spiner.stopAnimating()
+                self?.dismiss(animated: true)
                 return
             }
             self?.spiner.stopAnimating()

@@ -72,17 +72,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return vc
     }
     
+    
     func setFour() -> UINavigationController {
-        let vc = UINavigationController(rootViewController: TableViewController())
+        let vc = UINavigationController(rootViewController: TasksViewController())
         
-        vc.tabBarItem = UITabBarItem(title: "Курс", image: UIImage(systemName: "chart.bar.fill"), tag: 3)
+        vc.tabBarItem = UITabBarItem(title: "Collection", image: UIImage(systemName: "cloud.fill"), tag: 4)
         return vc
     }
     
     
     func createTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [setOne(), setTwo(), setThree()]
+        tabBarController.viewControllers = [setOne(), setTwo(), setThree(), setFour()]
         return tabBarController
     }
 }

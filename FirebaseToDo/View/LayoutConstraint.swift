@@ -101,7 +101,7 @@ extension LoginViewController {
                                    y: passwordTF.frame.origin.y + 100 ,
                                    width: 300,
                                    height: 40)
-        loginButton.addTarget(self, action: #selector(loginPapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         view.addSubview(loginButton)
         
         registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,

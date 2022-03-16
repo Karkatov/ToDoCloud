@@ -20,6 +20,11 @@ extension UITabBarController {
         tabBar.itemPositioning = .centered
         tabBar.tintColor = .systemRed
         tabBar.isTranslucent = false
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBar.layer.shadowRadius = 2
+        tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBar.layer.shadowOpacity = 0.3
+        
         return tabBarController
     }
 }
