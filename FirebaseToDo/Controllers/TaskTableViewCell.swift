@@ -12,7 +12,7 @@ import SnapKit
 class TaskTableViewCell: UITableViewCell {
     
     
-    static let idenrifire = "CustomTableViewCell"
+    static let idenrifire = "TaskTableViewCell"
     
     let nameLabel: UILabel = {
         let label = UILabel()

@@ -27,6 +27,7 @@ class TableViewController: UIViewController {
         
         createUser()
         tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.backgroundColor = .systemGreen
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
             self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
             
@@ -60,84 +61,7 @@ class TableViewController: UIViewController {
         
     }
 }
-
-extension TableViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        let task = tasks[indexPath.row]
-        let isCompleted = task.completed
-        cell.textLabel!.text = task.title
-        toogleCompletion(cell, isCompleted: isCompleted)
-        return cell
-    }
-    
-//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        guard editingStyle == .delete else { return }
-        let task = tasks[indexPath.row]
-        task.ref?.removeValue()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        let task = tasks[indexPath.row]
-        let isCompleted = !task.completed
-        
-        toogleCompletion(cell, isCompleted: isCompleted)
-        task.ref?.updateChildValues(["completed" : isCompleted])
-        
-    }
-    
-    func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
-        cell.accessoryType = isCompleted ? .checkmark : .none
-    }
-    //    override func setEditing(_ editing: Bool, animated: Bool) {
-    //        super.setEditing(editing, animated: animated)
-    //
-//        if editing {
-//            self.editButton.title = "Готово"
-//            tableView.setEditing(editing, animated: true)
-//        } else {
-//            tableView.endEditing(true)
-//            self.editButton.title = "Изменить"
-//        }
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+extension TableViewController {
     
     func createUser() {
         
@@ -151,8 +75,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         
         alertController.addTextField { tf in
             tf.autocapitalizationType = .sentences
-            
             tf.clearButtonMode = .always
+            tf.delegate = self
+            
         }
         let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
             
@@ -223,5 +148,84 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         print(vc.check)
         vc.ud.set(vc.check, forKey: "check")
     }
+    
+    
+}
+extension TableViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
+        let task = tasks[indexPath.row]
+        let isCompleted = task.completed
+        cell.textLabel!.text = task.title
+        toogleCompletion(cell, isCompleted: isCompleted)
+        return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard editingStyle == .delete else { return }
+        let task = tasks[indexPath.row]
+        task.ref?.removeValue()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        let task = tasks[indexPath.row]
+        let isCompleted = !task.completed
+        
+        toogleCompletion(cell, isCompleted: isCompleted)
+        task.ref?.updateChildValues(["completed" : isCompleted])
+        
+    }
+    
+    func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
+        cell.accessoryType = isCompleted ? .checkmark : .none
+    }
+
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let button = UIContextualAction(style: .normal, title: nil) { <#UIContextualAction#>, <#UIView#>, <#@escaping (Bool) -> Void#> in
+            <#code#>
+        }
+        
+        return UISwipeActionsConfiguration(actions: <#T##[UIContextualAction]#>)
+        
+    }
+    //    override func setEditing(_ editing: Bool, animated: Bool) {
+    //        super.setEditing(editing, animated: animated)
+    //
+//        if editing {
+//            self.editButton.title = "Готово"
+//            tableView.setEditing(editing, animated: true)
+//        } else {
+//            tableView.endEditing(true)
+//            self.editButton.title = "Изменить"
+//        }
+//    }
+
 }
 
+extension TableViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard range.location != 45 else {
+            print(range.location)
+            return false }
+        return true
+    }
+}

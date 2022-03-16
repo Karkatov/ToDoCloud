@@ -42,6 +42,8 @@
 		FAA4496E27D12BC500D327FA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4496D27D12BC500D327FA /* Users.swift */; };
 		FAD18EE627CF8B1500DE2567 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD18EE527CF8B1500DE2567 /* Task.swift */; };
 		FAD5898427D9356900C493FE /* ExtensionTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */; };
+		FAEE111627E24164007548BB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111527E24164007548BB /* CollectionViewController.swift */; };
+		FAEE111827E24177007548BB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111727E24177007548BB /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		FAA4496D27D12BC500D327FA /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		FAD18EE527CF8B1500DE2567 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTabBarController.swift; sourceTree = "<group>"; };
+		FAEE111527E24164007548BB /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewController.swift; path = FirebaseToDo/View/CollectionViewController.swift; sourceTree = SOURCE_ROOT; };
+		FAEE111727E24177007548BB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = FirebaseToDo/Controllers/CollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,7 @@
 		FAA06DC027DBC8AD0005F327 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAEE111727E24177007548BB /* CollectionViewCell.swift */,
 				FA11E27A27E0A43B005D3DC8 /* TaskTableViewCell.swift */,
 				FA24672227D80A61003232FD /* TableViewCell.swift */,
 				FA9AFD0027D6C41900A2C42E /* LayoutConstraint.swift */,
@@ -207,6 +212,7 @@
 		FAA4496F27D12BF100D327FA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FAEE111527E24164007548BB /* CollectionViewController.swift */,
 				FA82252727CD712E00920730 /* LoginViewController.swift */,
 				FA2466EA27D7A24F003232FD /* RegisterViewController.swift */,
 				FA58737427CE705600BF7ED7 /* TableViewController.swift */,
@@ -367,6 +373,7 @@
 				FA24672727D80A61003232FD /* ViewControllerValute.swift in Sources */,
 				FA9AFD0D27D6C49400A2C42E /* Constans.swift in Sources */,
 				FA9AFD0727D6C41A00A2C42E /* LayoutConstraint.swift in Sources */,
+				FAEE111627E24164007548BB /* CollectionViewController.swift in Sources */,
 				FA9AFD0927D6C41A00A2C42E /* ExtensionUIButton.swift in Sources */,
 				FA9AFD0527D6C41A00A2C42E /* ExtentionWeatherVC + AlertController.swift in Sources */,
 				FA58737327CE14B100BF7ED7 /* ExtensionCollor.swift in Sources */,
@@ -380,6 +387,7 @@
 				FA2466EB27D7A250003232FD /* RegisterViewController.swift in Sources */,
 				FA9AFCFA27D6C3F500A2C42E /* NetworkTranslateManager.swift in Sources */,
 				FA804A9527DD29D7009E4762 /* ExtensionTableView.swift in Sources */,
+				FAEE111827E24177007548BB /* CollectionViewCell.swift in Sources */,
 				FA24672827D80A61003232FD /* TableViewCell.swift in Sources */,
 				FA82252627CD712E00920730 /* SceneDelegate.swift in Sources */,
 				FAA4496E27D12BC500D327FA /* Users.swift in Sources */,
