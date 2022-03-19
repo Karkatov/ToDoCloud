@@ -82,7 +82,6 @@ extension TableViewController {
         let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
             
             guard let tf = alertController.textFields?.first, tf.text != "" else { return }
-            
             let task = Task(title: tf.text!, userID: (self?.user.uid)!)
             let taskRef = self?.ref.child("новая заметка".lowercased())
             taskRef?.setValue(["title" : task.title,

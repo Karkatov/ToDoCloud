@@ -13,23 +13,42 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     let colorView: UIView = {
         let view = UIView()
-        let colors: [UIColor] = [UIColor.systemTeal,
-                                 UIColor.systemGray,
-                                 UIColor.systemRed,
-                                 UIColor.systemBlue]
-        view.backgroundColor = colors.randomElement()
+        let colors = UIColor.systemBrown
+        view.backgroundColor = colors
+        view.layer.shadowRadius = 5
+        view.layer.shadowOffset = CGSize(width: 10, height: 10)
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    let taskTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = "task"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    //let title: String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(colorView)
-        colorView.translatesAutoresizingMaskIntoConstraints = false
-        colorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        colorView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        colorView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        colorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        addSubview(taskTitleLabel)
+        
+        NSLayoutConstraint.activate([
+        
+        colorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+        colorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        colorView.topAnchor.constraint(equalTo: topAnchor),
+        colorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        
+        taskTitleLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 15),
+        taskTitleLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant:  -15),
+        taskTitleLabel.widthAnchor.constraint(equalToConstant: 100)
+       ])
     }
     
     required init?(coder: NSCoder) {

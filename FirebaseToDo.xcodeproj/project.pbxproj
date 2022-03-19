@@ -213,9 +213,9 @@
 			children = (
 				FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */,
 				FAEE111527E24164007548BB /* TasksViewController.swift */,
+				FA58737427CE705600BF7ED7 /* TableViewController.swift */,
 				FA82252727CD712E00920730 /* LoginViewController.swift */,
 				FA2466EA27D7A24F003232FD /* RegisterViewController.swift */,
-				FA58737427CE705600BF7ED7 /* TableViewController.swift */,
 				FA24672127D80A61003232FD /* ViewControllerValute.swift */,
 				FA9AFD0427D6C41A00A2C42E /* WeatherViewController.swift */,
 				FA9AFCFF27D6C41900A2C42E /* DetailWeatherVC.swift */,
