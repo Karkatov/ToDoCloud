@@ -10,9 +10,9 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
+    let tasksVC = TasksViewController()
     var check = false
     let ud = UserDefaults.standard
-    let secondVC = TableViewController()
     let spiner: UIActivityIndicatorView = {
         let spin = UIActivityIndicatorView()
         spin.color = .white
@@ -211,8 +211,7 @@ extension LoginViewController {
                 self!.ud.set(email, forKey: "email")
                 self!.ud.set(password, forKey: "password")
                 
-                let tableVC = TableViewController()
-                self?.navigationController?.pushViewController(tableVC, animated: true)
+                self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
                 
                 self?.spiner.stopAnimating()
                 self?.dismiss(animated: true)
@@ -250,7 +249,7 @@ extension LoginViewController {
             let savePassword = (ud.object(forKey: "password") as? String)!
             Auth.auth().signIn(withEmail: saveEmail, password: savePassword) { [weak self] (user, error) in
                 self?.spiner.stopAnimating()
-                self?.navigationController?.pushViewController(self!.secondVC, animated: true)
+                self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
                 self?.dismiss(animated: true, completion: nil)
             }
             

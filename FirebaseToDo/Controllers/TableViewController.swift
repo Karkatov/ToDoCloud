@@ -14,7 +14,7 @@ class TableViewController: UIViewController {
     var user: UserModel!
     var ref: DatabaseReference!
     var tasks = Array<Task>()
-    
+    var path = "task"
     var editButton = UIBarButtonItem()
     private var tableView = UITableView()
     
@@ -26,13 +26,6 @@ class TableViewController: UIViewController {
         setButtons()
         
         createUser()
-        tabBarController?.tabBar.isHidden = false
-        tabBarController?.tabBar.backgroundColor = .systemGreen
-        UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
-            
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 190)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +60,11 @@ extension TableViewController {
         
         guard let currentUser = Auth.auth().currentUser else { return }
         user = UserModel(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks")
+        
+        let taskVC = TasksViewController()
+        print(path)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(path)
+        
     }
     
     @objc func addNote() {
@@ -82,9 +79,9 @@ extension TableViewController {
         let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
             
             guard let tf = alertController.textFields?.first, tf.text != "" else { return }
-            let task = Task(title: tf.text!, userID: (self?.user.uid)!)
-            let taskRef = self?.ref.child("новая заметка".lowercased())
-            taskRef?.setValue(["title" : task.title,
+            let task = Task(title: tf.text!, notes: tf.text!, userID: (self?.user.uid)!)
+            let taskRef = self?.ref.child("\(task.notes)".lowercased())
+            taskRef?.setValue(["notes" : task.notes,
                                "userID" : task.userID,
                                "completed" : task.completed])
         }
@@ -106,12 +103,8 @@ extension TableViewController {
         showWeather.tintColor = .white
         
         navigationItem.rightBarButtonItems = [addNewNote, showWeather]
-        
-        let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
-        signOut.tintColor = .white
-        //navigationItem.leftBarButtonItem = signOut
-        editButton = editButtonItem
-        navigationItem.leftBarButtonItem = editButton
+        //editButton = editButtonItem
+        //navigationItem.leftBarButtonItem = editButton
     }
     
     func setTableView() {
@@ -134,21 +127,6 @@ extension TableViewController {
         
     }
     
-    @objc func signOut() {
-        
-        do { try Auth.auth().signOut()
-        }
-        catch { print("already logged out") }
-        
-        self.dismiss(animated: true, completion: nil)
-        navigationController?.popViewController(animated: true)
-        let vc = LoginViewController()
-        vc.check = false
-        print(vc.check)
-        vc.ud.set(vc.check, forKey: "check")
-    }
-    
-    
 }
 extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -162,7 +140,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         let task = tasks[indexPath.row]
         let isCompleted = task.completed
-        cell.textLabel!.text = task.title
+        cell.textLabel!.text = task.notes
         toogleCompletion(cell, isCompleted: isCompleted)
         return cell
     }
