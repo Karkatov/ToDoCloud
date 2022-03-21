@@ -165,8 +165,8 @@ extension WeatherVC {
     
     func showAnimation() {
         self.wheatherIconImageView.pulsateImage()
-        dispatch(object: temperatureLabel, time: 0.3, duration: 0.3)
-        dispatch(object: feelsLikeTemperatureLabel, time: 0.5, duration: 0.5)
+        dispatch(object: temperatureLabel, duration: 0.3)
+        dispatch(object: feelsLikeTemperatureLabel, duration: 0.5)
     }
     
     func updateInterfaceWith(weather: CurrentWeather) {
@@ -175,33 +175,25 @@ extension WeatherVC {
         self.wheatherIconImageView.alpha = 0
         self.feelsLikeTemperatureLabel.alpha = 0
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
+        DispatchQueue.main.sync {
             self.wheatherIconImageView.pulsateImage()
             self.wheatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
             self.spiner.stopAnimating()
-        }
-        
-        dispatch(object: self.temperatureLabel, time: 0.4, duration: 1)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+
             self.temperatureLabel.attributedText = self.makeTemperatureText(temperature: weather.temperatureString)
-        }
-        
-        DispatchQueue.main.async {
+            
             self.cityLabel.text = weather.cityName
-        }
-        
-        dispatch(object: self.feelsLikeTemperatureLabel, time: 0.7, duration: 1)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
+            
             self.feelsLikeTemperatureLabel.text = "Ощущается как \(weather.feelsLikeTemperatureString)º"
         }
+        dispatch(object: self.temperatureLabel, duration: 1)
+        dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
     }
 }
 
-private func dispatch(object: UILabel, time: Double, duration: Double) {
+private func dispatch(object: UILabel, duration: Double) {
     
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+    DispatchQueue.main.sync {
         object.opacityAnimation(myDuration: duration)
     }
 }
