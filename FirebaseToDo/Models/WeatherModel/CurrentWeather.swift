@@ -26,7 +26,7 @@ struct CurrentWeather {
     }
     
     var descriptionFeelsLike: String {
-        return "Ощущается как: \(feelsLikeTemperature)"
+        return "Ощущается как: \(feelsLikeTemperatureString) C°"
     }
     
     let conditionCode: Int //image weather
@@ -46,7 +46,7 @@ struct CurrentWeather {
     
     let description: String?
     var descriptionString: String {
-        return description ?? "-"
+        return  (description ?? "-").capitalized
     }
     
     let clouds: Int?

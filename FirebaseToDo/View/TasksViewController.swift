@@ -67,11 +67,14 @@ class TasksViewController: UIViewController {
             self?.collectionView.reloadData()
         }
         tabBarController?.tabBar.isHidden = false
+        
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+    
+        print("!!!!!!!")
         tabBarController?.setMyTabBar(tabBarController: tabBarController!)
         
     }

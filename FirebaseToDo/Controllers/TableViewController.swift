@@ -47,12 +47,6 @@ class TableViewController: UIViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
-        
-    }
 }
 extension TableViewController {
     

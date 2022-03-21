@@ -126,7 +126,8 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
+        
         tabBarController?.tabBar.isHidden = true
         passwordTF.text = "Sktrue53"
         emailTF.text = "Duxxless53@ya.ru"
