@@ -56,7 +56,6 @@ extension TableViewController {
         user = UserModel(user: currentUser)
         
         let taskVC = TasksViewController()
-        print(path)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(path)
         
     }

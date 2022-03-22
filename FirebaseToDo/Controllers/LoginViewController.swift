@@ -110,7 +110,6 @@ class LoginViewController: UIViewController {
         
         check = ud.object(forKey: "check") as? Bool ?? false
         checkUser()
-        print(check)
         navigationItem.hidesBackButton = true
         
         atributtedTextName()
@@ -243,7 +242,6 @@ extension LoginViewController {
     }
     
     func checkUser() {
-        print(check)
         if check == true {
             spiner.startAnimating()
             let saveEmail = (ud.object(forKey: "email") as? String)!

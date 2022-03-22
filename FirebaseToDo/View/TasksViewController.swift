@@ -51,7 +51,7 @@ class TasksViewController: UIViewController {
     
     
     deinit {
-        print("--------------------------------------------------------")
+        print("------------------------DEINIT----------------------------")
     }
     
     
@@ -74,7 +74,6 @@ class TasksViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     
-        print("!!!!!!!")
         tabBarController?.setMyTabBar(tabBarController: tabBarController!)
         
     }
@@ -162,7 +161,6 @@ extension TasksViewController {
     }
     
     @objc func showTray() {
-        print("")
     }
     
     @objc func signOut() {
@@ -174,7 +172,6 @@ extension TasksViewController {
         navigationController?.popViewController(animated: true)
         let vc = LoginViewController()
         vc.check = false
-        print(vc.check)
         vc.ud.set(vc.check, forKey: "check")
     }
 }
