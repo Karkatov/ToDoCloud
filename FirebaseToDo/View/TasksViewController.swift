@@ -17,14 +17,21 @@ class TasksViewController: UIViewController {
     
     var collectionView: UICollectionView!
     let secondView = UIView()
+    let titleNote = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         createUser()
         setButtons()
-        secondView.backgroundColor = .systemGray
+        secondView.backgroundColor = .systemGray5
         secondView.frame = UIScreen.main.bounds
         view.addSubview(secondView)
+        
+        titleNote.text = "Заметки"
+        titleNote.font = UIFont.boldSystemFont(ofSize: 30)
+        titleNote.frame = CGRect(x: 50, y: 250, width: 200, height: 50)
+        view.addSubview(titleNote)
         
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -33,12 +40,11 @@ class TasksViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "TasksCollectionViewCell")
-        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.frame = CGRect(x: 0, y: 300, width: view.frame.size.width, height: view.frame.size.height - 450)
-        collectionView.backgroundColor = .systemGray
+        collectionView.frame = CGRect(x: 0, y: 300, width: view.frame.size.width, height: view.frame.size.height - 500)
+        collectionView.backgroundColor = .systemGray5
         view.addSubview(collectionView)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray5
         
         tabBarController?.tabBar.isHidden = false
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
@@ -95,7 +101,7 @@ extension TasksViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 100)
+        return CGSize(width: 170, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -105,6 +111,10 @@ extension TasksViewController: UICollectionViewDelegate, UICollectionViewDataSou
         self.navigationController?.pushViewController(tableVC, animated: true)
 
         dismiss(animated: true)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+    return UIEdgeInsets(top: 10, left: 50, bottom: 20, right: 10)
     }
 }
 
@@ -168,9 +178,11 @@ extension TasksViewController {
         }
         catch { print("already logged out") }
         
-        self.dismiss(animated: true)
-        navigationController?.popViewController(animated: true)
+        
+        
         let vc = LoginViewController()
+        navigationController?.setViewControllers([vc], animated: true)
+        self.dismiss(animated: true)
         vc.check = false
         vc.ud.set(vc.check, forKey: "check")
     }

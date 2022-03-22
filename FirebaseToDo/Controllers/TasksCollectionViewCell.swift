@@ -13,7 +13,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     let colorView: UIView = {
         let view = UIView()
-        let colors = UIColor.systemBrown
+        let colors = UIColor.white
         view.backgroundColor = colors
         view.layer.shadowRadius = 5
         view.layer.shadowOffset = CGSize(width: 10, height: 10)

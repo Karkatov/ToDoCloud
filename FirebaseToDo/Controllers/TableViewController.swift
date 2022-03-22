@@ -30,7 +30,7 @@ class TableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+     
         ref.observe(.value) { [weak self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
@@ -102,10 +102,7 @@ extension TableViewController {
     
     func setTableView() {
         
-        let backgroundColor = UIColor(red: 25/255,
-                                      green: 75/255,
-                                      blue: 109/255,
-                                      alpha: 1)
+        let backgroundColor = UIColor.systemGray5
         tableView.backgroundColor = backgroundColor
         
         tableView.frame = view.bounds

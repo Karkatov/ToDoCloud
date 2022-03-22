@@ -175,7 +175,7 @@ extension WeatherVC {
         self.wheatherIconImageView.alpha = 0
         self.feelsLikeTemperatureLabel.alpha = 0
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.sync {
             self.wheatherIconImageView.pulsateImage()
             self.wheatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
             self.spiner.stopAnimating()
