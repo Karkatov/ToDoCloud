@@ -30,7 +30,7 @@ class TasksViewController: UIViewController {
         
         titleNote.text = "Заметки"
         titleNote.font = UIFont.boldSystemFont(ofSize: 30)
-        titleNote.frame = CGRect(x: 50, y: 250, width: 200, height: 50)
+        titleNote.frame = CGRect(x: 50, y: 200, width: 200, height: 50)
         view.addSubview(titleNote)
         
         
@@ -41,7 +41,7 @@ class TasksViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "TasksCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.frame = CGRect(x: 0, y: 300, width: view.frame.size.width, height: view.frame.size.height - 500)
+        collectionView.frame = CGRect(x: 0, y: 250, width: view.frame.size.width, height: view.frame.size.height - 500)
         collectionView.backgroundColor = .systemGray5
         view.addSubview(collectionView)
         view.backgroundColor = .systemGray5
@@ -131,6 +131,7 @@ extension TasksViewController {
         let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { tf in
+            tf.delegate = self
             tf.autocapitalizationType = .sentences
             tf.clearButtonMode = .always
             
@@ -185,5 +186,15 @@ extension TasksViewController {
         self.dismiss(animated: true)
         vc.check = false
         vc.ud.set(vc.check, forKey: "check")
+    }
+}
+
+extension TasksViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard range.location != 12 else {
+            print(range.location)
+            return false }
+        return true
     }
 }

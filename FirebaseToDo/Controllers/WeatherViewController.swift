@@ -24,6 +24,8 @@ class WeatherVC: UIViewController {
     let networkTranslate = NetworkTranslate()
     let userDefaults = UserDefaults()
     
+    let queue = DispatchQueue(label: "serial", attributes: .concurrent)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spiner.startAnimating()
@@ -77,7 +79,7 @@ extension WeatherVC {
         searchCityButton.tintColor = defaultColor
         searchCityButton.addTarget(self, action: #selector(presentAlert), for: .touchUpInside)
         
-        weatherWeek.pulsate()
+        weatherWeek.isHidden = true
         weatherWeek.translatesAutoresizingMaskIntoConstraints = false
         let weatherWeekImage = UIImage(systemName: "line.3.horizontal.circle.fill")
         weatherWeek.setBackgroundImage(weatherWeekImage, for: .normal)
@@ -152,9 +154,9 @@ extension WeatherVC {
     
     @objc func showDetail() {
         
-        let secondVC = DetailWeatherVC()
-        secondVC.detail = array
-        self.navigationController?.pushViewController(secondVC, animated: true)
+            let secondVC = DetailWeatherVC()
+                    secondVC.detail = array
+                    self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
     @objc func findPosition() {
@@ -175,7 +177,9 @@ extension WeatherVC {
         self.wheatherIconImageView.alpha = 0
         self.feelsLikeTemperatureLabel.alpha = 0
         
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
+            self.weatherWeek.isHidden = false
+            self.weatherWeek.pulsate()
             self.wheatherIconImageView.pulsateImage()
             self.wheatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
             self.spiner.stopAnimating()
