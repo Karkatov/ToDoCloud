@@ -24,8 +24,8 @@ class DetailWeatherVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "myCell")
-        tableView.frame = CGRect(x: 0, y: 100, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        
+        tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height)
+        tableView.layer.cornerRadius = 20
         view.addSubview(tableView)
         tableView.animateTableView()
     }

@@ -65,7 +65,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
     func setThree() -> UINavigationController {
-        let vc = UINavigationController(rootViewController: ViewControllerValute())
+        let vc = UINavigationController(rootViewController: ValuteViewController())
         vc.title = "ViewController"
         
         vc.tabBarItem = UITabBarItem(title: "Курс", image: UIImage(systemName: "chart.bar.fill"), tag: 2)

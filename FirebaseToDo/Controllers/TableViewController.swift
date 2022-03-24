@@ -104,7 +104,8 @@ extension TableViewController {
         
         let backgroundColor = UIColor.systemGray5
         tableView.backgroundColor = backgroundColor
-        
+        tableView.layer.cornerRadius = 7
+        tableView.layer.masksToBounds = true
         tableView.frame = view.bounds
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         tableView.dataSource = self

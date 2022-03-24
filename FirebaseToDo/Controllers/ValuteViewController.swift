@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewControllerValute: UIViewController {
+class ValuteViewController: UIViewController {
     
     let refresh = UIRefreshControl()
     let tableView = UITableView()
@@ -40,33 +40,35 @@ class ViewControllerValute: UIViewController {
                                       alpha: 1)
         
         let myView = UIView()
-        myView.backgroundColor = backgroundColor
+        myView.backgroundColor = UIColor(red: 157/255, green: 248/255, blue: 179/255, alpha: 1)
         myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         view.addSubview(myView)
         self.view.backgroundColor = backgroundColor
-        tableView.backgroundColor = backgroundColor
-        navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController!.navigationBar.titleTextAttributes = [
+                                    .foregroundColor: UIColor.black,
+                                    .font : setMyFont(24)
+        ]
         navigationItem.title = "Kурс рубля"
-        navigationController?.navigationBar.barTintColor  = backgroundColor
         
         let sortButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(sortValue))
         navigationItem.rightBarButtonItem = sortButton
         
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
-        tableView.frame = CGRect(x: 0,
-                                                     y: 85,
-                                                     width: view.frame.size.width,
-                                                     height: view.frame.size.height - 175)
+        tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
+        tableView.frame = CGRect(x: 15,
+                                                     y: 100,
+                                                     width: view.frame.size.width - 30,
+                                                     height: view.frame.size.height - 210)
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.layer.cornerRadius = 20 //set corner radius here
         view.addSubview(tableView)
         
     }
     
     func setRefresh() {
         tableView.refreshControl = refresh
-        refresh.tintColor = .white
+        refresh.tintColor = .systemGray4
         refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
     
@@ -94,16 +96,20 @@ class ViewControllerValute: UIViewController {
         }
         tableView.reloadData()
     }
+    func setMyFont(_ size: Double) -> UIFont {
+        let font = UIFont(name: "Gill Sans", size: size)
+        return font!
+    }
 }
 
-extension ViewControllerValute: UITableViewDataSource, UITableViewDelegate {
+extension ValuteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return valutes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomValuteCell
         
         let object = valutes[indexPath.row]
         cell.setCell(object: object)
@@ -111,14 +117,14 @@ extension ViewControllerValute: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 70
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
         cell.layer.transform = rotationTransform
         cell.alpha = 0
-        UIView.animate(withDuration: 0.55) {
+        UIView.animate(withDuration: 0.2) {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1.0
         }

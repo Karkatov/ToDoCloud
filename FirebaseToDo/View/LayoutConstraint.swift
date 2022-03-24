@@ -93,7 +93,7 @@ extension LoginViewController {
         
         warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                         y: passwordTF.frame.origin.y + 50,
-                                        width: 310,
+                                        width: 300,
                                         height: 30)
         view.addSubview(warningTextLabel)
         

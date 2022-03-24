@@ -14,7 +14,6 @@ class TasksViewController: UIViewController {
     var user: UserModel!
     var ref: DatabaseReference!
     var tasks = Array<Task>()
-    
     var collectionView: UICollectionView!
     let secondView = UIView()
     let titleNote = UILabel()
@@ -29,7 +28,7 @@ class TasksViewController: UIViewController {
         view.addSubview(secondView)
         
         titleNote.text = "Заметки"
-        titleNote.font = UIFont.boldSystemFont(ofSize: 30)
+        titleNote.font = setMyFont(40)
         titleNote.frame = CGRect(x: 50, y: 200, width: 200, height: 50)
         view.addSubview(titleNote)
         
@@ -48,9 +47,8 @@ class TasksViewController: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height + 150)
-            
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 190)
+
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 180)
         }
         
     }
@@ -179,13 +177,16 @@ extension TasksViewController {
         }
         catch { print("already logged out") }
         
-        
-        
         let vc = LoginViewController()
         navigationController?.setViewControllers([vc], animated: true)
         self.dismiss(animated: true)
         vc.check = false
         vc.ud.set(vc.check, forKey: "check")
+    }
+    
+    func setMyFont(_ size: Double) -> UIFont {
+        let font = UIFont(name: "Gill Sans", size: size)
+        return font!
     }
 }
 

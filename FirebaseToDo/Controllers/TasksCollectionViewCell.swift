@@ -13,12 +13,13 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     let colorView: UIView = {
         let view = UIView()
-        let colors = UIColor.white
-        view.backgroundColor = colors
+        let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemOrange, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
+        view.backgroundColor = colors.randomElement()
+        view.alpha = 0.3
         view.layer.shadowRadius = 5
         view.layer.shadowOffset = CGSize(width: 10, height: 10)
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOpacity = 0.4
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -53,5 +54,13 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func randomBackgoundCollor() {
+        let colors: [UIColor] = [.systemRed, .systemBlue, .systemFill, .systemCyan, .systemMint, .systemGreen]
+    }
+    func setMyFont(_ size: Double) -> UIFont {
+        let font = setMyFont(size)
+        return font
     }
 }

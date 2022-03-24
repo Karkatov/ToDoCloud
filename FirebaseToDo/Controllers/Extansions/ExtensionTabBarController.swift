@@ -12,18 +12,12 @@ extension UITabBarController {
     func setMyTabBar(tabBarController: UITabBarController) -> UITabBarController {
         let tabBar = tabBarController.tabBar
         tabBar.frame = CGRect(x: 20, y: view.frame.size.height - 90, width: view.frame.size.width - 40, height: 65)
-        tabBar.backgroundColor = UIColor(red: 100, green: 50, blue: 109, alpha: 1)
         tabBar.layer.cornerRadius = 30
         tabBar.clipsToBounds = true
-        tabBar.tintColor = .systemRed
-        tabBar.backgroundColor = .systemGray5
+        tabBar.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         tabBar.itemPositioning = .centered
-        tabBar.tintColor = .systemRed
-        tabBar.isTranslucent = false
-        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBar.layer.shadowRadius = 2
-        tabBar.layer.shadowColor = UIColor.black.cgColor
-        tabBar.layer.shadowOpacity = 0.3
+        tabBar.isTranslucent = true
+        tabBar.backgroundColor = .white
         
         return tabBarController
     }

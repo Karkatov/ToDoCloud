@@ -190,15 +190,15 @@ extension LoginViewController {
     
     @objc func loginTapped() {
         
-        spiner.startAnimating()
-        
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
             displayWarning(withText: "Ошибка")
             spiner.stopAnimating()
             return }
         
+        spiner.startAnimating()
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
             if error != nil {
+                
                 self?.displayWarning(withText: "Ошибка")
                 self?.spiner.stopAnimating()
                 return
@@ -247,6 +247,9 @@ extension LoginViewController {
             let saveEmail = (ud.object(forKey: "email") as? String)!
             let savePassword = (ud.object(forKey: "password") as? String)!
             Auth.auth().signIn(withEmail: saveEmail, password: savePassword) { [weak self] (user, error) in
+                guard error == nil else {
+                    self?.spiner.stopAnimating()
+                    return }
                 self?.spiner.stopAnimating()
                 self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
                 self?.dismiss(animated: true, completion: nil)

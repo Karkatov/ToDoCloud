@@ -8,27 +8,27 @@
 import UIKit
 import SnapKit
 
-class CustomTableViewCell: UITableViewCell {
+class CustomValuteCell: UITableViewCell {
     
     static let idenrifire = "CustomTableViewCell"
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .black
+        label.font = UIFont(name: "Gill Sans", size: 16)
         label.numberOfLines = 0
         return label
     }()
     let charLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "Gill Sans", size: 16)
         return label
     }()
     let valueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = .black
+        label.font = UIFont(name: "Gill Sans", size: 20)
         return label
     }()
     let flagImageView: UIImageView = {
@@ -45,12 +45,8 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.layer.borderWidth = 0.5
-        contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.backgroundColor = UIColor(red: 25/255,
-                                              green: 75/255,
-                                              blue: 109/255,
-                                              alpha: 1)
+        //contentView.layer.borderWidth = 0.5
+        contentView.backgroundColor = .white
         contentView.addSubview(flagImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(charLabel)
@@ -64,11 +60,11 @@ class CustomTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         flagImageView.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).inset(20)
+            make.left.equalTo(contentView.snp.left).inset(15)
             make.top.equalTo(contentView.snp.top).inset(5)
             make.bottom.equalTo(contentView.snp.bottom).inset(5)
-            make.width.equalTo(75)
-            make.height.equalTo(50)
+            make.width.equalTo(65)
+            
         }
         nameLabel.snp.makeConstraints { make in
             make.left.equalTo(flagImageView.snp.right).inset(-8)
@@ -80,8 +76,8 @@ class CustomTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView.snp.bottom).inset(6)
         }
         valueLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.bounds.size.height / 2).inset(30)
-            make.right.lessThanOrEqualTo(contentView.snp.right).inset(20)
+            make.top.equalTo(contentView.bounds.size.height / 2).inset(25)
+            make.right.lessThanOrEqualTo(contentView.snp.right).inset(15)
         }
     }
     
@@ -91,5 +87,4 @@ class CustomTableViewCell: UITableViewCell {
         nameLabel.text = object[1]
         valueLabel.text = object[2]
     }
-
 }

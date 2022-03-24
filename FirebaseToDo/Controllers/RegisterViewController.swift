@@ -219,6 +219,11 @@ extension RegisterViewController {
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
+            
+            guard error == nil else {
+                self?.displayWarning(withText: "Oшибка сети")
+                return
+            }
             guard error == nil, user != nil else {
                 print(error!.localizedDescription)
                     return
