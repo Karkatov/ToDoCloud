@@ -17,7 +17,7 @@ class TasksViewController: UIViewController {
     var collectionView: UICollectionView!
     let secondView = UIView()
     let titleNote = UILabel()
-    
+    let sizeHeightScreen = UIScreen.main.bounds.size.height
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -29,7 +29,6 @@ class TasksViewController: UIViewController {
         
         titleNote.text = "Заметки"
         titleNote.font = setMyFont(40)
-        titleNote.frame = CGRect(x: 50, y: 200, width: 200, height: 50)
         view.addSubview(titleNote)
         
         
@@ -40,17 +39,13 @@ class TasksViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "TasksCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.frame = CGRect(x: 0, y: 250, width: view.frame.size.width, height: view.frame.size.height - 500)
+        
         collectionView.backgroundColor = .systemGray5
         view.addSubview(collectionView)
         view.backgroundColor = .systemGray5
-        
         tabBarController?.tabBar.isHidden = false
-        UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - 180)
-        }
         
+        calculateScreen()
     }
     
     
@@ -99,7 +94,12 @@ extension TasksViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 170, height: 120)
+        if sizeHeightScreen > 850 {
+            return CGSize(width: 165, height: 110)
+        } else if sizeHeightScreen > 800 {
+            return CGSize(width: 140, height: 90)
+        } else {
+            return CGSize(width: 130, height: 85) }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -155,15 +155,15 @@ extension TasksViewController {
         
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-        addNewNote.tintColor = .white
+        addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         
         let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))
-        showWeather.tintColor = .white
+        showWeather.tintColor = .orange
         
         navigationItem.rightBarButtonItems = [addNewNote, showWeather]
         
         let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
-        signOut.tintColor = .white
+        signOut.tintColor = .red
         navigationItem.leftBarButtonItem = signOut
         //editButton = editButtonItem
         //navigationItem.leftBarButtonItem = editButton
@@ -187,6 +187,35 @@ extension TasksViewController {
     func setMyFont(_ size: Double) -> UIFont {
         let font = UIFont(name: "Gill Sans", size: size)
         return font!
+    }
+    
+    func showTabBar(_ originX: Double, originY: Double) {
+        UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
+
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: originX, y: self.view.frame.size.height - originY)
+        }
+    }
+    
+    func calculateScreen() {
+        if sizeHeightScreen > 850 {
+            collectionView.frame = CGRect(x: 0, y: 230, width: view.frame.size.width, height: view.frame.size.height / 1.8)
+            titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
+            print("1")
+            showTabBar(20, originY: 200)
+            titleNote.font = setMyFont(36)
+        } else if sizeHeightScreen > 800 {
+            collectionView.frame = CGRect(x: 0, y: 230, width: view.frame.size.width, height: view.frame.size.height / 1.9)
+            titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
+            showTabBar(0, originY: 200)
+            titleNote.font = setMyFont(32)
+            print("2")
+        } else {
+            collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.size.width, height: view.frame.size.height / 1.6)
+            titleNote.frame = CGRect(x: 63, y: 140, width: 200, height: 50)
+            showTabBar(0, originY: 200)
+            titleNote.font = setMyFont(30)
+            print("3")
+        }
     }
 }
 

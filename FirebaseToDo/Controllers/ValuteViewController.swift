@@ -54,10 +54,20 @@ class ValuteViewController: UIViewController {
         navigationItem.rightBarButtonItem = sortButton
         
         tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
-        tableView.frame = CGRect(x: 15,
-                                                     y: 100,
-                                                     width: view.frame.size.width - 30,
-                                                     height: view.frame.size.height - 210)
+        
+        if UIScreen.main.bounds.size.height < 670 {
+            tableView.frame = CGRect(x: 15,
+                                     y: 70,
+                                     width: view.frame.size.width - 30,
+                                     height: view.frame.size.height - 150)
+        } else {
+            
+                tableView.frame = CGRect(x: 15,
+                                         y: 100,
+                                         width: view.frame.size.width - 30,
+                                         height: view.frame.size.height - 210)
+            
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
