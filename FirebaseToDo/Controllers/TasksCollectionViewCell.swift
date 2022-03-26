@@ -19,7 +19,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
         view.layer.shadowRadius = 5
         view.layer.shadowOffset = CGSize(width: 10, height: 10)
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.4
+        view.layer.shadowOpacity = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

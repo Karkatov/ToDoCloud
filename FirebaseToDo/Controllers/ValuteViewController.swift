@@ -13,17 +13,14 @@ class ValuteViewController: UIViewController {
     let tableView = UITableView()
     let networkRateManager = NetworkRateManager()
     var valutes: [[String]] = []
-    
     var sortIndex = "<"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        setView()
         setTableView()
         setRefresh()
-    }
-    
-    override func viewDidLayoutSubviews() {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -31,49 +28,40 @@ class ValuteViewController: UIViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    
-    private func setTableView() {
-        
+    private func setView() {
         let backgroundColor = UIColor(red: 25/255,
                                       green: 75/255,
                                       blue: 109/255,
                                       alpha: 1)
-        
         let myView = UIView()
         myView.backgroundColor = UIColor(red: 157/255, green: 248/255, blue: 179/255, alpha: 1)
         myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         view.addSubview(myView)
         self.view.backgroundColor = backgroundColor
-        navigationController!.navigationBar.titleTextAttributes = [
-                                    .foregroundColor: UIColor.black,
-                                    .font : setMyFont(24)
-        ]
+        navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black, .font : setMyFont(24)]
         navigationItem.title = "Kурс рубля"
-        
         let sortButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(sortValue))
         navigationItem.rightBarButtonItem = sortButton
+    }
+    
+    private func setTableView() {
         
         tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
-        
         if UIScreen.main.bounds.size.height < 670 {
-            tableView.frame = CGRect(x: 15,
+            tableView.frame = CGRect(x: 20,
                                      y: 70,
-                                     width: view.frame.size.width - 30,
+                                     width: view.frame.size.width - 40,
                                      height: view.frame.size.height - 150)
         } else {
-            
-                tableView.frame = CGRect(x: 15,
-                                         y: 100,
-                                         width: view.frame.size.width - 30,
-                                         height: view.frame.size.height - 210)
-            
+            tableView.frame = CGRect(x: 15,
+                                     y: 100,
+                                     width: view.frame.size.width - 30,
+                                     height: view.frame.size.height - 210)
         }
-        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.layer.cornerRadius = 20 //set corner radius here
+        tableView.layer.cornerRadius = 20
         view.addSubview(tableView)
-        
     }
     
     func setRefresh() {

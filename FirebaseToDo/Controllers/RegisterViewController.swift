@@ -229,9 +229,10 @@ extension RegisterViewController {
                     return
                 }
             
-            //блок UserDefaults
+            
             let userRef = self?.ref.child((user?.user.uid)!)
             userRef?.setValue(["email" : user?.user.email])
+            //блок UserDefaults
             self?.vc.check = true
             self?.vc.ud.set(self?.vc.check, forKey: "check")
             self?.vc.ud.set(self?.emailTF.text!, forKey: "email")

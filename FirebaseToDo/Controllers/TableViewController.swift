@@ -60,7 +60,7 @@ extension TableViewController {
         
     }
     
-    @objc func addNote() {
+    @objc func addFolder() {
         let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { tf in
@@ -89,7 +89,7 @@ extension TableViewController {
     func setButtons() {
         
         let addNewNote
-        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
         addNewNote.tintColor = .white
         
         let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))

@@ -20,7 +20,6 @@ class DetailWeatherVC: UIViewController {
         tableView.backgroundColor = .systemBlue
         let nameCity = detail.removeFirst()
         navigationItem.title = "\(nameCity)"
-    
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "myCell")
