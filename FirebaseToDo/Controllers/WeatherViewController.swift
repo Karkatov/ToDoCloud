@@ -202,17 +202,16 @@ extension WeatherVC {
                     self?.array = currentWeather.weatherDetail()
                     return
                 }
-            }
-        }
-        queue.async {
-            
-            self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [weak self]  currentWeather in
-                self?.updateInterfaceWith(weather: currentWeather)
-                self?.array = currentWeather.weatherDetail()
+            } else {
+                self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [weak self]  currentWeather in
+                    self?.updateInterfaceWith(weather: currentWeather)
+                    self?.array = currentWeather.weatherDetail()
+                }
             }
         }
     }
 }
+    
 
 
 
