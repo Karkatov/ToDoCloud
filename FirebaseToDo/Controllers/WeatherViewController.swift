@@ -23,7 +23,6 @@ class WeatherVC: UIViewController {
     let networkWeatherManager = NetworkWeatherManager()
     let networkTranslate = NetworkTranslate()
     let userDefaults = UserDefaults()
-    
     let queue = DispatchQueue(label: "serial", attributes: .concurrent)
     
     override func viewDidLoad() {
@@ -31,20 +30,12 @@ class WeatherVC: UIViewController {
         spiner.startAnimating()
         setStyle()
         setLayout()
-        
-        if let city = userDefaults.object(forKey: "city") as? String {
-            networkWeatherManager.fetchCurrentWeather(forCity: city) { [weak self]  currentWeather in
-                self?.updateInterfaceWith(weather: currentWeather)
-                self?.array = currentWeather.weatherDetail()
-                return
-            }
-        }
-        networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [weak self]  currentWeather in
-            self?.updateInterfaceWith(weather: currentWeather)
-            self?.array = currentWeather.weatherDetail()
-        }
     }
-    override func viewDidLayoutSubviews() {
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fistUpdateUI()
     }
 }
 
@@ -121,12 +112,11 @@ extension WeatherVC {
             .foregroundColor : defaultColor
         ]
         
-        // let attributedString = NSAttributedString(string: temperature, attributes: boldAttributes)
         let attributedString = NSMutableAttributedString(string: temperature, attributes: boldAttributes)
         attributedString.append(NSAttributedString(string: "℃", attributes: celciusAttributes))
         return attributedString
     }
-
+    
     // MARK: - Methods
     @objc func presentAlert() {
         
@@ -154,9 +144,9 @@ extension WeatherVC {
     
     @objc func showDetail() {
         
-            let secondVC = DetailWeatherVC()
-                    secondVC.detail = array
-                    self.navigationController?.pushViewController(secondVC, animated: true)
+        let secondVC = DetailWeatherVC()
+        secondVC.detail = array
+        self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
     @objc func findPosition() {
@@ -172,7 +162,7 @@ extension WeatherVC {
     }
     
     func updateInterfaceWith(weather: CurrentWeather) {
-
+        
         self.temperatureLabel.alpha = 0
         self.wheatherIconImageView.alpha = 0
         self.feelsLikeTemperatureLabel.alpha = 0
@@ -183,7 +173,7 @@ extension WeatherVC {
             self.wheatherIconImageView.pulsateImage()
             self.wheatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
             self.spiner.stopAnimating()
-
+            
             self.temperatureLabel.attributedText = self.makeTemperatureText(temperature: weather.temperatureString)
             
             self.cityLabel.text = weather.cityName
@@ -193,13 +183,36 @@ extension WeatherVC {
         dispatch(object: self.temperatureLabel, duration: 1)
         dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
     }
-}
-
-private func dispatch(object: UILabel, duration: Double) {
     
-    DispatchQueue.main.sync {
-        object.opacityAnimation(myDuration: duration)
+    
+    private func dispatch(object: UILabel, duration: Double) {
+        
+        DispatchQueue.main.sync {
+            object.opacityAnimation(myDuration: duration)
+        }
+    }
+    
+    
+    func fistUpdateUI() {
+        
+        queue.async {
+            if let city = self.userDefaults.object(forKey: "city") as? String {
+                self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [weak self]  currentWeather in
+                    self?.updateInterfaceWith(weather: currentWeather)
+                    self?.array = currentWeather.weatherDetail()
+                    return
+                }
+            }
+        }
+        queue.async {
+            
+            self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [weak self]  currentWeather in
+                self?.updateInterfaceWith(weather: currentWeather)
+                self?.array = currentWeather.weatherDetail()
+            }
+        }
     }
 }
+
 
 
