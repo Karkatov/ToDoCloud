@@ -16,14 +16,14 @@ class DetailWeatherVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemMint
-        tableView.backgroundColor = .systemBlue
+        self.view.backgroundColor = UIColor(red: 157/255, green: 248/255, blue: 179/255, alpha: 1)
+        tableView.backgroundColor = .white
         let nameCity = detail.removeFirst()
         navigationItem.title = "\(nameCity)"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "myCell")
-        tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height)
+        tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height / 3.1)
         tableView.layer.cornerRadius = 20
         view.addSubview(tableView)
         tableView.animateTableView()

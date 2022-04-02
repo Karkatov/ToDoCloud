@@ -9,11 +9,8 @@ import UIKit
 import Firebase
 
 class RegisterViewController: UIViewController {
-   
-    let vc = LoginViewController()
-    var ref = DatabaseReference()
-    
-    let tableVC = TableViewController()
+
+    let tableVC = TaskTableViewController()
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -78,17 +75,7 @@ class RegisterViewController: UIViewController {
         label.alpha = 0
         return label
     }()
-    let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.layer.cornerRadius = 7
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemGreen.cgColor
-        button.tintColor = .white
-        button.setTitle("Войти", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        button.isHidden = true
-        return button
-    }()
+
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -117,6 +104,11 @@ class RegisterViewController: UIViewController {
         imageView.image = image
         return imageView
     }()
+    
+    
+     let vc = LoginViewController()
+     var ref = DatabaseReference()
+     
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,7 +205,6 @@ extension RegisterViewController {
         for _ in passwordTF.text! {
             count += 1 }
         if count < 6 {
-            
             displayWarning(withText: "Пароль слишком короткий")
             return
         }
@@ -222,16 +213,16 @@ extension RegisterViewController {
             
             guard error == nil else {
                 self?.displayWarning(withText: "Oшибка сети")
+                print(error!.localizedDescription)
                 return
             }
-            guard error == nil, user != nil else {
-                print(error!.localizedDescription)
-                    return
-                }
-            
+            guard user != nil else { return }
             
             let userRef = self?.ref.child((user?.user.uid)!)
-            userRef?.setValue(["email" : user?.user.email])
+           
+            userRef?.setValue(["email" : user?.user.email,
+                               "password" : self?.passwordTF.text!])
+            
             //блок UserDefaults
             self?.vc.check = true
             self?.vc.ud.set(self?.vc.check, forKey: "check")

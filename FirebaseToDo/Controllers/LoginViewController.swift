@@ -119,7 +119,6 @@ class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
-        tabBarController?.tabBar.isHidden = true
         tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
     
@@ -235,7 +234,7 @@ extension LoginViewController {
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
             self?.warningTextLabel.alpha = 1
             
-        } completion: { [weak self] complite in
+        } completion: { [weak self] _ in
             self?.warningTextLabel.alpha = 0
         }
     }
@@ -258,5 +257,58 @@ extension LoginViewController {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+}
+
+
+extension LoginViewController {
+    func setLayout() {
+    
+        backgroundImageView.frame = CGRect(x: 0,
+                                           y: 0,
+                                           width: view.bounds.size.width,
+                                           height: UIScreen.main.bounds.size.height)
+        view.addSubview(backgroundImageView)
+        
+        nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,
+                                    y: 150,
+                                    width: 310,
+                                    height: 40)
+        view.addSubview(nameAppLabel)
+        
+        emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                               y: view.bounds.size.height / 2 - 25,
+                               width: 300,
+                               height: 40)
+        view.addSubview(emailTF)
+        
+        passwordTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                  y: view.bounds.size.height / 2 + 25,
+                                  width: 300,
+                                  height: 40)
+        view.addSubview(passwordTF)
+        
+        warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                        y: passwordTF.frame.origin.y + 50,
+                                        width: 300,
+                                        height: 30)
+        view.addSubview(warningTextLabel)
+        
+        loginButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                   y: passwordTF.frame.origin.y + 100 ,
+                                   width: 300,
+                                   height: 40)
+        loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
+        view.addSubview(loginButton)
+        
+        registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+                                      y: passwordTF.frame.origin.y + 150,
+                                      width: 300,
+                                      height: 40)
+        registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
+        view.addSubview(registerButton)
+        
+        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: nameAppLabel.frame.origin.y + 100, width: 50, height: 50)
+        view.addSubview(spiner)
     }
 }

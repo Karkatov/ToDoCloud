@@ -70,7 +70,7 @@ struct CurrentWeather {
     }
     
     func weatherDetail() -> [String] {
-        let detail = [cityName, descriptionTemperature, descriptionFeelsLike, descriptionString, cloudsString, humidityString]
+        let detail = [cityName, descriptionTemperature, descriptionFeelsLike, cloudsString, humidityString, descriptionString]
         return detail
     }
 }

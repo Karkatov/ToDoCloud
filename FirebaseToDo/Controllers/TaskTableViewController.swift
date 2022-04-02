@@ -9,7 +9,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class TableViewController: UIViewController {
+class TaskTableViewController: UIViewController {
     
     var user: UserModel!
     var ref: DatabaseReference!
@@ -48,7 +48,7 @@ class TableViewController: UIViewController {
         }
     }
 }
-extension TableViewController {
+extension TaskTableViewController {
     
     func createUser() {
         
@@ -119,7 +119,7 @@ extension TableViewController {
     }
     
 }
-extension TableViewController: UITableViewDataSource, UITableViewDelegate {
+extension TaskTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     
@@ -188,7 +188,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 
 }
 
-extension TableViewController: UITextFieldDelegate {
+extension TaskTableViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard range.location != 45 else {

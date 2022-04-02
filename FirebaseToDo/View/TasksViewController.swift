@@ -151,21 +151,21 @@ extension TasksViewController {
         if sizeHeightScreen > 850 {
             collectionView.frame = CGRect(x: 0, y: 230, width: view.frame.size.width, height: view.frame.size.height / 1.8)
             titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
-            print("1")
             showTabBar(20, originY: 200)
             titleNote.font = setMyFont(36)
+            
         } else if sizeHeightScreen > 800 {
             collectionView.frame = CGRect(x: 0, y: 230, width: view.frame.size.width, height: view.frame.size.height / 1.9)
             titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
             showTabBar(0, originY: 200)
             titleNote.font = setMyFont(32)
-            print("2")
+          
         } else {
             collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.size.width, height: view.frame.size.height / 1.6)
             titleNote.frame = CGRect(x: 63, y: 140, width: 200, height: 50)
             showTabBar(0, originY: 200)
             titleNote.font = setMyFont(30)
-            print("3")
+            
         }
     }
 }
@@ -204,7 +204,7 @@ extension TasksViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = tasks[indexPath.row].notes
-        let tableVC = TableViewController()
+        let tableVC = TaskTableViewController()
         tableVC.path = task
         self.navigationController?.pushViewController(tableVC, animated: true)
         
