@@ -48,7 +48,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
         
         taskTitleLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 15),
         taskTitleLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant:  -15),
-        taskTitleLabel.widthAnchor.constraint(equalToConstant: 150)
+        taskTitleLabel.widthAnchor.constraint(equalToConstant: 125)
        ])
     }
     

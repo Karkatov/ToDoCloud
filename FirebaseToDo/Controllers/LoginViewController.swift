@@ -10,7 +10,7 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
-    let tasksVC = TasksViewController()
+    let tasksVC = MainTasksViewController()
     var check = false
     let ud = UserDefaults.standard
     let spiner: UIActivityIndicatorView = {

@@ -9,7 +9,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class TasksViewController: UIViewController {
+class MainTasksViewController: UIViewController {
     
     var user: UserModel!
     var ref: DatabaseReference!
@@ -51,7 +51,7 @@ class TasksViewController: UIViewController {
     }
 }
 
-extension TasksViewController {
+extension MainTasksViewController {
     
     func createUser() {
         guard let currentUser = Auth.auth().currentUser else {
@@ -170,7 +170,7 @@ extension TasksViewController {
     }
 }
 
-extension TasksViewController: UITextFieldDelegate {
+extension MainTasksViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard range.location != 12 else {
@@ -180,7 +180,7 @@ extension TasksViewController: UITextFieldDelegate {
     }
 }
 
-extension TasksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MainTasksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tasks.count

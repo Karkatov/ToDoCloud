@@ -52,7 +52,7 @@ class NetworkTranslate {
             let curentTranslate = CurrentCityTranslate(currentCityTranslateData: currentTranslateData)
             return curentTranslate
         } catch {
-            // print(error.localizedDescription)
+            print(error.localizedDescription)
         }
         return nil
     }
