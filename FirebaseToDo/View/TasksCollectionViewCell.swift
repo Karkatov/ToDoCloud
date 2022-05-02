@@ -10,7 +10,7 @@ import UIKit
 class TasksCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TasksCollectionViewCell"
-    let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemOrange, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
+    let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
     let colorView: UIView = {
         let view = UIView()
         view.alpha = 0.3

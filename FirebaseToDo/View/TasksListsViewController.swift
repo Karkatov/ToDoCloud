@@ -19,7 +19,6 @@ class TasksListsViewController: UIViewController {
     let titleNote = UILabel()
     let sizeHeightScreen = UIScreen.main.bounds.size.height
     var deleteTaskList = UIBarButtonItem()
-    var currentIndexPath: IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,10 +127,8 @@ extension TasksListsViewController {
     @objc func tappedDeleteTaskList() {
         if deleteTaskList.title == "Изменить" {
             deleteTaskList.title = "Отмена"
-            collectionView.isEditing = true
         } else {
             deleteTaskList.title = "Изменить"
-            collectionView.isEditing = false
         }
         collectionView.reloadData()
     }
@@ -148,12 +145,11 @@ extension TasksListsViewController {
         vc.ud.set(vc.check, forKey: "check")
     }
     
-    @objc func deleteCurrentTasksList() {
-        let taskList = tasksList[currentIndexPath.row]
+    @objc func deleteCurrentTasksList(_ sender: UIButton) {
+        let taskList = tasksList[sender.tag]
         taskList.ref?.removeValue()
         let tasks = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(taskList.notes)
         tasks.ref.removeValue()
-
         collectionView.reloadData()
     }
     
@@ -212,13 +208,16 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: TasksCollectionViewCell.identifier, for: indexPath) as? TasksCollectionViewCell)!
         cell.colorView.layer.cornerRadius = 20
         cell.taskTitleLabel.text = tasksList[indexPath.row].notes
-        cell.deleteButton.addTarget(self, action: #selector(deleteCurrentTasksList), for: .touchUpInside)
-        currentIndexPath = indexPath
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self, action: #selector(deleteCurrentTasksList(_:)), for: .touchUpInside)
+        
         if deleteTaskList.title == "Отмена" {
             cell.deleteButton.isHidden = false
+            collectionView.isEditing = true
             cell.colorView.backgroundColor = .systemOrange
         } else {
             cell.deleteButton.isHidden = true
+            collectionView.isEditing = false
             cell.colorView.backgroundColor = cell.colors.randomElement()
         }
         return cell
