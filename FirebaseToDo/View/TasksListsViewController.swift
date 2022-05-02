@@ -9,15 +9,17 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class MainTasksViewController: UIViewController {
+class TasksListsViewController: UIViewController {
     
     var user: UserModel!
     var ref: DatabaseReference!
-    var tasks = Array<Task>()
+    var tasksList = Array<Task>()
     var collectionView: UICollectionView!
     let secondView = UIView()
     let titleNote = UILabel()
     let sizeHeightScreen = UIScreen.main.bounds.size.height
+    var deleteTaskList = UIBarButtonItem()
+    var currentIndexPath: IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,7 @@ class MainTasksViewController: UIViewController {
                 let task = Task(snapshot: item as! DataSnapshot)
                 _tasks.append(task)
             }
-            self?.tasks = _tasks
+            self?.tasksList = _tasks
             self?.collectionView.reloadData()
         }
         view.backgroundColor = .systemGray5
@@ -51,13 +53,13 @@ class MainTasksViewController: UIViewController {
     }
 }
 
-extension MainTasksViewController {
+extension TasksListsViewController {
     
     func createUser() {
         guard let currentUser = Auth.auth().currentUser else {
             return }
         user = UserModel(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child("task")
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("TasksLists")
     }
     
     func setCollectionView() {
@@ -83,16 +85,19 @@ extension MainTasksViewController {
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
         addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         
+        deleteTaskList = UIBarButtonItem(title: "Изменить", style: .plain, target: self, action: #selector(tappedDeleteTaskList))
+                deleteTaskList.tintColor = .systemOrange
         
-        let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))
-        showWeather.tintColor = .orange
-        
-        navigationItem.rightBarButtonItems = [addNewNote, showWeather]
+        navigationItem.rightBarButtonItems = [addNewNote, deleteTaskList]
         
         let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
         signOut.tintColor = .red
-        navigationItem.leftBarButtonItem = signOut
+        
+        
+        navigationItem.leftBarButtonItems = [signOut]
     }
+    
+    
     
     @objc func addFolder() {
         let alertController = UIAlertController(title: "Новая папка", message: nil, preferredStyle: .alert)
@@ -120,7 +125,15 @@ extension MainTasksViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    @objc func showTray() {
+    @objc func tappedDeleteTaskList() {
+        if deleteTaskList.title == "Изменить" {
+            deleteTaskList.title = "Отмена"
+            collectionView.isEditing = true
+        } else {
+            deleteTaskList.title = "Изменить"
+            collectionView.isEditing = false
+        }
+        collectionView.reloadData()
     }
     
     @objc func signOut() {
@@ -133,6 +146,15 @@ extension MainTasksViewController {
         self.dismiss(animated: true)
         vc.check = false
         vc.ud.set(vc.check, forKey: "check")
+    }
+    
+    @objc func deleteCurrentTasksList() {
+        let taskList = tasksList[currentIndexPath.row]
+        taskList.ref?.removeValue()
+        let tasks = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(taskList.notes)
+        tasks.ref.removeValue()
+
+        collectionView.reloadData()
     }
     
     func setMyFont(_ size: Double) -> UIFont {
@@ -170,7 +192,7 @@ extension MainTasksViewController {
     }
 }
 
-extension MainTasksViewController: UITextFieldDelegate {
+extension TasksListsViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard range.location != 12 else {
@@ -180,16 +202,25 @@ extension MainTasksViewController: UITextFieldDelegate {
     }
 }
 
-extension MainTasksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tasks.count
+        return tasksList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: TasksCollectionViewCell.identifier, for: indexPath) as? TasksCollectionViewCell)!
         cell.colorView.layer.cornerRadius = 20
-        cell.taskTitleLabel.text = tasks[indexPath.row].notes
+        cell.taskTitleLabel.text = tasksList[indexPath.row].notes
+        cell.deleteButton.addTarget(self, action: #selector(deleteCurrentTasksList), for: .touchUpInside)
+        currentIndexPath = indexPath
+        if deleteTaskList.title == "Отмена" {
+            cell.deleteButton.isHidden = false
+            cell.colorView.backgroundColor = .systemOrange
+        } else {
+            cell.deleteButton.isHidden = true
+            cell.colorView.backgroundColor = cell.colors.randomElement()
+        }
         return cell
     }
     
@@ -203,10 +234,11 @@ extension MainTasksViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let task = tasks[indexPath.row].notes
-        let tableVC = TaskTableViewController()
-        tableVC.path = task
-        self.navigationController?.pushViewController(tableVC, animated: true)
+        let task = tasksList[indexPath.row].notes
+        let taskTableViewController = TaskTableViewController()
+        taskTableViewController.path = task
+    
+        self.navigationController?.pushViewController(taskTableViewController, animated: true)
         
         dismiss(animated: true)
     }

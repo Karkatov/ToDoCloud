@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-struct MainTask {
+struct TasksList {
     
     let title: String
     let ref: DatabaseReference?

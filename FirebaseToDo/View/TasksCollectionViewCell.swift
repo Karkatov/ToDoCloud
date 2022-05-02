@@ -10,11 +10,9 @@ import UIKit
 class TasksCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TasksCollectionViewCell"
-    
+    let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemOrange, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
     let colorView: UIView = {
         let view = UIView()
-        let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemOrange, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
-        view.backgroundColor = colors.randomElement()
         view.alpha = 0.3
         view.layer.shadowRadius = 5
         view.layer.shadowOffset = CGSize(width: 10, height: 10)
@@ -31,16 +29,25 @@ class TasksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    //let title: String?
+    let deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(systemName: "trash")
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .systemRed
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(colorView)
         addSubview(taskTitleLabel)
+        addSubview(deleteButton)
+        
+        colorView.backgroundColor = colors.randomElement()
         
         NSLayoutConstraint.activate([
-        
         colorView.leadingAnchor.constraint(equalTo: leadingAnchor),
         colorView.trailingAnchor.constraint(equalTo: trailingAnchor),
         colorView.topAnchor.constraint(equalTo: topAnchor),
@@ -48,7 +55,12 @@ class TasksCollectionViewCell: UICollectionViewCell {
         
         taskTitleLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 15),
         taskTitleLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant:  -15),
-        taskTitleLabel.widthAnchor.constraint(equalToConstant: 125)
+        taskTitleLabel.widthAnchor.constraint(equalToConstant: 125),
+        
+        deleteButton.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -15),
+        deleteButton.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 15),
+        deleteButton.heightAnchor.constraint(equalToConstant: 20),
+        deleteButton.widthAnchor.constraint(equalToConstant: 20)
        ])
     }
     

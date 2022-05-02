@@ -55,7 +55,7 @@ extension TaskTableViewController {
         guard let currentUser = Auth.auth().currentUser else { return }
         user = UserModel(user: currentUser)
         
-        let taskVC = MainTasksViewController()
+        let taskVC = TasksListsViewController()
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(path)
         
     }
