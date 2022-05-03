@@ -8,10 +8,10 @@
 import UIKit
 
 extension UIButton {
-    func pulsate() {
+    func pulsate(_ fromValue: Double) {
         let pulse = CASpringAnimation(keyPath: "transform.scale")
         pulse.duration = 1.2
-        pulse.fromValue = 0.70
+        pulse.fromValue = fromValue
         pulse.toValue = 1
         //pulse.autoreverses = true
         pulse.initialVelocity = 0.5

@@ -126,7 +126,7 @@ extension TasksListsViewController {
     
     @objc func tappedDeleteTaskList() {
         if deleteTaskList.title == "Изменить" {
-            deleteTaskList.title = "Отмена"
+            deleteTaskList.title = "Готово"
         } else {
             deleteTaskList.title = "Изменить"
         }
@@ -211,11 +211,14 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteCurrentTasksList(_:)), for: .touchUpInside)
         
-        if deleteTaskList.title == "Отмена" {
-            cell.deleteButton.isHidden = false
+        if deleteTaskList.title == "Готово" {
+            cell.showButton()
+            
             collectionView.isEditing = true
             cell.colorView.backgroundColor = .systemOrange
+            cell.deleteButton.isHidden = false
         } else {
+            
             cell.deleteButton.isHidden = true
             collectionView.isEditing = false
             cell.colorView.backgroundColor = cell.colors.randomElement()

@@ -31,7 +31,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: "trash")
+        let image = UIImage(systemName: "xmark")
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .systemRed
@@ -74,5 +74,10 @@ class TasksCollectionViewCell: UICollectionViewCell {
     func setMyFont(_ size: Double) -> UIFont {
         let font = setMyFont(size)
         return font
+    }
+    
+    func showButton() {
+        deleteButton.pulsate(0)
+        deleteButton.opacityAnimation()
     }
 }

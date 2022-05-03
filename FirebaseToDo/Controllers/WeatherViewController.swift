@@ -12,12 +12,13 @@ class WeatherVC: UIViewController {
     var array = [String]()
     let defaultColor = UIColor(named: "DarkWhite")
     let backgroundImageView = UIImageView()
-    let wheatherIconImageView = UIImageView()
+    let weatherIconImageView = UIImageView()
+    let blurView = UIView()
     let temperatureLabel = UILabel()
     let feelsLikeTemperatureLabel = UILabel()
     let cityLabel = UILabel()
     let searchCityButton = UIButton()
-    let weatherWeek = UIButton()
+    let detailButton = UIButton()
     let locationButton = UIButton()
     let spiner = UIActivityIndicatorView()
     let networkWeatherManager = NetworkWeatherManager()
@@ -45,13 +46,19 @@ extension WeatherVC {
     func setStyle() {
         
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.image = UIImage(named: "blur")
+        backgroundImageView.image = UIImage(named: "weather")
+   
         backgroundImageView.contentMode = .scaleAspectFill
         
-        wheatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        wheatherIconImageView.image = UIImage(systemName: "nil")
-        wheatherIconImageView.tintColor = defaultColor
-        wheatherIconImageView.contentMode = .scaleAspectFill
+        weatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        weatherIconImageView.image = UIImage(systemName: "nil")
+        weatherIconImageView.tintColor = defaultColor
+        weatherIconImageView.contentMode = .scaleAspectFill
+        
+        blurView.alpha = 0
+        blurView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        blurView.layer.cornerRadius = 10
+        blurView.translatesAutoresizingMaskIntoConstraints = false
         
         temperatureLabel.alpha = 0
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -63,19 +70,24 @@ extension WeatherVC {
         feelsLikeTemperatureLabel.textAlignment = .center
         feelsLikeTemperatureLabel.textColor = defaultColor
         
-        searchCityButton.pulsate()
+        searchCityButton.pulsate(0.7)
+       
+        searchCityButton.layer.cornerRadius = 40
+        searchCityButton.backgroundColor = .black
         searchCityButton.translatesAutoresizingMaskIntoConstraints = false
         let searchImage = UIImage(systemName: "magnifyingglass.circle.fill")
         searchCityButton.setBackgroundImage(searchImage, for: .normal)
         searchCityButton.tintColor = defaultColor
         searchCityButton.addTarget(self, action: #selector(presentAlert), for: .touchUpInside)
         
-        weatherWeek.isHidden = true
-        weatherWeek.translatesAutoresizingMaskIntoConstraints = false
+        detailButton.layer.cornerRadius = 40
+        detailButton.backgroundColor = .black
+        detailButton.isHidden = true
+        detailButton.translatesAutoresizingMaskIntoConstraints = false
         let weatherWeekImage = UIImage(systemName: "line.3.horizontal.circle.fill")
-        weatherWeek.setBackgroundImage(weatherWeekImage, for: .normal)
-        weatherWeek.tintColor = defaultColor
-        weatherWeek.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
+        detailButton.setBackgroundImage(weatherWeekImage, for: .normal)
+        detailButton.tintColor = defaultColor
+        detailButton.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
         
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.textAlignment = .right
@@ -86,7 +98,9 @@ extension WeatherVC {
         cityLabel.font = UIFont.systemFont(ofSize: 34)
         cityLabel.textColor = defaultColor
         
-        locationButton.pulsate()
+        locationButton.layer.cornerRadius = 40
+        locationButton.backgroundColor = .black
+        locationButton.pulsate(0.7)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
         let locationImage = UIImage(systemName: "location.circle.fill")
         locationButton.setBackgroundImage(locationImage, for: .normal)
@@ -120,7 +134,7 @@ extension WeatherVC {
     // MARK: - Methods
     @objc func presentAlert() {
         
-        searchCityButton.pulsate()
+        searchCityButton.pulsate(0.7)
         presentSearchAlertController(tittle: "Введите название города", message: nil, style: .alert) { city in
             DispatchQueue.main.async {
                 self.spiner.startAnimating()
@@ -150,28 +164,26 @@ extension WeatherVC {
     }
     
     @objc func findPosition() {
-        locationButton.pulsate()
+        locationButton.pulsate(0.7)
         locationButton.opacityAnimation()
         //locationButton.shake()
     }
     
     func showAnimation() {
-        self.wheatherIconImageView.pulsateImage()
+        self.weatherIconImageView.pulsateImage()
         dispatch(object: temperatureLabel, duration: 0.3)
         dispatch(object: feelsLikeTemperatureLabel, duration: 0.5)
     }
     
     func updateInterfaceWith(weather: CurrentWeather) {
         
-        self.temperatureLabel.alpha = 0
-        self.wheatherIconImageView.alpha = 0
-        self.feelsLikeTemperatureLabel.alpha = 0
         
         DispatchQueue.main.async {
-            self.weatherWeek.isHidden = false
-            self.weatherWeek.pulsate()
-            self.wheatherIconImageView.pulsateImage()
-            self.wheatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
+            
+            self.detailButton.isHidden = false
+            self.detailButton.pulsate(0.7)
+            self.weatherIconImageView.pulsateImage()
+            self.weatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
             self.spiner.stopAnimating()
             
             self.temperatureLabel.attributedText = self.makeTemperatureText(temperature: weather.temperatureString)
@@ -179,6 +191,13 @@ extension WeatherVC {
             self.cityLabel.text = weather.cityName
             
             self.feelsLikeTemperatureLabel.text = "Ощущается как \(weather.feelsLikeTemperatureString)º"
+            
+            if self.blurView.alpha == 0 {
+                UIView.animate(withDuration: 0.5) {
+                    self.blurView.alpha = 0
+                    self.blurView.alpha = 0.4
+                }
+            }
         }
         dispatch(object: self.temperatureLabel, duration: 1)
         dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
@@ -217,8 +236,9 @@ extension WeatherVC {
     func setLayout() {
         
         view.addSubview(backgroundImageView)
-        view.addSubview(weatherWeek)
-        view.addSubview(wheatherIconImageView)
+        view.addSubview(blurView)
+        view.addSubview(detailButton)
+        view.addSubview(weatherIconImageView)
         view.addSubview(temperatureLabel)
         view.addSubview(searchCityButton)
         view.addSubview(cityLabel)
@@ -236,21 +256,26 @@ extension WeatherVC {
             cityLabel.bottomAnchor.constraint(equalTo: searchCityButton.bottomAnchor),
             cityLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             
-            weatherWeek.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            weatherWeek.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            weatherWeek.widthAnchor.constraint(equalToConstant: 45),
-            weatherWeek.heightAnchor.constraint(equalToConstant: 45),
+            detailButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailButton.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            detailButton.widthAnchor.constraint(equalToConstant: 45),
+            detailButton.heightAnchor.constraint(equalToConstant: 45),
             
             searchCityButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: locationButton.bottomAnchor, multiplier: 1),
             locationButton.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             locationButton.widthAnchor.constraint(equalToConstant: 45),
             locationButton.heightAnchor.constraint(equalToConstant: 45),
             
-            wheatherIconImageView.widthAnchor.constraint(equalToConstant: 165),
-            wheatherIconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wheatherIconImageView.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 27),
+            blurView.widthAnchor.constraint(equalToConstant: 220),
+            blurView.heightAnchor.constraint(equalToConstant: 300),
+            blurView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            blurView.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 20),
             
-            temperatureLabel.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: wheatherIconImageView.bottomAnchor, multiplier: 10),
+            weatherIconImageView.widthAnchor.constraint(equalToConstant: 165),
+            weatherIconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            weatherIconImageView.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 27),
+            
+            temperatureLabel.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: weatherIconImageView.bottomAnchor, multiplier: 10),
             temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             searchCityButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),

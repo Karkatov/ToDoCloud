@@ -15,8 +15,8 @@ class DetailWeatherVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = UIColor(red: 157/255, green: 248/255, blue: 179/255, alpha: 1)
+        tableView.isScrollEnabled = false
+        self.view.backgroundColor = .systemGray5
         tableView.backgroundColor = .white
         let nameCity = detail.removeFirst()
         navigationItem.title = "\(nameCity)"
@@ -44,6 +44,10 @@ extension DetailWeatherVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.isSelected = false
     }
     
 }

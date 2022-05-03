@@ -90,12 +90,9 @@ extension TaskTableViewController {
         
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
-        addNewNote.tintColor = .white
+        addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         
-        let showWeather = UIBarButtonItem(image: UIImage(systemName: "tray.full"), style: .plain, target: self, action: #selector(showTray))
-        showWeather.tintColor = .white
-        
-        navigationItem.rightBarButtonItems = [addNewNote, showWeather]
+        navigationItem.rightBarButtonItem = addNewNote
         //editButton = editButtonItem
         //navigationItem.leftBarButtonItem = editButton
     }

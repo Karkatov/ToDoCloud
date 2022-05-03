@@ -34,7 +34,7 @@ class ValuteViewController: UIViewController {
                                       blue: 109/255,
                                       alpha: 1)
         let myView = UIView()
-        myView.backgroundColor = UIColor(red: 157/255, green: 248/255, blue: 179/255, alpha: 1)
+        myView.backgroundColor = .systemGray5
         myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         view.addSubview(myView)
         self.view.backgroundColor = backgroundColor
@@ -126,6 +126,10 @@ extension ValuteViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1.0
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.isSelected = false
     }
 }
 
