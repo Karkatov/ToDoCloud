@@ -122,9 +122,12 @@ class LoginViewController: UIViewController {
         tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
         passwordTF.text = "Sktrue53"
         emailTF.text = "Duxxless53@ya.ru"

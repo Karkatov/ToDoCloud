@@ -31,6 +31,9 @@ class TasksListsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barStyle = UIBarStyle.default
+        
         ref.observe(.value) { [weak self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
