@@ -6,28 +6,27 @@
 //
 
 import Foundation
+import Alamofire
 
 class NetworkTranslate {
     
     func fetchCurrentWord(translateCity city: String, complitionHander: @escaping (String) -> Void) {
         let stringURL = "https://api.mymemory.translated.net/get?q=\(city)&langpair=ru|en".encodeUrl
         guard let url = URL(string: stringURL) else { return }
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
-            if let data = data {
-                
-                let curretTranslate = self.parceTranslateJSON(data: data)
-                guard let translateCity = curretTranslate?.translateCapitalized else { return }
-                complitionHander(translateCity)
-                
-            } else {
-                if let error = error as NSError? {
+        
+        AF.request(url)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success :
+                    let decoder = JSONDecoder()
+                    let data = try? decoder.decode(CurrentCityTranslateData.self, from: dataResponse.data!)
+                    let currentTranslate = CurrentCityTranslate(currentCityTranslateData: data!)!
+                    complitionHander(currentTranslate.translate)
+                case .failure(let error):
                     print(error.localizedDescription)
-                    
                 }
             }
-        })
-        dataTask.resume()
     }
     
     func parceTranslateJSON(data: Data) -> CurrentCityTranslate? {

@@ -31,11 +31,6 @@ class WeatherVC: UIViewController {
         spiner.startAnimating()
         setStyle()
         setLayout()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         fistUpdateUI()
     }
 }
@@ -55,7 +50,6 @@ extension WeatherVC {
         weatherIconImageView.tintColor = defaultColor
         weatherIconImageView.contentMode = .scaleAspectFill
         
-        blurView.alpha = 0
         blurView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         blurView.layer.cornerRadius = 10
         blurView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,14 +110,14 @@ extension WeatherVC {
     
     func makeTemperatureText(temperature: String) -> NSAttributedString {
         let boldAttributes: [NSAttributedString.Key : Any] = [
-            .strokeColor: defaultColor,
-            .foregroundColor : defaultColor,
+            .strokeColor: defaultColor ?? UIColor(),
+            .foregroundColor : defaultColor ?? UIColor(),
             .font : UIFont.boldSystemFont(ofSize: 80)
         ]
         
         let celciusAttributes: [NSAttributedString.Key : Any] = [
             .font : UIFont.systemFont(ofSize: 60),
-            .foregroundColor : defaultColor
+            .foregroundColor : defaultColor ?? UIColor()
         ]
         
         let attributedString = NSMutableAttributedString(string: temperature, attributes: boldAttributes)
@@ -267,9 +261,9 @@ extension WeatherVC {
             locationButton.heightAnchor.constraint(equalToConstant: 45),
             
             blurView.widthAnchor.constraint(equalToConstant: 220),
-            blurView.heightAnchor.constraint(equalToConstant: 300),
+            blurView.heightAnchor.constraint(equalToConstant: 320),
             blurView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            blurView.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 20),
+            blurView.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 18),
             
             weatherIconImageView.widthAnchor.constraint(equalToConstant: 165),
             weatherIconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
