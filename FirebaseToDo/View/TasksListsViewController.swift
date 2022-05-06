@@ -94,8 +94,6 @@ extension TasksListsViewController {
         
         let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
         signOut.tintColor = .red
-        
-        
         navigationItem.leftBarButtonItems = [signOut]
     }
     
@@ -143,9 +141,9 @@ extension TasksListsViewController {
         
         let vc = LoginViewController()
         navigationController?.setViewControllers([vc], animated: true)
+        user = UserModel()
+        StorageManager.shared.saveUser(user)
         self.dismiss(animated: true)
-        vc.check = false
-        vc.ud.set(vc.check, forKey: "check")
     }
     
     @objc func deleteCurrentTasksList(_ sender: UIButton) {
@@ -240,7 +238,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = tasksList[indexPath.row].notes
-        let taskTableViewController = TaskTableViewController()
+        let taskTableViewController = TasksListTableViewController()
         taskTableViewController.path = task
     
         self.navigationController?.pushViewController(taskTableViewController, animated: true)

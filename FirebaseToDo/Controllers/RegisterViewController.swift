@@ -10,7 +10,7 @@ import Firebase
 
 class RegisterViewController: UIViewController {
 
-    let tableVC = TaskTableViewController()
+    let tableVC = TasksListTableViewController()
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white

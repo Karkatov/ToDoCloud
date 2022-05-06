@@ -107,8 +107,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        check = ud.object(forKey: "check") as? Bool ?? false
         checkUser()
         navigationItem.hidesBackButton = true
         
@@ -206,12 +204,10 @@ extension LoginViewController {
             }
             
             if user != nil {
+                let currentUser = UserModel(password: password, email: email, check: true)
                 
-                self!.check = true
-                self!.ud.set(self!.check, forKey: "check")
-                self!.ud.set(email, forKey: "email")
-                self!.ud.set(password, forKey: "password")
-                
+                StorageManager.shared.saveUser(currentUser)
+
                 self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
                 
                 self?.spiner.stopAnimating()
@@ -243,11 +239,11 @@ extension LoginViewController {
     }
     
     func checkUser() {
-        if check == true {
+        let user = StorageManager.shared.getUser()
+        if user.check {
             spiner.startAnimating()
-            let saveEmail = (ud.object(forKey: "email") as? String)!
-            let savePassword = (ud.object(forKey: "password") as? String)!
-            Auth.auth().signIn(withEmail: saveEmail, password: savePassword) { [weak self] (user, error) in
+            
+            Auth.auth().signIn(withEmail: user.email, password: user.password) { [weak self] (user, error) in
                 guard error == nil else {
                     self?.spiner.stopAnimating()
                     return }
