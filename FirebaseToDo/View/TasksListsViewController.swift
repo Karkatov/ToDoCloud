@@ -238,7 +238,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = tasksList[indexPath.row].notes
-        let taskTableViewController = TasksListTableViewController()
+        let taskTableViewController = TasksTableViewController()
         taskTableViewController.path = task
     
         self.navigationController?.pushViewController(taskTableViewController, animated: true)

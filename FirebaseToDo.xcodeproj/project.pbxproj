@@ -15,7 +15,7 @@
 		FA24672927D80A61003232FD /* CurrencyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672327D80A61003232FD /* CurrencyRate.swift */; };
 		FA24672A27D80A61003232FD /* CurrencyRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24672427D80A61003232FD /* CurrencyRateData.swift */; };
 		FA339CB527EC7A7E0059150C /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA339CB427EC7A7D0059150C /* ExtensionUIView.swift */; };
-		FA58737527CE705600BF7ED7 /* TasksListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA58737427CE705600BF7ED7 /* TasksListTableViewController.swift */; };
+		FA58737527CE705600BF7ED7 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA58737427CE705600BF7ED7 /* TasksTableViewController.swift */; };
 		FA58737927CEABEE00BF7ED7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA58737827CEABEE00BF7ED7 /* GoogleService-Info.plist */; };
 		FA59401427E68CDC00AEBA9E /* TasksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59401327E68CDC00AEBA9E /* TasksList.swift */; };
 		FA7E1B5D2820453F00DA91BB /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E1B5C2820453F00DA91BB /* ExtensionString.swift */; };
@@ -60,7 +60,7 @@
 		FA24672327D80A61003232FD /* CurrencyRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRate.swift; sourceTree = "<group>"; };
 		FA24672427D80A61003232FD /* CurrencyRateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRateData.swift; sourceTree = "<group>"; };
 		FA339CB427EC7A7D0059150C /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
-		FA58737427CE705600BF7ED7 /* TasksListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewController.swift; sourceTree = "<group>"; };
+		FA58737427CE705600BF7ED7 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		FA58737827CEABEE00BF7ED7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA59401327E68CDC00AEBA9E /* TasksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksList.swift; sourceTree = "<group>"; };
 		FA7E1B5C2820453F00DA91BB /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				FA82252727CD712E00920730 /* LoginViewController.swift */,
 				FA2466EA27D7A24F003232FD /* RegisterViewController.swift */,
 				FAEE111527E24164007548BB /* TasksListsViewController.swift */,
-				FA58737427CE705600BF7ED7 /* TasksListTableViewController.swift */,
+				FA58737427CE705600BF7ED7 /* TasksTableViewController.swift */,
 				FA9AFD0427D6C41A00A2C42E /* WeatherViewController.swift */,
 				FA9AFCFF27D6C41900A2C42E /* DetailWeatherVC.swift */,
 				FA24672127D80A61003232FD /* ValuteViewController.swift */,
@@ -249,11 +249,11 @@
 		FAA4497127D12C4200D327FA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FA91ADE5282546C000E58399 /* StorageManager.swift */,
 				FAB33BD027F7597800F299A2 /* TranslateModel */,
 				FAA06DBC27DBBD3E0005F327 /* ValuteModel */,
 				FAA06DBD27DBBD890005F327 /* WeatherModel */,
 				FAA06DBE27DBBE080005F327 /* FirebaseModel */,
-				FA91ADE5282546C000E58399 /* StorageManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 				FA9AFCF827D6C3F500A2C42E /* CurrentWeartherData.swift in Sources */,
 				FA9AFD0827D6C41A00A2C42E /* ExtensionImageView.swift in Sources */,
 				FA82252427CD712E00920730 /* AppDelegate.swift in Sources */,
-				FA58737527CE705600BF7ED7 /* TasksListTableViewController.swift in Sources */,
+				FA58737527CE705600BF7ED7 /* TasksTableViewController.swift in Sources */,
 				FA2466EB27D7A250003232FD /* RegisterViewController.swift in Sources */,
 				FA9AFCFA27D6C3F500A2C42E /* NetworkTranslateManager.swift in Sources */,
 				FA804A9527DD29D7009E4762 /* ExtensionTableView.swift in Sources */,
