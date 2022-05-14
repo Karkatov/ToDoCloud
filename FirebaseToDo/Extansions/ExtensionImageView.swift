@@ -10,7 +10,6 @@ import UIKit
 extension UIImageView {
     
     func pulsateImage() {
-        
         let imageView = CABasicAnimation(keyPath: "opacity")
         imageView.fromValue = 0
         imageView.toValue = 1

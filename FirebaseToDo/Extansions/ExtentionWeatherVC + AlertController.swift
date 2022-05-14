@@ -10,7 +10,6 @@ import UIKit
 extension WeatherVC: UITextFieldDelegate {
     
     func presentSearchAlertController(tittle: String?, message: String?, style: UIAlertController.Style, completionHandler: @escaping (String) -> Void) {
-        
         let searchAlertController = UIAlertController(title: tittle,
                                                       message: message,
                                                       preferredStyle: style)
@@ -24,13 +23,12 @@ extension WeatherVC: UITextFieldDelegate {
             cityTextField.clearButtonMode = .always // Всегда показывать кнопку очистки
         }
         
-        let searchAction = UIAlertAction(title: "Найти",
-                                         style: .default) { [weak self] action in
+        let searchAction = UIAlertAction(title: "Найти", style: .default) { [unowned self] _ in
             let textField = searchAlertController.textFields?.first
             guard let cityName = textField?.text else { return }
             let city = cityName.split(separator: " ").joined(separator: "%20")
             //self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow")
-            self?.networkTranslate.fetchCurrentWord(translateCity: city) { translateOfCity in
+            self.networkTranslate.fetchCurrentWord(translateCity: city) { translateOfCity in
                 completionHandler(translateOfCity)
             }
         }
@@ -56,7 +54,6 @@ extension WeatherVC: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         let capitalizedText = textField.text?.capitalized
         textField.text = capitalizedText
         return true

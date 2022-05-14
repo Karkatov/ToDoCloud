@@ -15,6 +15,11 @@ class DetailWeatherVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTableView()
+        tableView.animateTableView()
+    }
+    
+    private func setTableView() {
         tableView.isScrollEnabled = false
         self.view.backgroundColor = .systemGray5
         tableView.backgroundColor = .white
@@ -26,7 +31,6 @@ class DetailWeatherVC: UIViewController {
         tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height / 3.1)
         tableView.layer.cornerRadius = 20
         view.addSubview(tableView)
-        tableView.animateTableView()
     }
 }
 
@@ -35,13 +39,11 @@ extension DetailWeatherVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return detail.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         myCell.textLabel?.text = detail[indexPath.row]
         return myCell
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -49,6 +51,5 @@ extension DetailWeatherVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false
     }
-    
 }
 

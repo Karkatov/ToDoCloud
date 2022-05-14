@@ -48,14 +48,10 @@ class ValuteViewController: UIViewController {
         
         tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
         if UIScreen.main.bounds.size.height < 670 {
-            tableView.frame = CGRect(x: 20,
-                                     y: 70,
-                                     width: view.frame.size.width - 40,
+            tableView.frame = CGRect(x: 20, y: 70, width: view.frame.size.width - 40,
                                      height: view.frame.size.height - 150)
         } else {
-            tableView.frame = CGRect(x: 15,
-                                     y: 100,
-                                     width: view.frame.size.width - 30,
+            tableView.frame = CGRect(x: 15, y: 100, width: view.frame.size.width - 30,
                                      height: view.frame.size.height - 210)
         }
         tableView.delegate = self

@@ -26,6 +26,7 @@
 		FA82252B27CD712E00920730 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA82252927CD712E00920730 /* Main.storyboard */; };
 		FA82252D27CD712E00920730 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA82252C27CD712E00920730 /* Assets.xcassets */; };
 		FA82253027CD712E00920730 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA82252E27CD712E00920730 /* LaunchScreen.storyboard */; };
+		FA883F382830328E00EC9937 /* Extension UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA883F372830328E00EC9937 /* Extension UIColor.swift */; };
 		FA91ADE6282546C000E58399 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91ADE5282546C000E58399 /* StorageManager.swift */; };
 		FA9AFCF827D6C3F500A2C42E /* CurrentWeartherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFCF227D6C3F500A2C42E /* CurrentWeartherData.swift */; };
 		FA9AFCF927D6C3F500A2C42E /* CurrentCityTranslateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFCF327D6C3F500A2C42E /* CurrentCityTranslateData.swift */; };
@@ -73,6 +74,7 @@
 		FA82252C27CD712E00920730 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA82252F27CD712E00920730 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA82253127CD712E00920730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA883F372830328E00EC9937 /* Extension UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension UIColor.swift"; sourceTree = "<group>"; };
 		FA91ADE5282546C000E58399 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		FA9AFCF227D6C3F500A2C42E /* CurrentWeartherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeartherData.swift; sourceTree = "<group>"; };
 		FA9AFCF327D6C3F500A2C42E /* CurrentCityTranslateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentCityTranslateData.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				FA339CB427EC7A7D0059150C /* ExtensionUIView.swift */,
 				FA9AFCFE27D6C41900A2C42E /* ExtentionWeatherVC + AlertController.swift */,
 				FA7E1B5C2820453F00DA91BB /* ExtensionString.swift */,
+				FA883F372830328E00EC9937 /* Extension UIColor.swift */,
 			);
 			path = Extansions;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				FAD5898427D9356900C493FE /* ExtensionTabBarController.swift in Sources */,
 				FA82252827CD712E00920730 /* LoginViewController.swift in Sources */,
 				FA9AFCF827D6C3F500A2C42E /* CurrentWeartherData.swift in Sources */,
+				FA883F382830328E00EC9937 /* Extension UIColor.swift in Sources */,
 				FA9AFD0827D6C41A00A2C42E /* ExtensionImageView.swift in Sources */,
 				FA82252427CD712E00920730 /* AppDelegate.swift in Sources */,
 				FA58737527CE705600BF7ED7 /* TasksTableViewController.swift in Sources */,

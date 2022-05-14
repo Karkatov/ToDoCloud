@@ -10,7 +10,6 @@ import UIKit
 extension UILabel {
     
     func opacityAnimation(myDuration: Double) {
-        
         let label = CABasicAnimation(keyPath: "opacity")
         label.fromValue = 0
         label.toValue = 1

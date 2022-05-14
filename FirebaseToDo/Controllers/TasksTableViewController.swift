@@ -20,17 +20,15 @@ class TasksTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTableView()
         tableView.animateTableView()
         setButtons()
-        
         createUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-     
+        
         ref.observe(.value) { [weak self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
@@ -51,13 +49,9 @@ class TasksTableViewController: UIViewController {
 extension TasksTableViewController {
     
     func createUser() {
-        
         guard let currentUser = Auth.auth().currentUser else { return }
         user = UserModel(user: currentUser)
-        
-        let taskVC = TasksListsViewController()
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(path)
-        
     }
     
     @objc func addFolder() {
@@ -67,10 +61,9 @@ extension TasksTableViewController {
             tf.autocapitalizationType = .sentences
             tf.clearButtonMode = .always
             tf.delegate = self
-            
         }
+        
         let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
-            
             guard let tf = alertController.textFields?.first, tf.text != "" else { return }
             let task = Task(title: tf.text!, notes: tf.text!, userID: (self?.user.uid)!)
             let taskRef = self?.ref.child("\(task.notes)".lowercased())
@@ -80,25 +73,19 @@ extension TasksTableViewController {
         }
         
         let cancelButton = UIAlertAction(title: "Отмена", style: .default)
-        
         alertController.addAction(saveButton)
         alertController.addAction(cancelButton)
         present(alertController, animated: true, completion: nil)
     }
     
     func setButtons() {
-        
         let addNewNote
         = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
         addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
-        
         navigationItem.rightBarButtonItem = addNewNote
-        //editButton = editButtonItem
-        //navigationItem.leftBarButtonItem = editButton
     }
     
     func setTableView() {
-        
         let backgroundColor = UIColor.systemGray5
         tableView.backgroundColor = backgroundColor
         tableView.layer.cornerRadius = 7
@@ -107,18 +94,11 @@ extension TasksTableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         tableView.dataSource = self
         tableView.delegate = self
-        
         self.view.addSubview(tableView)
     }
-    
-    @objc func showTray() {
-        
-    }
-    
 }
+
 extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
@@ -133,16 +113,11 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         guard editingStyle == .delete else { return }
         let task = tasks[indexPath.row]
         task.ref?.removeValue()
@@ -152,37 +127,13 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let task = tasks[indexPath.row]
         let isCompleted = !task.completed
-        
         toogleCompletion(cell, isCompleted: isCompleted)
         task.ref?.updateChildValues(["completed" : isCompleted])
-        
     }
     
     func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
         cell.accessoryType = isCompleted ? .checkmark : .none
     }
-
-    
-//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let button = UIContextualAction(style: .normal, title: nil) { <#UIContextualAction#>, <#UIView#>, <#@escaping (Bool) -> Void#> in
-//            <#code#>
-//        }
-//        
-//        return UISwipeActionsConfiguration(actions: <#T##[UIContextualAction]#>)
-//        
-//    }
-    //    override func setEditing(_ editing: Bool, animated: Bool) {
-    //        super.setEditing(editing, animated: animated)
-    //
-//        if editing {
-//            self.editButton.title = "Готово"
-//            tableView.setEditing(editing, animated: true)
-//        } else {
-//            tableView.endEditing(true)
-//            self.editButton.title = "Изменить"
-//        }
-//    }
-
 }
 
 extension TasksTableViewController: UITextFieldDelegate {
