@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension WeatherVC: UITextFieldDelegate {
+extension WeatherViewController: UITextFieldDelegate {
     
     func presentSearchAlertController(tittle: String?, message: String?, style: UIAlertController.Style, completionHandler: @escaping (String) -> Void) {
         let searchAlertController = UIAlertController(title: tittle,

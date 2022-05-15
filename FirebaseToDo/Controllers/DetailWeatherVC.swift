@@ -9,7 +9,7 @@ import UIKit
 
 class DetailWeatherVC: UIViewController {
 
-    let weatherViewController = WeatherVC()
+    let weatherViewController = WeatherViewController()
     let tableView = UITableView()
     var detail = [String]()
     var currentWeather: CurrentWeather!

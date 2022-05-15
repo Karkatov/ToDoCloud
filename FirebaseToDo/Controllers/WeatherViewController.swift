@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class WeatherVC: UIViewController {
+class WeatherViewController: UIViewController {
     
     var weatherDetail = [String]()
     var backgroundImageView: UIImageView = {
@@ -105,6 +106,13 @@ class WeatherVC: UIViewController {
     let networkTranslate = NetworkTranslate()
     let userDefaults = UserDefaults()
     let queue = DispatchQueue(label: "serial", attributes: .concurrent)
+    lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyKilometer
+        lm.requestWhenInUseAuthorization()
+        return lm
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +123,7 @@ class WeatherVC: UIViewController {
 }
 
 // MARK: - Methods
-extension WeatherVC {
+extension WeatherViewController {
     private func setupView() {
         view.addSubview(backgroundImageView)
         view.addSubview(blurView)
@@ -185,7 +193,10 @@ extension WeatherVC {
     @objc func findPosition() {
         locationButton.pulsate(0.7)
         locationButton.opacityAnimation()
-        //locationButton.shake()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
+        }
     }
     
     private func showAnimation() {
@@ -293,5 +304,23 @@ extension WeatherVC {
             spiner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spiner.topAnchor.constraint(equalTo: feelsLikeTemperatureLabel.bottomAnchor, constant: 50)
         ])
+    }
+}
+
+// MARK: - CLLocationManagerDlegate
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        queue.async {
+            self.networkWeatherManager.fetchCurrentWeatherForCoordinate(forLatitude: latitude, longitude: longitude) { currentWeather in
+                self.updateInterfaceWith(weather: currentWeather)
+                self.weatherDetail = currentWeather.weatherDetail()
+            }
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
 }
