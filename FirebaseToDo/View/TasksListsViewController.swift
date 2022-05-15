@@ -32,16 +32,15 @@ class TasksListsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.barStyle = UIBarStyle.default
-        
-        ref.observe(.value) { [weak self] (snapshot) in
+        ref.observe(.value) { [unowned self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
+                print(item)
                 let task = Task(snapshot: item as! DataSnapshot)
                 _tasks.append(task)
             }
-            self?.tasksList = _tasks
-            self?.collectionView.reloadData()
+            self.tasksList = _tasks
+            self.collectionView.reloadData()
         }
         view.backgroundColor = .systemGray5
         tabBarController?.tabBar.isHidden = false
@@ -184,7 +183,6 @@ extension TasksListsViewController {
             titleNote.frame = CGRect(x: 63, y: 140, width: 200, height: 50)
             showTabBar(0, originY: 200)
             titleNote.font = setMyFont(30)
-            
         }
     }
 }
@@ -192,7 +190,7 @@ extension TasksListsViewController {
 extension TasksListsViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard range.location != 12 else {
+        guard range.location != 20 else {
             print(range.location)
             return false }
         return true
@@ -222,7 +220,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
             
             cell.deleteButton.isHidden = true
             collectionView.isEditing = false
-            cell.colorView.backgroundColor = cell.colors.randomElement()
+            cell.colorView.backgroundColor = UIColor.colorArray()[indexPath.row]
         }
         return cell
     }

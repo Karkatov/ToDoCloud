@@ -59,6 +59,20 @@ struct CurrentWeather {
         return "Влажность: \(humidity ?? 0)%"
     }
     
+    let maxTemp: Double?
+    var maxTempString: String {
+        return "Макс. температура: \(maxTemp)"
+    }
+    
+    let minTemp: Double?
+    var minTempString: String {
+        return "Мин. температура: \(minTemp)"
+    }
+    let speed: Double
+    var speedString: String {
+        return "Cкорость ветра: \(String(format: "%.0f", speed)) м/с"
+    }
+    
     init?(currentWeatherData: CurrentWeatherData) {
         cityName = currentWeatherData.name
         temperature = currentWeatherData.main.temp
@@ -67,10 +81,13 @@ struct CurrentWeather {
         description = currentWeatherData.weather.first!.weatherDescription
         clouds = currentWeatherData.clouds.all
         humidity = currentWeatherData.main.humidity
+        maxTemp = currentWeatherData.main.tempMax
+        minTemp = currentWeatherData.main.tempMin
+        speed = currentWeatherData.wind.speed
     }
     
     func weatherDetail() -> [String] {
-        let detail = [cityName, descriptionTemperature, descriptionFeelsLike, cloudsString, humidityString, descriptionString]
+        let detail = [cityName, descriptionTemperature,  descriptionFeelsLike, speedString, cloudsString, humidityString, descriptionString]
         return detail
     }
 }

@@ -12,6 +12,7 @@ class DetailWeatherVC: UIViewController {
     let weatherViewController = WeatherVC()
     let tableView = UITableView()
     var detail = [String]()
+    var currentWeather: CurrentWeather!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class DetailWeatherVC: UIViewController {
         tableView.isScrollEnabled = false
         self.view.backgroundColor = .systemGray5
         tableView.backgroundColor = .white
-        let nameCity = detail.removeFirst()
+        let nameCity = detail.removeFirst().uppercased()
         navigationItem.title = "\(nameCity)"
         tableView.delegate = self
         tableView.dataSource = self
@@ -42,6 +43,7 @@ extension DetailWeatherVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         myCell.textLabel?.text = detail[indexPath.row]
+        myCell.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         return myCell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

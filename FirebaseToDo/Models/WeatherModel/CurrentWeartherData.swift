@@ -17,6 +17,7 @@ struct CurrentWeatherData: Codable {
     let clouds: Clouds
     let timezone, id: Int
     let name: String
+    let wind: Wind
 }
 
 // MARK: - Clouds
@@ -52,5 +53,11 @@ struct Weather: Codable {
         case weatherDescription = "description"
         case icon
     }
+    
 }
-
+// MARK: - Wind
+struct Wind: Codable {
+    let speed: Double
+    let deg: Int
+    let gust: Double?
+}

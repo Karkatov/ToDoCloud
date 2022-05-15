@@ -9,7 +9,7 @@ import UIKit
 
 class WeatherVC: UIViewController {
     
-    var array = [String]()
+    var weatherDetail = [String]()
     var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +30,15 @@ class WeatherVC: UIViewController {
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        return view
+    }()
+    let blurViewTwo: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
         return view
     }()
     let temperatureLabel: UILabel = {
@@ -53,7 +62,7 @@ class WeatherVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 34)
+        label.font = UIFont.boldSystemFont(ofSize: 34)
         label.textColor = UIColor(named: "DarkWhite")
         return label
     }()
@@ -110,6 +119,7 @@ extension WeatherVC {
     private func setupView() {
         view.addSubview(backgroundImageView)
         view.addSubview(blurView)
+        view.addSubview(blurViewTwo)
         view.addSubview(detailButton)
         view.addSubview(weatherIconImageView)
         view.addSubview(temperatureLabel)
@@ -153,7 +163,7 @@ extension WeatherVC {
             self.userDefaults.set(city, forKey: "city")
             self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [unowned self] currentWeather in
                 self.updateInterfaceWith(weather: currentWeather)
-                self.array = currentWeather.weatherDetail()
+                self.weatherDetail = currentWeather.weatherDetail()
             }
             self.networkWeatherManager.boolComplition = { [unowned self] error in
                 if error == false {
@@ -168,7 +178,7 @@ extension WeatherVC {
     
     @objc func showDetail() {
         let secondVC = DetailWeatherVC()
-        secondVC.detail = array
+        secondVC.detail = weatherDetail
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
@@ -195,15 +205,19 @@ extension WeatherVC {
             self.cityLabel.text = weather.cityName
             self.feelsLikeTemperatureLabel.text = "Ощущается как \(weather.feelsLikeTemperatureString)º"
             
-            if self.blurView.alpha == 0 {
-                UIView.animate(withDuration: 0.5) {
-                    self.blurView.alpha = 0
-                    self.blurView.alpha = 0.4
-                }
+            guard self.blurView.alpha == 0 else { return }
+            UIView.animate(withDuration: 0.2) {
+                self.blurView.alpha = 0
+                self.blurView.alpha = 0.7
+            }
+            UIView.animate(withDuration: 0.3) {
+                self.blurViewTwo.alpha = 0
+                self.blurViewTwo.alpha = 0.7
             }
         }
         dispatch(object: self.temperatureLabel, duration: 1)
         dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
+        dispatch(object: self.cityLabel, duration: 1)
     }
     
     private func dispatch(object: UILabel, duration: Double) {
@@ -217,13 +231,13 @@ extension WeatherVC {
             if let city = self.userDefaults.object(forKey: "city") as? String {
                 self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [unowned self]  currentWeather in
                     self.updateInterfaceWith(weather: currentWeather)
-                    self.array = currentWeather.weatherDetail()
+                    self.weatherDetail = currentWeather.weatherDetail()
                     return
                 }
             } else {
                 self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [unowned self]  currentWeather in
                     self.updateInterfaceWith(weather: currentWeather)
-                    self.array = currentWeather.weatherDetail()
+                    self.weatherDetail = currentWeather.weatherDetail()
                 }
             }
         }
@@ -237,7 +251,13 @@ extension WeatherVC {
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: +65),
             
             cityLabel.bottomAnchor.constraint(equalTo: searchCityButton.bottomAnchor),
-            cityLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
+            cityLabel.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+            cityLabel.trailingAnchor.constraint(equalTo: searchCityButton.leadingAnchor, constant: -20),
+            
+            blurViewTwo.trailingAnchor.constraint(equalToSystemSpacingAfter: cityLabel.trailingAnchor, multiplier: 1),
+            blurViewTwo.heightAnchor.constraint(equalToConstant: 40),
+            blurViewTwo.widthAnchor.constraint(equalTo: cityLabel.widthAnchor, constant: 15),
+            blurViewTwo.bottomAnchor.constraint(equalTo: searchCityButton.bottomAnchor),
             
             detailButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             detailButton.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),

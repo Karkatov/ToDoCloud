@@ -10,8 +10,7 @@ import UIKit
 class TasksCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TasksCollectionViewCell"
-    let colors: [UIColor] = [.systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
-    let colorView: UIView = {
+    var colorView: UIView = {
         let view = UIView()
         view.alpha = 0.3
         view.layer.shadowRadius = 5
@@ -25,6 +24,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.text = "task"
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,8 +44,6 @@ class TasksCollectionViewCell: UICollectionViewCell {
         addSubview(colorView)
         addSubview(taskTitleLabel)
         addSubview(deleteButton)
-        
-        colorView.backgroundColor = colors.randomElement()
         
         NSLayoutConstraint.activate([
         colorView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -68,9 +66,6 @@ class TasksCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func randomBackgoundCollor() {
-        let colors: [UIColor] = [.systemRed, .systemBlue, .systemFill, .systemCyan, .systemMint, .systemGreen]
-    }
     func setMyFont(_ size: Double) -> UIFont {
         let font = setMyFont(size)
         return font

@@ -59,11 +59,11 @@ class LoginViewController: UIViewController {
     }()
     let nameAppLabel: UILabel = {
         let label = UILabel()
-        label.text = "FirebaseToDo"
         label.font = UIFont.systemFont(ofSize: 45)
         label.textColor = .white
         label.textAlignment = .center
         label.isHidden = true
+        label.numberOfLines = 2
         return label
     }()
     let warningTextLabel: UILabel = {
@@ -137,15 +137,16 @@ extension LoginViewController {
     func atributtedTextName() {
         
         let text: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 45)
+            .font : UIFont.boldSystemFont(ofSize: 45)
         ]
         let text2: [NSAttributedString.Key : Any] = [
-            .font : UIFont.boldSystemFont(ofSize: 45),
+            .font : UIFont.boldSystemFont(ofSize: 35),
             .foregroundColor : UIColor.red
         ]
         
         let atributedString = NSMutableAttributedString(string: "Firebase", attributes: text)
-        atributedString.append(NSAttributedString(string: "ToDo", attributes: text2))
+        atributedString.append(NSAttributedString(string: " "))
+        atributedString.append(NSAttributedString(string: "Organizer", attributes: text2))
         nameAppLabel.attributedText = atributedString
     }
     
@@ -195,11 +196,11 @@ extension LoginViewController {
             return }
         
         spiner.startAnimating()
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { [unowned self] (user, error) in
             if error != nil {
                 
-                self?.displayWarning(withText: "Ошибка")
-                self?.spiner.stopAnimating()
+                self.displayWarning(withText: "Ошибка")
+                self.spiner.stopAnimating()
                 return
             }
             
@@ -208,15 +209,15 @@ extension LoginViewController {
                 
                 StorageManager.shared.saveUser(currentUser)
 
-                self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
+                self.navigationController?.pushViewController(self.tasksVC, animated: true)
                 
-                self?.spiner.stopAnimating()
-                self?.dismiss(animated: true)
+                self.spiner.stopAnimating()
+                self.dismiss(animated: true)
                 return
             }
-            self?.spiner.stopAnimating()
-            self?.tabBarController?.tabBar.layer.cornerRadius = 30
-            self?.displayWarning(withText: "Пользователь не найден")
+            self.spiner.stopAnimating()
+            self.tabBarController?.tabBar.layer.cornerRadius = 30
+            self.displayWarning(withText: "Пользователь не найден")
         }
     }
     
@@ -230,11 +231,11 @@ extension LoginViewController {
     func displayWarning(withText text: String) {
         
         warningTextLabel.text = text
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
-            self?.warningTextLabel.alpha = 1
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [unowned self] in
+            self.warningTextLabel.alpha = 1
             
-        } completion: { [weak self] _ in
-            self?.warningTextLabel.alpha = 0
+        } completion: { [unowned self] _ in
+            self.warningTextLabel.alpha = 0
         }
     }
     
@@ -272,7 +273,7 @@ extension LoginViewController {
         nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,
                                     y: 150,
                                     width: 310,
-                                    height: 40)
+                                    height: 150)
         view.addSubview(nameAppLabel)
         
         emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
@@ -307,7 +308,7 @@ extension LoginViewController {
         registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         view.addSubview(registerButton)
         
-        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: nameAppLabel.frame.origin.y + 100, width: 50, height: 50)
+        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: nameAppLabel.frame.origin.y + 160, width: 50, height: 50)
         view.addSubview(spiner)
     }
 }

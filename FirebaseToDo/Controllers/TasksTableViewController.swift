@@ -28,7 +28,7 @@ class TasksTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         ref.observe(.value) { [weak self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
@@ -38,7 +38,6 @@ class TasksTableViewController: UIViewController {
             self?.tasks = _tasks
             self?.tableView.reloadData()
         }
-        
     }
     override func viewDidDisappear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -60,7 +59,6 @@ extension TasksTableViewController {
         alertController.addTextField { tf in
             tf.autocapitalizationType = .sentences
             tf.clearButtonMode = .always
-            tf.delegate = self
         }
         
         let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
@@ -109,18 +107,25 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
         let task = tasks[indexPath.row]
         let isCompleted = task.completed
         cell.textLabel!.text = task.notes
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.font = .systemFont(ofSize: 20)
         toogleCompletion(cell, isCompleted: isCompleted)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         let task = tasks[indexPath.row]
         task.ref?.removeValue()
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _,_,_  in
+            let task = self.tasks[indexPath.row]
+            task.ref?.removeValue()
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -133,15 +138,5 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
         cell.accessoryType = isCompleted ? .checkmark : .none
-    }
-}
-
-extension TasksTableViewController: UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard range.location != 45 else {
-            print(range.location)
-            return false }
-        return true
     }
 }
