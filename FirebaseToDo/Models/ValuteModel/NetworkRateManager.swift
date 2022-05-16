@@ -32,12 +32,6 @@ class NetworkRateManager {
                 case .failure(let error) :
                     print(error)
                 }
-//            if (200..<300).contains(statusCode) {
-//                guard let value = dataResponse.value else { return }
-//                print(value)
-//            }
-//            guard let error = dataResponse.error else { return }
-//            print(error)
-        }
+            }
     }
 }

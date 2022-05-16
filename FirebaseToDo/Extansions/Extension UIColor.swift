@@ -13,7 +13,7 @@ extension UIColor {
     }
     
     static func colorArray() -> [UIColor] {
-        let colors: [UIColor] = [.systemRed, .systemBlue, .systemGreen, .systemBrown, .systemIndigo, .systemTeal, .systemYellow, .systemCyan, .systemPurple, .systemMint, .systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen, .systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen, .systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
+        let colors: [UIColor] = [.systemRed, .systemBlue, .systemGreen, .systemBrown, .systemIndigo, .systemTeal, .systemYellow, .systemCyan, .systemPurple, .systemMint, .systemRed, .systemBlue, .systemPink, .systemBrown, .systemIndigo, .systemTeal, .systemPurple, .systemYellow, .systemCyan, .systemMint, .systemGreen]
         return colors
     }
 }

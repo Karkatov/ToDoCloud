@@ -9,15 +9,13 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class TasksTableViewController: UIViewController {
+class TasksTableViewController: UITableViewController {
     
     var user: UserModel!
     var ref: DatabaseReference!
     var tasks = Array<Task>()
     var path = "task"
-    var editButton = UIBarButtonItem()
-    private var tableView = UITableView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
@@ -53,7 +51,7 @@ extension TasksTableViewController {
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("tasks").child(path)
     }
     
-    @objc func addFolder() {
+    @objc func showAlert() {
         let alertController = UIAlertController(title: "Новая заметка", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { tf in
@@ -78,31 +76,30 @@ extension TasksTableViewController {
     
     func setButtons() {
         let addNewNote
-        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
+        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
-        navigationItem.rightBarButtonItem = addNewNote
+        editButtonItem.title = "Изменить"
+        editButtonItem.tintColor = .orange
+        navigationItem.rightBarButtonItems = [addNewNote, editButtonItem]
     }
     
     func setTableView() {
-        let backgroundColor = UIColor.systemGray5
+        let backgroundColor = UIColor.systemGray4
         tableView.backgroundColor = backgroundColor
         tableView.layer.cornerRadius = 7
         tableView.layer.masksToBounds = true
         tableView.frame = view.bounds
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        self.view.addSubview(tableView)
     }
 }
 
-extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
+extension TasksTableViewController {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         let task = tasks[indexPath.row]
         let isCompleted = task.completed
@@ -113,13 +110,13 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         let task = tasks[indexPath.row]
         task.ref?.removeValue()
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _,_,_  in
             let task = self.tasks[indexPath.row]
             task.ref?.removeValue()
@@ -128,7 +125,7 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let task = tasks[indexPath.row]
         let isCompleted = !task.completed
@@ -138,5 +135,21 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
         cell.accessoryType = isCompleted ? .checkmark : .none
+    }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            self.tableView.setEditing(editing, animated: true)
+            editButtonItem.title = "Готово"
+        } else {
+            self.tableView.endEditing(true)
+            editButtonItem.title = "Изменить"
+        }
     }
 }

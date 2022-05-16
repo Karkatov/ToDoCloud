@@ -15,6 +15,7 @@ class WeatherViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "weather")
+        //imageView.backgroundColor = .systemGray4
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -160,7 +161,6 @@ extension WeatherViewController {
         return attributedString
     }
     
-    // MARK: - Methods
     @objc func presentAlert() {
         searchCityButton.pulsate(0.7)
         presentSearchAlertController(tittle: "Введите название города", message: nil, style: .alert) { city in

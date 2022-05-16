@@ -127,8 +127,8 @@ class LoginViewController: UIViewController {
         
         navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
-        passwordTF.text = "Sktrue53"
-        emailTF.text = "Duxxless53@ya.ru"
+        passwordTF.text = "qwerty"
+        emailTF.text = "Konstantin777@ya.ru"
     }
 }
 
@@ -137,16 +137,21 @@ extension LoginViewController {
     func atributtedTextName() {
         
         let text: [NSAttributedString.Key : Any] = [
-            .font : UIFont.boldSystemFont(ofSize: 45)
+            .font : UIFont.systemFont(ofSize: 45)
         ]
         let text2: [NSAttributedString.Key : Any] = [
-            .font : UIFont.boldSystemFont(ofSize: 35),
+            .font : UIFont.boldSystemFont(ofSize: 45),
             .foregroundColor : UIColor.red
         ]
+        let text3: [NSAttributedString.Key : Any] = [
+            .font : UIFont.boldSystemFont(ofSize: 20),
+            .foregroundColor : UIColor.white
+        ]
         
-        let atributedString = NSMutableAttributedString(string: "Firebase", attributes: text)
-        atributedString.append(NSAttributedString(string: " "))
-        atributedString.append(NSAttributedString(string: "Organizer", attributes: text2))
+        let atributedString = NSMutableAttributedString(string: "ToDo", attributes: text)
+        atributedString.append(NSAttributedString(string: "Cloud        ", attributes: text2))
+        atributedString.append(NSAttributedString(string: ""))
+        atributedString.append(NSAttributedString(string: "To do list & task", attributes: text3))
         nameAppLabel.attributedText = atributedString
     }
     
@@ -263,52 +268,54 @@ extension LoginViewController {
 
 extension LoginViewController {
     func setLayout() {
-    
+        
+        view.addSubview(backgroundImageView)
+        view.addSubview(nameAppLabel)
+        view.addSubview(emailTF)
+        view.addSubview(passwordTF)
+        view.addSubview(loginButton)
+        view.addSubview(warningTextLabel)
+        view.addSubview(registerButton)
+        view.addSubview(spiner)
+        
         backgroundImageView.frame = CGRect(x: 0,
                                            y: 0,
                                            width: view.bounds.size.width,
                                            height: UIScreen.main.bounds.size.height)
-        view.addSubview(backgroundImageView)
         
         nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,
-                                    y: 150,
+                                    y: view.bounds.size.height / 7,
                                     width: 310,
                                     height: 150)
-        view.addSubview(nameAppLabel)
-        
+    
         emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                y: view.bounds.size.height / 2 - 25,
                                width: 300,
                                height: 40)
-        view.addSubview(emailTF)
         
         passwordTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                   y: view.bounds.size.height / 2 + 25,
                                   width: 300,
                                   height: 40)
-        view.addSubview(passwordTF)
         
         warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                         y: passwordTF.frame.origin.y + 50,
                                         width: 300,
                                         height: 30)
-        view.addSubview(warningTextLabel)
         
         loginButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                    y: passwordTF.frame.origin.y + 100 ,
                                    width: 300,
                                    height: 40)
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
-        view.addSubview(loginButton)
         
         registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                       y: passwordTF.frame.origin.y + 150,
                                       width: 300,
                                       height: 40)
         registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
-        view.addSubview(registerButton)
         
-        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: nameAppLabel.frame.origin.y + 160, width: 50, height: 50)
+        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: view.bounds.size.height / 3 + 15, width: 50, height: 50)
         view.addSubview(spiner)
     }
 }

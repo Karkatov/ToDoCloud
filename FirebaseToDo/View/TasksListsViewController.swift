@@ -18,7 +18,7 @@ class TasksListsViewController: UIViewController {
     let secondView = UIView()
     let titleNote = UILabel()
     let sizeHeightScreen = UIScreen.main.bounds.size.height
-    var deleteTaskList = UIBarButtonItem()
+    var editTaskList = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +35,13 @@ class TasksListsViewController: UIViewController {
         ref.observe(.value) { [unowned self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
-                print(item)
                 let task = Task(snapshot: item as! DataSnapshot)
                 _tasks.append(task)
             }
             self.tasksList = _tasks
             self.collectionView.reloadData()
         }
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .systemGray4
         tabBarController?.tabBar.isHidden = false
     }
     
@@ -72,7 +71,7 @@ extension TasksListsViewController {
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "TasksCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .systemGray5
+        collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
     }
     
@@ -83,13 +82,13 @@ extension TasksListsViewController {
         view.addSubview(titleNote)
         
         let addNewNote
-        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFolder))
+        = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         
-        deleteTaskList = UIBarButtonItem(title: "Изменить", style: .plain, target: self, action: #selector(tappedDeleteTaskList))
-                deleteTaskList.tintColor = .systemOrange
+        editTaskList = UIBarButtonItem(title: "Изменить", style: .plain, target: self, action: #selector(tappedDeleteTaskList))
+        editTaskList.tintColor = .orange
         
-        navigationItem.rightBarButtonItems = [addNewNote, deleteTaskList]
+        navigationItem.rightBarButtonItems = [addNewNote, editTaskList]
         
         let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
         signOut.tintColor = .red
@@ -98,7 +97,7 @@ extension TasksListsViewController {
     
     
     
-    @objc func addFolder() {
+    @objc func showAlert() {
         let alertController = UIAlertController(title: "Новая папка", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { tf in
@@ -125,10 +124,10 @@ extension TasksListsViewController {
     }
     
     @objc func tappedDeleteTaskList() {
-        if deleteTaskList.title == "Изменить" {
-            deleteTaskList.title = "Готово"
+        if editTaskList.title == "Изменить" {
+            editTaskList.title = "Готово"
         } else {
-            deleteTaskList.title = "Изменить"
+            editTaskList.title = "Изменить"
         }
         collectionView.reloadData()
     }
@@ -191,7 +190,6 @@ extension TasksListsViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard range.location != 20 else {
-            print(range.location)
             return false }
         return true
     }
@@ -210,7 +208,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteCurrentTasksList(_:)), for: .touchUpInside)
         
-        if deleteTaskList.title == "Готово" {
+        if editTaskList.title == "Готово" {
             cell.showButton()
             
             collectionView.isEditing = true

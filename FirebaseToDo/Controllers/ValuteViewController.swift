@@ -29,12 +29,9 @@ class ValuteViewController: UIViewController {
         }
     }
     private func setView() {
-        let backgroundColor = UIColor(red: 25/255,
-                                      green: 75/255,
-                                      blue: 109/255,
-                                      alpha: 1)
+        let backgroundColor = UIColor(red: 25/255,  green: 75/255, blue: 109/255, alpha: 1)
         let myView = UIView()
-        myView.backgroundColor = .systemGray5
+        myView.backgroundColor = .systemGray4
         myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         view.addSubview(myView)
         self.view.backgroundColor = backgroundColor
@@ -45,7 +42,6 @@ class ValuteViewController: UIViewController {
     }
     
     private func setTableView() {
-        
         tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
         if UIScreen.main.bounds.size.height < 670 {
             tableView.frame = CGRect(x: 20, y: 70, width: view.frame.size.width - 40,
