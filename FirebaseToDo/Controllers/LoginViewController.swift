@@ -124,7 +124,7 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loginButton.isEnabled = true
         navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
         passwordTF.text = "qwerty"
@@ -194,7 +194,7 @@ extension LoginViewController {
     }
     
     @objc func loginTapped() {
-        
+        loginButton.isEnabled = false
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
             displayWarning(withText: "Ошибка")
             spiner.stopAnimating()
@@ -206,6 +206,7 @@ extension LoginViewController {
                 
                 self.displayWarning(withText: "Ошибка")
                 self.spiner.stopAnimating()
+                loginButton.isEnabled = true
                 return
             }
             
@@ -217,7 +218,6 @@ extension LoginViewController {
                 self.navigationController?.pushViewController(self.tasksVC, animated: true)
                 
                 self.spiner.stopAnimating()
-                self.dismiss(animated: true)
                 return
             }
             self.spiner.stopAnimating()
@@ -249,13 +249,12 @@ extension LoginViewController {
         if user.check {
             spiner.startAnimating()
             
-            Auth.auth().signIn(withEmail: user.email, password: user.password) { [weak self] (user, error) in
+            Auth.auth().signIn(withEmail: user.email, password: user.password) { [unowned self] (user, error) in
                 guard error == nil else {
-                    self?.spiner.stopAnimating()
+                    self.spiner.stopAnimating()
                     return }
-                self?.spiner.stopAnimating()
-                self?.navigationController?.pushViewController(self!.tasksVC, animated: true)
-                self?.dismiss(animated: true, completion: nil)
+                self.spiner.stopAnimating()
+                self.navigationController?.pushViewController(self.tasksVC, animated: true)
             }
             
         }

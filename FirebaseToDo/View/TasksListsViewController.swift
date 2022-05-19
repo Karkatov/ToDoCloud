@@ -31,7 +31,7 @@ class TasksListsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.barStyle = UIBarStyle.default
         ref.observe(.value) { [unowned self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
@@ -178,7 +178,7 @@ extension TasksListsViewController {
             titleNote.font = setMyFont(32)
           
         } else {
-            collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.size.width, height: view.frame.size.height / 1.6)
+            collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.size.width, height: view.frame.size.height / 1.7)
             titleNote.frame = CGRect(x: 63, y: 140, width: 200, height: 50)
             showTabBar(0, originY: 200)
             titleNote.font = setMyFont(30)
@@ -229,7 +229,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         } else if sizeHeightScreen > 800 {
             return CGSize(width: 140, height: 90)
         } else {
-            return CGSize(width: 130, height: 85) }
+            return CGSize(width: 145, height: 110) }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

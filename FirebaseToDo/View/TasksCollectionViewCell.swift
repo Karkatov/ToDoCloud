@@ -22,13 +22,12 @@ class TasksCollectionViewCell: UICollectionViewCell {
     }()
     let taskTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.text = "task"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "xmark")
