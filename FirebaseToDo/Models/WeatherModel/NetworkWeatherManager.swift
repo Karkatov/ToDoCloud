@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import Alamofire
 
 class NetworkWeatherManager {
     
@@ -16,22 +17,20 @@ class NetworkWeatherManager {
         
         let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&apikey=\(apiKey)&units=metric&lang=ru"
         if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let taskData = session.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    
-                    if let currentWeather = self.parceJSON(withData: data) {
+            AF.request(url).validate().responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(_) :
+                    if let currentWeather = self.parceJSON(withData: dataResponse.data!) {
                         completionHandler(currentWeather)
                         self.boolComplition?(true)
                     } else {
                         self.boolComplition?(false)
                     }
+                case .failure(let error) :
+                    print(error.localizedDescription)
                 }
             }
-            taskData.resume()
-            
-        } else
-        { self.boolComplition?(false) }
+        }
     }
     
     func fetchCurrentWeatherForCoordinate(forLatitude: CLLocationDegrees, longitude: CLLocationDegrees, completionHandler: @escaping (CurrentWeather) -> Void) {
