@@ -225,16 +225,14 @@ extension WeatherViewController {
                 self.blurViewTwo.alpha = 0
                 self.blurViewTwo.alpha = 0.7
             }
+            self.dispatch(object: self.temperatureLabel, duration: 1)
+            self.dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
+            self.dispatch(object: self.cityLabel, duration: 1)
         }
-        dispatch(object: self.temperatureLabel, duration: 1)
-        dispatch(object: self.feelsLikeTemperatureLabel, duration: 1)
-        dispatch(object: self.cityLabel, duration: 1)
     }
     
     private func dispatch(object: UILabel, duration: Double) {
-        DispatchQueue.main.sync {
             object.opacityAnimation(myDuration: duration)
-        }
     }
     
     private func fistUpdateUI() {

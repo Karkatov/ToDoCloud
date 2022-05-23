@@ -15,11 +15,13 @@ class NetworkWeatherManager {
     var boolComplition: ((Bool) -> Void)?
     func fetchCurrentWeather(forCity city: String, completionHandler: @escaping (CurrentWeather) -> Void) {
         
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&apikey=\(apiKey)&units=metric&lang=ru"
+        let urlString = "http://api.openweathermap.org/data/2.5/weather?q=\(city)&apikey=\(apiKey)&units=metric&lang=ru"
         if let url = URL(string: urlString) {
+            print(urlString)
             AF.request(url).validate().responseJSON { dataResponse in
                 switch dataResponse.result {
                 case .success(_) :
+                    print(dataResponse.result)
                     if let currentWeather = self.parceJSON(withData: dataResponse.data!) {
                         completionHandler(currentWeather)
                         self.boolComplition?(true)
@@ -35,7 +37,7 @@ class NetworkWeatherManager {
     
     func fetchCurrentWeatherForCoordinate(forLatitude: CLLocationDegrees, longitude: CLLocationDegrees, completionHandler: @escaping (CurrentWeather) -> Void) {
         
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(forLatitude)&lon=\(longitude)&appid=\(apiKey)&units=metric&lang=ru"
+        let urlString = "http://api.openweathermap.org/data/2.5/weather?lat=\(forLatitude)&lon=\(longitude)&appid=\(apiKey)&units=metric&lang=ru"
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let taskData = session.dataTask(with: url) { data, response, error in
