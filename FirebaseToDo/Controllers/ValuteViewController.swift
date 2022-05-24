@@ -69,10 +69,10 @@ class ValuteViewController: UIViewController {
         }
     }
     func fetchData() {
-        networkRateManager.fetchCurrencyRate { [weak self] data in
-            self?.valutes = data
-            self?.valutes.sort { $0[2] > $1[2] }
-            self?.tableView.reloadData()
+        networkRateManager.fetchCurrencyRate { data in
+            self.valutes = data
+            self.valutes.sort { $0[2] > $1[2] }
+            self.tableView.reloadData()
         }
     }
     

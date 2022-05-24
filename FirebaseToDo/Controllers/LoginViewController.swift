@@ -229,6 +229,7 @@ extension LoginViewController {
     @objc func registerTapped() {
         
         let signUpview = RegisterViewController()
+        signUpview.loginViewController = self
         signUpview.emailTF.text = self.emailTF.text
         present(signUpview, animated: true)
     }

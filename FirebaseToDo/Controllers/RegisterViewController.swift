@@ -11,6 +11,7 @@ import Firebase
 class RegisterViewController: UIViewController {
 
     let tableVC = TasksTableViewController()
+    var loginViewController: LoginViewController!
     let emailTF: UITextField = {
         let tf = UITextField()
         tf.textColor = .white
@@ -194,43 +195,46 @@ extension RegisterViewController {
     }
     
     @objc func registerTapped() {
+        registerButton.isEnabled = false
         guard passwordTF.text == passwordTwoTF.text else {
-            self.displayWarning(withText: "Пароль не подтвержден")
+            self.displayWarning("Пароль не подтвержден", speed: 3)
+            registerButton.isEnabled = true
             return }
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
-            displayWarning(withText: "Заполните поля")
+            displayWarning("Заполните поля", speed: 3)
+            registerButton.isEnabled = true
             return
         }
         var count = 0
         for _ in passwordTF.text! {
             count += 1 }
         if count < 6 {
-            displayWarning(withText: "Пароль слишком короткий")
+            displayWarning("Пароль слишком короткий", speed: 3)
+            registerButton.isEnabled = true
             return
         }
         
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
+        Auth.auth().createUser(withEmail: email, password: password) { [unowned self] (user, error) in
             
             guard error == nil else {
-                self?.displayWarning(withText: "Oшибка сети")
+                displayWarning("Oшибка сети", speed: 3)
                 print(error!.localizedDescription)
+                registerButton.isEnabled = true
                 return
             }
             guard user != nil else { return }
             
-            let userRef = self?.ref.child((user?.user.uid)!)
+            let userRef = ref.child((user?.user.uid)!)
            
-            userRef?.setValue(["email" : user?.user.email,
-                               "password" : self?.passwordTF.text!])
-            
-            //блок UserDefaults
-            self?.vc.check = true
-            self?.vc.ud.set(self?.vc.check, forKey: "check")
-            self?.vc.ud.set(self?.emailTF.text!, forKey: "email")
-            self?.vc.ud.set(self?.passwordTF.text!, forKey: "password")
-            
-            //отсутствует переход на TableVC
-            self?.dismiss(animated: true)
+            userRef.setValue(["email" : user?.user.email,
+                               "password" : passwordTF.text!])
+            setUserDefaults()
+            displayWarning("Регистрация пройдена!", speed: 1)
+            loginViewController.emailTF.text = emailTF.text
+            loginViewController.passwordTF.text = passwordTF.text
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.dismiss(animated: true)
+            }
         }
     }
     
@@ -238,18 +242,25 @@ extension RegisterViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func displayWarning(withText text: String) {
+    func displayWarning(_ text: String, speed: Double) {
         warningTextLabel.text = text
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
-            self?.warningTextLabel.alpha = 1
+        UIView.animate(withDuration: speed, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [unowned self] in
+            warningTextLabel.alpha = 1
             
-        } completion: { [weak self] complite in
-            self?.warningTextLabel.alpha = 0
+        } completion: { [unowned self] complite in
+            warningTextLabel.alpha = 0
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         
+    }
+    
+    private func setUserDefaults() {
+        vc.check = true
+        vc.ud.set(vc.check, forKey: "check")
+        vc.ud.set(emailTF.text!, forKey: "email")
+        vc.ud.set(passwordTF.text!, forKey: "password")
     }
 }

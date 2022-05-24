@@ -19,10 +19,22 @@ class TasksListsViewController: UIViewController {
     let titleNote = UILabel()
     let sizeHeightScreen = UIScreen.main.bounds.size.height
     var editTaskList = UIBarButtonItem()
+    lazy var warningLabel: UILabel = {
+        let label = UILabel()
+        label.center = view.center
+        label.bounds.size.height = 100
+        label.bounds.size.width = 350
+        label.text = "У вас пока нет заметок"
+        label.textAlignment = .center
+        label.font = UIFont(name: "Gill Sans", size: 30)
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.addSubview(warningLabel)
         createUser()
         setNavigationController()
         setCollectionView()
@@ -39,6 +51,14 @@ class TasksListsViewController: UIViewController {
                 _tasks.append(task)
             }
             self.tasksList = _tasks
+            if self.tasksList.isEmpty {
+                warningLabel.isHidden = false
+                editTaskList.title = "Изменить"
+                editTaskList.isEnabled = false
+            } else {
+                warningLabel.isHidden = true
+                editTaskList.isEnabled = true
+            }
             self.collectionView.reloadData()
         }
         view.backgroundColor = .systemGray4
@@ -86,6 +106,7 @@ extension TasksListsViewController {
         addNewNote.tintColor = UIColor(red: 5/255, green: 168/255, blue: 46/255, alpha: 1)
         
         editTaskList = UIBarButtonItem(title: "Изменить", style: .plain, target: self, action: #selector(tappedDeleteTaskList))
+        editTaskList.isEnabled = false
         editTaskList.tintColor = .orange
         
         navigationItem.rightBarButtonItems = [addNewNote, editTaskList]

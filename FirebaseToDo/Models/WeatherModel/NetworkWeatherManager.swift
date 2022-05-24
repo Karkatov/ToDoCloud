@@ -17,11 +17,9 @@ class NetworkWeatherManager {
         
         let urlString = "http://api.openweathermap.org/data/2.5/weather?q=\(city)&apikey=\(apiKey)&units=metric&lang=ru"
         if let url = URL(string: urlString) {
-            print(urlString)
             AF.request(url).validate().responseJSON { dataResponse in
                 switch dataResponse.result {
                 case .success(_) :
-                    print(dataResponse.result)
                     if let currentWeather = self.parceJSON(withData: dataResponse.data!) {
                         completionHandler(currentWeather)
                         self.boolComplition?(true)
