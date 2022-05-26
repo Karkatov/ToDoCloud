@@ -23,11 +23,10 @@ class NetworkWeatherManager {
                     if let currentWeather = self.parceJSON(withData: dataResponse.data!) {
                         completionHandler(currentWeather)
                         self.boolComplition?(true)
-                    } else {
-                        self.boolComplition?(false)
                     }
                 case .failure(let error) :
                     print(error.localizedDescription)
+                    self.boolComplition?(false)
                 }
             }
         }

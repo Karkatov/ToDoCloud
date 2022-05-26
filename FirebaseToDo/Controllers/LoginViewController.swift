@@ -127,8 +127,8 @@ class LoginViewController: UIViewController {
         loginButton.isEnabled = true
         navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
-        passwordTF.text = "qwerty"
-        emailTF.text = "Konstantin777@ya.ru"
+        //passwordTF.text = "qwerty"
+        //emailTF.text = "Konstantin777@ya.ru"
     }
 }
 

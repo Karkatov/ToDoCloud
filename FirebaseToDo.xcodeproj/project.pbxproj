@@ -156,7 +156,7 @@
 		FA82252227CD712E00920730 /* FirebaseToDo */ = {
 			isa = PBXGroup;
 			children = (
-				FAA06DBF27DBBE530005F327 /* Extansions */,
+				FAA06DBF27DBBE530005F327 /* Helpers */,
 				FAA4497127D12C4200D327FA /* Models */,
 				FAA06DC027DBC8AD0005F327 /* View */,
 				FAA4496F27D12BF100D327FA /* Controllers */,
@@ -196,7 +196,7 @@
 			path = FirebaseModel;
 			sourceTree = "<group>";
 		};
-		FAA06DBF27DBBE530005F327 /* Extansions */ = {
+		FAA06DBF27DBBE530005F327 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				FA804A9427DD29D7009E4762 /* ExtensionTableView.swift */,
@@ -209,7 +209,7 @@
 				FA7E1B5C2820453F00DA91BB /* ExtensionString.swift */,
 				FA883F372830328E00EC9937 /* Extension UIColor.swift */,
 			);
-			path = Extansions;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FAA06DC027DBC8AD0005F327 /* View */ = {

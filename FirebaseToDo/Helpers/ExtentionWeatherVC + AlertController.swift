@@ -41,7 +41,7 @@ extension WeatherViewController: UITextFieldDelegate {
     
     func errorAlertController() {
         DispatchQueue.main.async {
-            let errorAlertController = UIAlertController(title: "Упс...", message: "Такого города мы не нашли!🥲", preferredStyle: .alert)
+            let errorAlertController = UIAlertController(title: "Упс...", message: "Такого города мы не нашли🥲", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel)
             errorAlertController.addAction(cancelAction)
             self.present(errorAlertController, animated: true, completion: nil)

@@ -173,11 +173,11 @@ extension WeatherViewController {
                 self.updateInterfaceWith(weather: currentWeather)
                 self.weatherDetail = currentWeather.weatherDetail()
             }
-            self.networkWeatherManager.boolComplition = { [unowned self] error in
+            self.networkWeatherManager.boolComplition = { [weak self] error in
                 if error == false {
-                    self.errorAlertController()
+                    self?.errorAlertController()
                     DispatchQueue.main.async {
-                        self.spiner.stopAnimating()
+                        self?.spiner.stopAnimating()
                     }
                 }
             }

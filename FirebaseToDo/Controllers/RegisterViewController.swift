@@ -247,8 +247,8 @@ extension RegisterViewController {
         UIView.animate(withDuration: speed, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [unowned self] in
             warningTextLabel.alpha = 1
             
-        } completion: { [unowned self] complite in
-            warningTextLabel.alpha = 0
+        } completion: { [weak self] complite in
+            self?.warningTextLabel.alpha = 0
         }
     }
     
