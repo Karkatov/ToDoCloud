@@ -22,14 +22,14 @@ class DetailWeatherVC: UIViewController {
     
     private func setTableView() {
         tableView.isScrollEnabled = false
-        self.view.backgroundColor = .systemGray5
-        tableView.backgroundColor = .white
+        self.view.backgroundColor = .myGray()
+        tableView.backgroundColor = .darkWhite()
         let nameCity = detail.removeFirst().uppercased()
         navigationItem.title = "\(nameCity)"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "myCell")
-        tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height / 3.1)
+        tableView.frame = CGRect(x: 10, y: 100, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height / 2.7)
         tableView.layer.cornerRadius = 20
         view.addSubview(tableView)
     }

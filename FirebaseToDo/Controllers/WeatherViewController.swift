@@ -23,7 +23,7 @@ class WeatherViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "nil")
-        imageView.tintColor = UIColor(named: "DarkWhite")
+        imageView.tintColor = .darkWhite()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -56,7 +56,7 @@ class WeatherViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 22)
         label.text = ""
         label.textAlignment = .center
-        label.textColor = UIColor(named: "DarkWhite")
+        label.textColor = .darkWhite()
         return label
     }()
     let cityLabel: UILabel = {
@@ -64,8 +64,8 @@ class WeatherViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         label.text = ""
-        label.font = UIFont.boldSystemFont(ofSize: 34)
-        label.textColor = UIColor(named: "DarkWhite")
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textColor = .darkWhite()
         return label
     }()
     let searchCityButton: UIButton = {
@@ -74,7 +74,7 @@ class WeatherViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         let searchImage = UIImage(systemName: "magnifyingglass.circle.fill")
         button.setBackgroundImage(searchImage, for: .normal)
-        button.tintColor = UIColor(named: "DarkWhite")
+        button.tintColor = .darkWhite()
         return button
     }()
     let detailButton: UIButton = {
@@ -83,7 +83,7 @@ class WeatherViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         let weatherWeekImage = UIImage(systemName: "line.3.horizontal.circle.fill")
         button.setBackgroundImage(weatherWeekImage, for: .normal)
-        button.tintColor = UIColor(named: "DarkWhite")
+        button.tintColor = .darkWhite()
         return button
     }()
     let locationButton: UIButton = {
@@ -92,14 +92,14 @@ class WeatherViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         let locationImage = UIImage(systemName: "location.circle.fill")
         button.setBackgroundImage(locationImage, for: .normal)
-        button.tintColor = UIColor(named: "DarkWhite")
+        button.tintColor = .darkWhite()
         return button
     }()
     let spiner: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.style = .large
-        activity.color = UIColor(named: "DarkWhite")
+        activity.color = .darkWhite()
         activity.hidesWhenStopped = true
         return activity
     }()
@@ -148,13 +148,13 @@ extension WeatherViewController {
     
     private func makeTemperatureText(temperature: String) -> NSAttributedString {
         let boldAttributes: [NSAttributedString.Key : Any] = [
-            .strokeColor: UIColor(named: "DarkWhite") ?? UIColor(),
-            .foregroundColor : UIColor(named: "DarkWhite") ?? UIColor(),
+            .strokeColor: .darkWhite() ?? UIColor(),
+            .foregroundColor : .darkWhite() ?? UIColor(),
             .font : UIFont.boldSystemFont(ofSize: 80)
         ]
         let celciusAttributes: [NSAttributedString.Key : Any] = [
             .font : UIFont.systemFont(ofSize: 60),
-            .foregroundColor : UIColor(named: "DarkWhite") ?? UIColor()
+            .foregroundColor : .darkWhite() ?? UIColor()
         ]
         let attributedString = NSMutableAttributedString(string: temperature, attributes: boldAttributes)
         attributedString.append(NSAttributedString(string: "℃", attributes: celciusAttributes))
@@ -259,7 +259,7 @@ extension WeatherViewController {
             backgroundImageView.rightAnchor.constraint(equalTo: view.rightAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: +65),
             
-            cityLabel.bottomAnchor.constraint(equalTo: searchCityButton.bottomAnchor),
+            cityLabel.centerYAnchor.constraint(equalTo: searchCityButton.centerYAnchor),
             cityLabel.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
             cityLabel.trailingAnchor.constraint(equalTo: searchCityButton.leadingAnchor, constant: -20),
             

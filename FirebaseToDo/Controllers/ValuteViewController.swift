@@ -31,7 +31,7 @@ class ValuteViewController: UIViewController {
     private func setView() {
         let backgroundColor = UIColor(red: 25/255,  green: 75/255, blue: 109/255, alpha: 1)
         let myView = UIView()
-        myView.backgroundColor = .systemGray4
+        myView.backgroundColor = .myGray()
         myView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         view.addSubview(myView)
         self.view.backgroundColor = backgroundColor

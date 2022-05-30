@@ -182,7 +182,7 @@ extension TasksListsViewController {
     func showTabBar(_ originX: Double, originY: Double) {
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
             
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: originX, y: self.view.frame.size.height - originY)
+            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - originY)
         }
     }
     
