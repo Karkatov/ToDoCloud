@@ -33,7 +33,6 @@ class LoginViewController: UIViewController {
             .foregroundColor : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5),
             .font : UIFont.systemFont(ofSize: 20)
         ]
-        
         var placehold = NSMutableAttributedString(string: "Имя", attributes: text)
         tf.attributedPlaceholder = placehold
         return tf
