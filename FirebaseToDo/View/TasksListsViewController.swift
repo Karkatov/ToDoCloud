@@ -18,7 +18,8 @@ class TasksListsViewController: UIViewController {
     let secondView = UIView()
     let titleNote = UILabel()
     let sizeHeightScreen = UIScreen.main.bounds.size.height
-    var editTaskList = UIBarButtonItem()
+    var editTaskList: UIBarButtonItem!
+    var signOut: UIBarButtonItem!
     lazy var warningLabel: UILabel = {
         let label = UILabel()
         label.center = view.center
@@ -63,6 +64,7 @@ class TasksListsViewController: UIViewController {
         }
         view.backgroundColor = .systemGray4
         tabBarController?.tabBar.isHidden = false
+        signOut.isEnabled = true
     }
     
     
@@ -111,9 +113,10 @@ extension TasksListsViewController {
         
         navigationItem.rightBarButtonItems = [addNewNote, editTaskList]
         
-        let signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(signOut))
+        signOut = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(pressedSignOut))
         signOut.tintColor = .red
         navigationItem.leftBarButtonItems = [signOut]
+        signOut.isEnabled = false
     }
     
     
@@ -154,7 +157,7 @@ extension TasksListsViewController {
         collectionView.reloadData()
     }
     
-    @objc func signOut() {
+    @objc func pressedSignOut() {
         do { try Auth.auth().signOut()
         }
         catch { print("already logged out") }
@@ -180,9 +183,15 @@ extension TasksListsViewController {
     }
     
     func showTabBar(_ originX: Double, originY: Double) {
+        
+        if sizeHeightScreen > 800 {
         UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-            
             self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - originY)
+        }
+        } else {
+            UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
+                self.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: self.view.frame.size.height - originY)
+            }
         }
     }
     
@@ -249,7 +258,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         if sizeHeightScreen > 850 {
             return CGSize(width: 165, height: 110)
         } else if sizeHeightScreen > 800 {
-            return CGSize(width: 140, height: 90)
+            return CGSize(width: 145, height: 91)
         } else {
             return CGSize(width: 145, height: 110) }
     }

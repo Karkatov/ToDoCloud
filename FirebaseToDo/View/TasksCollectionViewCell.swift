@@ -22,7 +22,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
     }()
     let taskTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "task"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -65,8 +65,8 @@ class TasksCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setMyFont(_ size: Double) -> UIFont {
-        let font = setMyFont(size)
+    func setMySize(_ size: Double) -> UIFont {
+        let font = setMySize(size)
         return font
     }
     
