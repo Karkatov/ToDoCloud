@@ -21,7 +21,7 @@ class NetworkTranslate {
                 case .success :
                     let decoder = JSONDecoder()
                     let data = try? decoder.decode(CurrentCityTranslateData.self, from: dataResponse.data!)
-                    let currentTranslate = CurrentCityTranslate(currentCityTranslateData: data!)!
+                    guard let currentTranslate = CurrentCityTranslate(currentCityTranslateData: data!) else { return }
                     complitionHander(currentTranslate.translate)
                 case .failure(let error):
                     print(error.localizedDescription)

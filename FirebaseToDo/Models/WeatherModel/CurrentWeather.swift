@@ -46,7 +46,7 @@ struct CurrentWeather {
     
     let description: String?
     var descriptionString: String {
-        return  (description ?? "-").capitalized
+        return  "На улице: \((description ?? "-").lowercased())"
     }
     
     let clouds: Int?

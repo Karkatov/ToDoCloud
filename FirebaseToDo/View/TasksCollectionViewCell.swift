@@ -23,7 +23,6 @@ class TasksCollectionViewCell: UICollectionViewCell {
     let taskTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "task"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

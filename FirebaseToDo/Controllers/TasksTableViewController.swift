@@ -105,7 +105,7 @@ extension TasksTableViewController {
         let isCompleted = task.completed
         cell.textLabel!.text = task.notes
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.font = .systemFont(ofSize: 20)
+        cell.textLabel?.font = .systemFont(ofSize: 17)
         toogleCompletion(cell, isCompleted: isCompleted)
         return cell
     }
