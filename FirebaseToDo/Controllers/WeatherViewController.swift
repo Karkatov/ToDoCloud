@@ -15,14 +15,12 @@ class WeatherViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "weather")
-        //imageView.backgroundColor = .systemGray4
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     var weatherIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "nil")
         imageView.tintColor = .darkWhite()
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -110,6 +108,7 @@ class WeatherViewController: UIViewController {
     lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
+        lm.distanceFilter = 1000.0
         lm.desiredAccuracy = kCLLocationAccuracyKilometer
         lm.requestWhenInUseAuthorization()
         return lm
@@ -210,7 +209,7 @@ extension WeatherViewController {
             self.detailButton.isHidden = false
             self.detailButton.pulsate(0.7)
             self.weatherIconImageView.pulsateImage()
-            self.weatherIconImageView.image = UIImage(systemName: weather.systemIconWheatherString)
+            self.weatherIconImageView.image = self.getWeatherIcon(weather.systemIconWheatherString)
             self.spiner.stopAnimating()
             self.temperatureLabel.attributedText = self.makeTemperatureText(temperature: weather.temperatureString)
             self.cityLabel.text = weather.cityName
@@ -303,11 +302,52 @@ extension WeatherViewController {
             spiner.topAnchor.constraint(equalTo: feelsLikeTemperatureLabel.bottomAnchor, constant: 50)
         ])
     }
+    
+    private func getWeatherIcon(_ systemNameIcon: String) -> UIImage? {
+        let config = UIImage.SymbolConfiguration(paletteColors: [.white, .systemBlue, .clear])
+        var iconImage = UIImage(systemName: "nosign", withConfiguration: config)
+        
+        switch systemNameIcon {
+        case let str where str.contains("cloud.bolt.rain.fill") :
+            iconImage = (UIImage(systemName: "cloud.bolt.rain.fill", withConfiguration: config)!)
+            return iconImage
+            
+        case let str where str.contains("cloud.drizzle.fill") :
+            iconImage = (UIImage(systemName: "cloud.drizzle.fill", withConfiguration: config)!)
+            return iconImage
+            
+        case let str where str.contains("cloud.rain.fill") :
+            iconImage = (UIImage(systemName: "cloud.rain.fill", withConfiguration: config)!)
+            return iconImage
+            
+        case let str where str.contains("cloud.snow.fill") :
+            iconImage = (UIImage(systemName: "cloud.snow.fill"))
+            return iconImage
+            
+        case let str where str.contains("smoke.fill") :
+            iconImage = (UIImage(systemName: "smoke.fill"))
+            return iconImage
+            
+        case let str where str.contains("sun.min.fill") :
+            let config = UIImage.SymbolConfiguration(paletteColors: [.systemYellow, .clear, .clear])
+            iconImage = (UIImage(systemName: "sun.min.fill", withConfiguration: config)!)
+            return iconImage
+            
+        case let str where str.contains("cloud.fill") :
+            iconImage = (UIImage(systemName: "cloud.fill"))
+            return iconImage
+            
+        default:
+            break
+        }
+        return iconImage
+    }
 }
 
 // MARK: - CLLocationManagerDlegate
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        spiner.startAnimating()
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
