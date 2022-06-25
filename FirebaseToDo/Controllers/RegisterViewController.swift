@@ -1,15 +1,10 @@
-//
-//  SignUpView.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 08.03.2022.
-//
+
 
 import UIKit
 import Firebase
 
 class RegisterViewController: UIViewController {
-
+    
     let tableVC = TasksTableViewController()
     var loginViewController: LoginViewController!
     let emailTF: UITextField = {
@@ -76,7 +71,7 @@ class RegisterViewController: UIViewController {
         label.alpha = 0
         return label
     }()
-
+    
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -107,9 +102,9 @@ class RegisterViewController: UIViewController {
     }()
     
     
-     let vc = LoginViewController()
-     var ref = DatabaseReference()
-     
+    let vc = LoginViewController()
+    var ref = DatabaseReference()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,9 +220,9 @@ extension RegisterViewController {
             guard user != nil else { return }
             
             let userRef = ref.child((user?.user.uid)!)
-           
+            
             userRef.setValue(["email" : user?.user.email,
-                               "password" : passwordTF.text!])
+                              "password" : passwordTF.text!])
             setUserDefaults()
             displayWarning("Регистрация пройдена!", speed: 1)
             loginViewController.emailTF.text = emailTF.text

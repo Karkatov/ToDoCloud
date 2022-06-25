@@ -1,9 +1,4 @@
-//
-//  Constans.swift
-//  Weather App
-//
-//  Created by Duxxless on 24.01.2022.
-//
+
 
 import Foundation
 

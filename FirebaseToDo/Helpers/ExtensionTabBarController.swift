@@ -1,14 +1,9 @@
-//
-//  ExtensionTabBar.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 09.03.2022.
-//
+
 
 import UIKit
 
 extension UITabBarController {
-
+    
     func setMyTabBar(tabBarController: UITabBarController) -> UITabBarController {
         let tabBar = tabBarController.tabBar
         

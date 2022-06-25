@@ -1,9 +1,4 @@
-//
-//  TableViewCell.swift
-//  СurrencyRate
-//
-//  Created by Duxxless on 26.02.2022.
-//
+
 
 import UIKit
 import SnapKit

@@ -1,9 +1,4 @@
-//
-//  CoreAnimation.swift
-//  Weather App
-//
-//  Created by Duxxless on 04.02.2022.
-//
+
 
 import UIKit
 
@@ -28,7 +23,7 @@ extension UIButton {
         opacityAn.autoreverses = true
         layer.add(opacityAn, forKey: nil)
     }
-
+    
     func shake() {
         let label = CABasicAnimation(keyPath: "position")
         label.fromValue = CGPoint(x: center.x - 5, y: center.y)

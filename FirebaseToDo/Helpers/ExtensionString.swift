@@ -1,9 +1,4 @@
-//
-//  ExtensionString.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 02.05.2022.
-//
+
 
 import Foundation
 

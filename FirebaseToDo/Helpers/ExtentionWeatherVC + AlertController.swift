@@ -1,9 +1,4 @@
-//
-//  ViewController + AlertController.swift
-//  Weather App
-//
-//  Created by Duxxless on 23.01.2022.
-//
+
 
 import UIKit
 

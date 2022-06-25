@@ -1,9 +1,4 @@
-//
-//  ViewController.swift
-//  СurrencyRate
-//
-//  Created by Duxxless on 25.02.2022.
-//
+
 
 import UIKit
 
@@ -78,7 +73,7 @@ class ValuteViewController: UIViewController {
     
     @objc func sortValue() {
         if sortIndex == "<" {
-        valutes.sort { $0[2] < $1[2] }
+            valutes.sort { $0[2] < $1[2] }
             sortIndex = ">"
         } else {
             valutes.sort { $0[2] > $1[2] }

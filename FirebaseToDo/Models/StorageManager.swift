@@ -1,14 +1,9 @@
-//
-//  StorageManager.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 06.05.2022.
-//
+
 
 import Foundation
 
 class StorageManager {
-
+    
     static let shared = StorageManager()
     var user = UserModel()
     let userDefaults = UserDefaults.standard

@@ -1,9 +1,4 @@
-//
-//  Extension UIColor.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 14.05.2022.
-//
+
 
 import UIKit
 

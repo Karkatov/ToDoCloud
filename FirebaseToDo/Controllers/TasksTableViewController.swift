@@ -1,9 +1,4 @@
-//
-//  TableViewController.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 01.03.2022.
-//
+
 
 import UIKit
 import FirebaseDatabase
@@ -15,7 +10,7 @@ class TasksTableViewController: UITableViewController {
     var ref: DatabaseReference!
     var tasks = Array<Task>()
     var path = "task"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
@@ -26,7 +21,7 @@ class TasksTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         ref.observe(.value) { [weak self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
@@ -95,7 +90,7 @@ extension TasksTableViewController {
 
 extension TasksTableViewController {
     
-     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
     

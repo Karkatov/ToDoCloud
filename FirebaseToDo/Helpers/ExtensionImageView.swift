@@ -1,9 +1,4 @@
-//
-//  ExtensionImageView.swift
-//  Weather App
-//
-//  Created by Duxxless on 05.02.2022.
-//
+
 
 import UIKit
 

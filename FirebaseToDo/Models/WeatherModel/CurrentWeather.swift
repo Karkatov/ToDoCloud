@@ -1,9 +1,4 @@
-//
-//  CurrentWeather.swift
-//  Weather App
-//
-//  Created by Duxxless on 26.01.2022.
-//
+
 
 import Foundation
 

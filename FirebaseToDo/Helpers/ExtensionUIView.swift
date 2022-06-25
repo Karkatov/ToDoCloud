@@ -1,9 +1,4 @@
-//
-//  ExtensiionUIView.swift
-//  Pods
-//
-//  Created by Duxxless on 15.03.2022.
-//
+
 
 import UIKit
 

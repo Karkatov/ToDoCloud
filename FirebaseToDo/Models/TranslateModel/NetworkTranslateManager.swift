@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  Weather App
-//
-//  Created by Duxxless on 30.01.2022.
-//
+
 
 import Foundation
 import Alamofire
@@ -19,10 +14,10 @@ class NetworkTranslate {
             .responseJSON { dataResponse in
                 switch dataResponse.result {
                 case .success :
-                    let decoder = JSONDecoder()
-                    let data = try? decoder.decode(CurrentCityTranslateData.self, from: dataResponse.data!)
-                    guard let currentTranslate = CurrentCityTranslate(currentCityTranslateData: data!) else { return }
-                    complitionHander(currentTranslate.translate)
+                    guard let data = dataResponse.data else { return }
+                    let currentTranslate = self.parceTranslateJSON(data: data)
+                    guard let cityTranslate = currentTranslate?.translate else { return }
+                    complitionHander(cityTranslate)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

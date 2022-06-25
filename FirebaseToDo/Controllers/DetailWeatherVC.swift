@@ -1,14 +1,9 @@
-//
-//  SecondViewController.swift
-//  Weather App
-//
-//  Created by Duxxless on 27.01.2022.
-//
+
 
 import UIKit
 
 class DetailWeatherVC: UIViewController {
-
+    
     let weatherViewController = WeatherViewController()
     let tableView = UITableView()
     var detail = [String]()

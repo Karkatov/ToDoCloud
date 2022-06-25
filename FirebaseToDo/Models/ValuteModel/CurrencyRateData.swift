@@ -1,9 +1,4 @@
-//
-//  CurrencyRateData.swift
-//  СurrencyRate
-//
-//  Created by Duxxless on 25.02.2022.
-//
+
 
 import Foundation
 
@@ -13,7 +8,7 @@ struct CurrencyRateData: Codable {
     let previousURL: String
     let timestamp: String
     let valute: [String: Valute]
-
+    
     enum CodingKeys: String, CodingKey {
         case date = "Date"
         case previousDate = "PreviousDate"
@@ -29,9 +24,9 @@ struct Valute: Codable {
     let nominal: Int
     let name: String
     let value, previous: Double
-
+    
     enum CodingKeys: String, CodingKey {
-       
+        
         case charCode = "CharCode"
         case nominal = "Nominal"
         case name = "Name"

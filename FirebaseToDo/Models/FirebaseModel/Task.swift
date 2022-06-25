@@ -1,9 +1,4 @@
-//
-//  APIManager.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 02.03.2022.
-//
+
 
 import Foundation
 import Firebase

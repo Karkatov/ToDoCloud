@@ -1,9 +1,4 @@
-//
-//  CollectionViewController.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 16.03.2022.
-//
+
 
 import UIKit
 import FirebaseDatabase
@@ -185,9 +180,9 @@ extension TasksListsViewController {
     func showTabBar(_ originX: Double, originY: Double) {
         
         if sizeHeightScreen > 800 {
-        UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-            self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - originY)
-        }
+            UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
+                self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - originY)
+            }
         } else {
             UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
                 self.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: self.view.frame.size.height - originY)
@@ -207,7 +202,7 @@ extension TasksListsViewController {
             titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
             showTabBar(0, originY: 200)
             titleNote.font = setMyFont(32)
-          
+            
         } else {
             collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.size.width, height: view.frame.size.height / 1.7)
             titleNote.frame = CGRect(x: 63, y: 140, width: 200, height: 50)
@@ -267,7 +262,7 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         let task = tasksList[indexPath.row].notes
         let taskTableViewController = TasksTableViewController()
         taskTableViewController.path = task
-    
+        
         self.navigationController?.pushViewController(taskTableViewController, animated: true)
         
         dismiss(animated: true)

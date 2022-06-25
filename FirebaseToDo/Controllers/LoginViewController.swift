@@ -1,9 +1,4 @@
-//
-//  ViewController.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 01.03.2022.
-//
+
 
 import UIKit
 import Firebase
@@ -213,7 +208,7 @@ extension LoginViewController {
                 let currentUser = UserModel(password: password, email: email, check: true)
                 
                 StorageManager.shared.saveUser(currentUser)
-
+                
                 self.navigationController?.pushViewController(self.tasksVC, animated: true)
                 
                 self.spiner.stopAnimating()
@@ -286,7 +281,7 @@ extension LoginViewController {
                                     y: view.bounds.size.height / 7,
                                     width: 310,
                                     height: 150)
-    
+        
         emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
                                y: view.bounds.size.height / 2 - 25,
                                width: 300,

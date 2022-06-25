@@ -1,9 +1,4 @@
 
-//  ViewController.swift
-//  Weather App
-//
-//  Created by Duxxless on 21.01.2022.
-//
 
 import UIKit
 import CoreLocation
@@ -231,7 +226,7 @@ extension WeatherViewController {
     }
     
     private func dispatch(object: UILabel, duration: Double) {
-            object.opacityAnimation(myDuration: duration)
+        object.opacityAnimation(myDuration: duration)
     }
     
     private func fistUpdateUI() {
@@ -250,7 +245,7 @@ extension WeatherViewController {
             }
         }
     }
-
+    
     private func setLayout() {
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),

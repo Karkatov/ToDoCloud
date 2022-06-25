@@ -1,9 +1,4 @@
-//
-//  TasksCollectionViewCell.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 17.03.2022.
-//
+
 
 import UIKit
 
@@ -44,20 +39,20 @@ class TasksCollectionViewCell: UICollectionViewCell {
         addSubview(deleteButton)
         
         NSLayoutConstraint.activate([
-        colorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-        colorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-        colorView.topAnchor.constraint(equalTo: topAnchor),
-        colorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        
-        taskTitleLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 15),
-        taskTitleLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant:  -15),
-        taskTitleLabel.widthAnchor.constraint(equalToConstant: 125),
-        
-        deleteButton.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -15),
-        deleteButton.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 15),
-        deleteButton.heightAnchor.constraint(equalToConstant: 20),
-        deleteButton.widthAnchor.constraint(equalToConstant: 20)
-       ])
+            colorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            colorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            colorView.topAnchor.constraint(equalTo: topAnchor),
+            colorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            taskTitleLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 15),
+            taskTitleLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant:  -15),
+            taskTitleLabel.widthAnchor.constraint(equalToConstant: 125),
+            
+            deleteButton.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -15),
+            deleteButton.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 15),
+            deleteButton.heightAnchor.constraint(equalToConstant: 20),
+            deleteButton.widthAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     required init?(coder: NSCoder) {

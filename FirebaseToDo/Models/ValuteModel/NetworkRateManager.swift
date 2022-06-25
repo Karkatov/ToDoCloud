@@ -1,9 +1,4 @@
-//
-//  NetworkRateManager.swift
-//  СurrencyRate
-//
-//  Created by Duxxless on 25.02.2022.
-//
+
 
 import Alamofire
 import UIKit

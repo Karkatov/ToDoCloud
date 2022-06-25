@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  FirebaseToDo
-//
-//  Created by Duxxless on 01.03.2022.
-//
+
 
 import UIKit
 import Firebase
