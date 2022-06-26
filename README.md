@@ -15,7 +15,7 @@
 + Верстка - SnapKit и Anchors
 + Поиск погоды по местоположению - Core Location
 + Анимация - Core Anination
-+ Запоминание входа пользователя - User Defaults 
++ Автоматический вход - User Defaults 
 
     <img src="https://media.giphy.com/media/YkxRJ9H0dH1PN4frpv/giphy.gif" width="250">
     <img src="https://media.giphy.com/media/670j7g7pywjgIvvtpj/giphy.gif" width="250">
@@ -23,5 +23,4 @@
     <img src="https://media.giphy.com/media/ma7Xw5CjThNtiWjMId/giphy.gif" width="250">
     <img src="https://media.giphy.com/media/DCLUQk6BHWhGKCKaht/giphy.gif" width="250">
     <img src="https://media.giphy.com/media/IdPcWYiYuBAU9wa2Bd/giphy.gif" width="250"> 
-    <img src="https://media.giphy.com/media/f76V4roB7cQVomP2H6/giphy.gif" width="250">
-    
+    <img src="https://media.giphy.com/media/f76V4roB7cQVomP2H6/giphy.gif" width="250"> 
