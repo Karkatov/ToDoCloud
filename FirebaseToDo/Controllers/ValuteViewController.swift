@@ -6,7 +6,7 @@ class ValuteViewController: UIViewController {
     
     let refresh = UIRefreshControl()
     let tableView = UITableView()
-    let networkRateManager = NetworkRateManager()
+    let dataFetcherService = DataFetcherService()
     var valutes: [[String]] = []
     var sortIndex = "<"
     
@@ -64,10 +64,16 @@ class ValuteViewController: UIViewController {
         }
     }
     func fetchData() {
-        networkRateManager.fetchCurrencyRate { data in
-            self.valutes = data
-            self.valutes.sort { $0[2] > $1[2] }
-            self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.dataFetcherService.fetchExchangeRate { model in
+                DispatchQueue.main.async {
+                    guard let model = model else { return }
+                    let currencyRate = CurrencyRate(currentRateData: model)
+                    self.valutes = currencyRate.valutes
+                    self.valutes.sort { $0[2] > $1[2] }
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     
