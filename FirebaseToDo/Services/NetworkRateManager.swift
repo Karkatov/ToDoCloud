@@ -5,12 +5,13 @@ import UIKit
 
 class NetworkRateManager {
     
-    let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
+    var delegate: WeatherViewControllerDelegate!
     
-    func fetchGenericJSONData<T: Codable>(response: @escaping (T?) -> Void) {
-        request { data, error in
+    func fetchGenericJSONData<T: Codable>(urlString: String, response: @escaping (T?) -> Void) {
+        request(urlString: urlString) { data, error in
             if let error = error {
                 print("Error received requesting data", error)
+                self.delegate.showErrorAlert()
                 response(nil)
             }
             guard let data = data else { return }
@@ -19,7 +20,7 @@ class NetworkRateManager {
         }
     }
     
-    func request(complitionHandler: @escaping (Data?, Error?) -> Void) {
+    func request(urlString: String, complitionHandler: @escaping (Data?, Error?) -> Void) {
         
         guard let url = URL(string: urlString) else { return }
         
@@ -28,6 +29,8 @@ class NetworkRateManager {
             case .success(_) :
                 complitionHandler(dataResponse.data, dataResponse.error)
             case .failure(let error) :
+                self.delegate = WeatherViewController()
+                self.delegate.showErrorAlert()
                 print(error)
             }
         }
@@ -40,6 +43,7 @@ class NetworkRateManager {
             return object
         } catch let jsonError {
             print("Error", jsonError)
+            self.delegate.showErrorAlert()
             return nil
         }
     }

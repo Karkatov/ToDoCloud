@@ -22,7 +22,6 @@ extension WeatherViewController: UITextFieldDelegate {
             let textField = searchAlertController.textFields?.first
             guard let cityName = textField?.text else { return }
             let city = cityName.split(separator: " ").joined(separator: "%20")
-            //self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow")
             self.networkTranslate.fetchCurrentWord(translateCity: city) { translateOfCity in
                 completionHandler(translateOfCity)
             }

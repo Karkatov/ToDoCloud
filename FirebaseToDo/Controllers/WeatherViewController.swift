@@ -3,6 +3,9 @@
 import UIKit
 import CoreLocation
 
+protocol WeatherViewControllerDelegate {
+    func showErrorAlert()
+}
 class WeatherViewController: UIViewController {
     
     var weatherDetail = [String]()
@@ -96,8 +99,9 @@ class WeatherViewController: UIViewController {
         activity.hidesWhenStopped = true
         return activity
     }()
-    let networkWeatherManager = NetworkWeatherManager()
+    let dataFetcherService = DataFetcherService()
     let networkTranslate = NetworkTranslate()
+    let networkRateManager = NetworkRateManager()
     let userDefaults = UserDefaults()
     let queue = DispatchQueue(label: "serial", attributes: .concurrent)
     lazy var locationManager: CLLocationManager = {
@@ -111,6 +115,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        networkRateManager.delegate = self
         setupView()
         spiner.startAnimating()
         fistUpdateUI()
@@ -156,25 +161,22 @@ extension WeatherViewController {
     }
     
     @objc func presentAlert() {
+        networkRateManager.delegate = self
         searchCityButton.pulsate(0.7)
         presentSearchAlertController(tittle: "Введите название города", message: nil, style: .alert) { city in
-            DispatchQueue.main.async {
-                self.spiner.startAnimating()
-            }
-            //UserDefaults
-            self.userDefaults.set(city, forKey: "city")
-            self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [unowned self] currentWeather in
-                self.updateInterfaceWith(weather: currentWeather)
-                self.weatherDetail = currentWeather.weatherDetail()
-            }
-            self.networkWeatherManager.boolComplition = { [weak self] error in
-                if error == false {
-                    self?.errorAlertController()
-                    DispatchQueue.main.async {
-                        self?.spiner.stopAnimating()
-                    }
+            self.spiner.startAnimating()
+            self.queue.async {
+                
+                self.dataFetcherService.fetchWeather(forCity: city) { currentWeatherData in
+                    guard let currentWeatherData = currentWeatherData,
+                          let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else {
+                        return }
+                    self.updateInterfaceWith(weather: currentWeather)
+                    self.weatherDetail = currentWeather.weatherDetail()
+                    self.userDefaults.set(city, forKey: "city")
                 }
             }
+            self.spiner.stopAnimating()
         }
     }
     
@@ -230,15 +232,20 @@ extension WeatherViewController {
     }
     
     private func fistUpdateUI() {
+        networkRateManager.delegate = self
         queue.async {
             if let city = self.userDefaults.object(forKey: "city") as? String {
-                self.networkWeatherManager.fetchCurrentWeather(forCity: city) { [unowned self]  currentWeather in
+                
+                self.dataFetcherService.fetchWeather(forCity: city) { currentWeatherData in
+                    guard let currentWeatherData = currentWeatherData,
+                          let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
                     self.updateInterfaceWith(weather: currentWeather)
                     self.weatherDetail = currentWeather.weatherDetail()
-                    return
                 }
             } else {
-                self.networkWeatherManager.fetchCurrentWeather(forCity: "Moscow") { [unowned self]  currentWeather in
+                self.dataFetcherService.fetchWeather(forCity: "Saint Petersburg") { currentWeatherData in
+                    guard let currentWeatherData = currentWeatherData,
+                          let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
                     self.updateInterfaceWith(weather: currentWeather)
                     self.weatherDetail = currentWeather.weatherDetail()
                 }
@@ -343,17 +350,33 @@ extension WeatherViewController {
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         spiner.startAnimating()
+        var currentCity = cityLabel.text
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
+        self.spiner.startAnimating()
         queue.async {
-            self.networkWeatherManager.fetchCurrentWeatherForCoordinate(forLatitude: latitude, longitude: longitude) { currentWeather in
+            self.dataFetcherService.fetchCurrentWeatherForCoordinate(forLatitude: latitude, longitude: longitude) { currentWeatherData in
+                guard let currentWeatherData = currentWeatherData,
+                      let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else {
+                    return }
                 self.updateInterfaceWith(weather: currentWeather)
                 self.weatherDetail = currentWeather.weatherDetail()
+                self.userDefaults.set(currentWeather.cityName, forKey: "city")
+                self.spiner.stopAnimating()
             }
         }
+        self.errorAlertController()
     }
+    
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+}
+
+extension WeatherViewController: WeatherViewControllerDelegate {
+    func showErrorAlert() {
+        errorAlertController()
     }
 }
