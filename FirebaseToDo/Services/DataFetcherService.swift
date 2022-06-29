@@ -21,4 +21,9 @@ class DataFetcherService {
         let urlString = "http://api.openweathermap.org/data/2.5/weather?lat=\(forLatitude)&lon=\(longitude)&appid=\(apiKey)&units=metric&lang=ru"
         networkRateManager.fetchGenericJSONData(urlString: urlString, response: complitionHandler)
     }
+    
+    func fetchCurrentWord(translateCity city: String, complitionHander: @escaping (CityTranslateData?) -> Void) {
+        let urlString = "https://api.mymemory.translated.net/get?q=\(city)&langpair=ru|en".encodeUrl
+        networkRateManager.fetchGenericJSONData(urlString: urlString, response: complitionHander)
+    }
 }

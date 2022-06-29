@@ -70,6 +70,7 @@ class TasksListsViewController: UIViewController {
     }
 }
 
+// MARK: - Metods
 extension TasksListsViewController {
     
     func createUser() {
@@ -212,6 +213,7 @@ extension TasksListsViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension TasksListsViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

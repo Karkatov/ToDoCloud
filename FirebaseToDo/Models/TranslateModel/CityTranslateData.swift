@@ -3,7 +3,7 @@
 import Foundation
 import UIKit
 
-struct CurrentCityTranslateData: Codable {
+struct CityTranslateData: Codable {
     
     let responseData: ResponseData
     enum CodingKeys: String, CodingKey {

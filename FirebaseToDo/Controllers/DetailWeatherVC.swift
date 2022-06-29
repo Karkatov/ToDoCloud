@@ -29,7 +29,7 @@ class DetailWeatherVC: UIViewController {
         view.addSubview(tableView)
     }
 }
-
+// MARK: - UITableViewDelegate, UITableViewDataSource 
 extension DetailWeatherVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -38,6 +38,7 @@ class TasksTableViewController: UITableViewController {
         }
     }
 }
+// MARK: - Metods
 extension TasksTableViewController {
     
     func createUser() {
@@ -88,6 +89,7 @@ extension TasksTableViewController {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource 
 extension TasksTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

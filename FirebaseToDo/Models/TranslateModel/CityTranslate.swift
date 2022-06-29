@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct CurrentCityTranslate {
+struct CityTranslate {
     
     var translate: String
     var translateCapitalized: String {
@@ -10,7 +10,7 @@ struct CurrentCityTranslate {
         return text
     }
     
-    init?(currentCityTranslateData: CurrentCityTranslateData) {
+    init?(currentCityTranslateData: CityTranslateData) {
         translate = currentCityTranslateData.responseData.translatedText.capitalized
     }
 }

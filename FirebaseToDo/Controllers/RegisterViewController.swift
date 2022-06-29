@@ -118,7 +118,7 @@ class RegisterViewController: UIViewController {
         setLayout()
     }
 }
-
+// MARK: - Metods
 extension RegisterViewController {
     
     func setLayout() {

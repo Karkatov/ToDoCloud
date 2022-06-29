@@ -19,18 +19,18 @@ class NetworkTranslate {
                     guard let cityTranslate = currentTranslate?.translate else { return }
                     complitionHander(cityTranslate)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("Error 3", error.localizedDescription)
                 }
             }
     }
     
-    func parceTranslateJSON(data: Data) -> CurrentCityTranslate? {
+    func parceTranslateJSON(data: Data) -> CityTranslate? {
         
         let decoder = JSONDecoder()
         
         do {
-            let currentTranslateData = try decoder.decode(CurrentCityTranslateData.self, from: data)
-            let curentTranslate = CurrentCityTranslate(currentCityTranslateData: currentTranslateData)
+            let currentTranslateData = try decoder.decode(CityTranslateData.self, from: data)
+            let curentTranslate = CityTranslate(currentCityTranslateData: currentTranslateData)
             return curentTranslate
         } catch {
             print(error.localizedDescription)

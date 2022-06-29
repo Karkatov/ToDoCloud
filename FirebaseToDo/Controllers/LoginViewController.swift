@@ -126,6 +126,7 @@ class LoginViewController: UIViewController {
     }
 }
 
+// MARK: - Metods
 extension LoginViewController {
     
     func atributtedTextName() {
@@ -257,10 +258,7 @@ extension LoginViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-}
-
-
-extension LoginViewController {
+    
     func setLayout() {
         
         view.addSubview(backgroundImageView)
@@ -313,3 +311,4 @@ extension LoginViewController {
         view.addSubview(spiner)
     }
 }
+
