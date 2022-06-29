@@ -5,22 +5,22 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var tabBar: UITabBarController!
+    var tabBarController: UITabBarController!
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
         //TabBarController
-        tabBar = createTabBarController()
-        window.rootViewController = tabBar
+        tabBarController = createTabBarController()
+        window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        tabBar = createTabBarController()
-        window?.rootViewController = tabBar
+        tabBarController = createTabBarController()
+        window?.rootViewController = tabBarController
     }
     
     func setOne() -> UINavigationController {

@@ -245,6 +245,14 @@ extension WeatherViewController {
                               let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
                         self.updateInterfaceWith(weather: currentWeather)
                         self.weatherDetail = currentWeather.weatherDetail()
+                        return
+                    }
+                    guard self.cityLabel.text == "" else { return }
+                    self.dataFetcherService.fetchWeather(forCity: "Moscow") { currentWeatherData in
+                        guard let currentWeatherData = currentWeatherData,
+                              let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
+                        self.updateInterfaceWith(weather: currentWeather)
+                        self.weatherDetail = currentWeather.weatherDetail()
                     }
                 }
             } else {
