@@ -236,15 +236,24 @@ extension WeatherViewController {
     private func fistUpdateUI() {
         queue.async {
             if let city = self.userDefaults.object(forKey: "city") as? String {
-                
-                self.dataFetcherService.fetchWeather(forCity: city) { currentWeatherData in
-                    guard let currentWeatherData = currentWeatherData else { return }
-                    let weather = CurrentWeather(currentWeatherData: currentWeatherData)!
-                    self.updateInterfaceWith(weather: weather)
-                    self.weatherDetail = weather.weatherDetail()
+                self.dataFetcherService.fetchCurrentWord(translateCity: city) { cityTranslate in
+                    guard let cityTranslate = cityTranslate,
+                          let city = CityTranslate(currentCityTranslateData: cityTranslate)
+                    else { return }
+                    self.dataFetcherService.fetchWeather(forCity: city.translateCapitalized) { currentWeatherData in
+                        guard let currentWeatherData = currentWeatherData,
+                              let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
+                        self.updateInterfaceWith(weather: currentWeather)
+                        self.weatherDetail = currentWeather.weatherDetail()
+                    }
                 }
             } else {
-                self.findPosition()
+                self.dataFetcherService.fetchWeather(forCity: "Moscow") { currentWeatherData in
+                    guard let currentWeatherData = currentWeatherData,
+                          let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return }
+                    self.updateInterfaceWith(weather: currentWeather)
+                    self.weatherDetail = currentWeather.weatherDetail()
+                }
             }
         }
     }
@@ -362,18 +371,11 @@ extension WeatherViewController: CLLocationManagerDelegate {
                 self.spiner.stopAnimating()
             }
         }
-        self.errorAlertController()
     }
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-    }
-}
-
-extension WeatherViewController: WeatherViewControllerDelegate {
-    func showErrorAlert() {
-        self.errorAlertController()
     }
 }
 
