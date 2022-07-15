@@ -13,6 +13,7 @@
 + Архитектура - MVC
 + Хранение данных - Firebase 
 + Сетевые запросы - Alamofire
++ Многопоточность - GCD
 + Верстка - SnapKit и Anchors
 + Поиск погоды по местоположению - Core Location
 + Анимация - Core Anination
