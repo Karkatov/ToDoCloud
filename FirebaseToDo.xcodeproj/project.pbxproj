@@ -43,7 +43,7 @@
 		FA9AFD0D27D6C49400A2C42E /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AFD0C27D6C49400A2C42E /* Constans.swift */; };
 		FAA4496E27D12BC500D327FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4496D27D12BC500D327FA /* User.swift */; };
 		FAD18EE627CF8B1500DE2567 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD18EE527CF8B1500DE2567 /* Task.swift */; };
-		FAD5898427D9356900C493FE /* ExtensionTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */; };
+		FAD5898427D9356900C493FE /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5898327D9356900C493FE /* MainTabBarController.swift */; };
 		FAEE111627E24164007548BB /* TasksListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111527E24164007548BB /* TasksListsViewController.swift */; };
 		FAEE111C27E28A04007548BB /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -91,7 +91,7 @@
 		FA9AFD0C27D6C49400A2C42E /* Constans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		FAA4496D27D12BC500D327FA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FAD18EE527CF8B1500DE2567 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTabBarController.swift; sourceTree = "<group>"; };
+		FAD5898327D9356900C493FE /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		FAEE111527E24164007548BB /* TasksListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksListsViewController.swift; path = FirebaseToDo/View/TasksListsViewController.swift; sourceTree = SOURCE_ROOT; };
 		FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				FA804A9427DD29D7009E4762 /* ExtensionTableView.swift */,
-				FAD5898327D9356900C493FE /* ExtensionTabBarController.swift */,
 				FA9AFD0127D6C41900A2C42E /* ExtensionImageView.swift */,
 				FA9AFD0227D6C41900A2C42E /* ExtensionUIButton.swift */,
 				FA9AFD0327D6C41900A2C42E /* ExtensionUILabel.swift */,
@@ -213,6 +212,7 @@
 		FAA06DC027DBC8AD0005F327 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAD5898327D9356900C493FE /* MainTabBarController.swift */,
 				FAEE111B27E28A04007548BB /* TasksCollectionViewCell.swift */,
 				FA24672227D80A61003232FD /* CustomValuteCell.swift */,
 				FA82252E27CD712E00920730 /* LaunchScreen.storyboard */,
@@ -402,7 +402,7 @@
 				FA9AFD0927D6C41A00A2C42E /* ExtensionUIButton.swift in Sources */,
 				FA9AFD0A27D6C41A00A2C42E /* ExtensionUILabel.swift in Sources */,
 				FA2EC306286A660900ED1910 /* DataFetcherService.swift in Sources */,
-				FAD5898427D9356900C493FE /* ExtensionTabBarController.swift in Sources */,
+				FAD5898427D9356900C493FE /* MainTabBarController.swift in Sources */,
 				FA82252827CD712E00920730 /* LoginViewController.swift in Sources */,
 				FA9AFCF827D6C3F500A2C42E /* CurrentWeartherData.swift in Sources */,
 				FA883F382830328E00EC9937 /* Extension UIColor.swift in Sources */,

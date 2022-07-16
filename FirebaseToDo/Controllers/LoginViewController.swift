@@ -111,7 +111,7 @@ class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
-        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
+        //tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
     
     

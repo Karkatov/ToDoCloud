@@ -66,7 +66,7 @@ class TasksListsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tabBarController?.setMyTabBar(tabBarController: tabBarController!)
+      //  tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
 }
 
@@ -179,23 +179,18 @@ extension TasksListsViewController {
     }
     
     func showTabBar(_ originX: Double, originY: Double) {
-        
-        if sizeHeightScreen > 800 {
-            UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-                self.tabBarController?.tabBar.frame.origin = CGPoint(x: 20, y: self.view.frame.size.height - originY)
-            }
-        } else {
-            UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
-                self.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: self.view.frame.size.height - originY)
+
+            UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
+                self.tabBarController?.tabBar.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             }
         }
-    }
+    
     
     func displayMode() {
         if sizeHeightScreen > 850 {
             collectionView.frame = CGRect(x: 0, y: 230, width: view.frame.size.width, height: view.frame.size.height / 1.8)
             titleNote.frame = CGRect(x: 63, y: 180, width: 200, height: 50)
-            showTabBar(20, originY: 200)
+            showTabBar(20, originY: 150)
             titleNote.font = setMyFont(36)
             
         } else if sizeHeightScreen > 800 {
