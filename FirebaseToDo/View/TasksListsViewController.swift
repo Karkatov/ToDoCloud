@@ -22,6 +22,7 @@ class TasksListsViewController: UIViewController {
         label.bounds.size.width = 350
         label.text = "У вас пока нет заметок"
         label.textAlignment = .center
+        label.textColor = .systemRed
         label.font = UIFont(name: "Gill Sans", size: 30)
         label.numberOfLines = 0
         label.isHidden = true

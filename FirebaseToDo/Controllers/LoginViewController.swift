@@ -111,18 +111,13 @@ class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setLayout()
-        //tabBarController?.setMyTabBar(tabBarController: tabBarController!)
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loginButton.isEnabled = true
         navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
-        passwordTF.text = "qwerty"
-        emailTF.text = "Konstantin777@ya.ru"
     }
 }
 
@@ -170,9 +165,12 @@ extension LoginViewController {
     }
     
     func showStartAnimation() {
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             self.setAnimation(button: nil, label: self.nameAppLabel, textField: nil, duration: 0.5)
         }
+        guard StorageManager.shared.getUser().email == ""  else {
+            return }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.setAnimation(button: nil, label: nil, textField: self.emailTF, duration: 0.5)
@@ -243,6 +241,8 @@ extension LoginViewController {
     func checkUser() {
         let user = StorageManager.shared.getUser()
         if user.check {
+            self.passwordTF.text = user.password
+            self.emailTF.text = user.email
             spiner.startAnimating()
             
             Auth.auth().signIn(withEmail: user.email, password: user.password) { [unowned self] (user, error) in
@@ -260,7 +260,6 @@ extension LoginViewController {
     }
     
     func setLayout() {
-        
         view.addSubview(backgroundImageView)
         view.addSubview(nameAppLabel)
         view.addSubview(emailTF)

@@ -7,26 +7,26 @@ class CustomValuteCell: UITableViewCell {
     
     static let idenrifire = "CustomTableViewCell"
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont(name: "Gill Sans", size: 16)
         label.numberOfLines = 0
         return label
     }()
-    let charLabel: UILabel = {
+    private let charLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
         label.font = UIFont(name: "Gill Sans", size: 16)
         return label
     }()
-    let valueLabel: UILabel = {
+    private let valueLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont(name: "Gill Sans", size: 20)
         return label
     }()
-    let flagImageView: UIImageView = {
+    private let flagImageView: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(systemName: "cloud")
         imageView.image = image
