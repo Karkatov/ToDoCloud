@@ -15,7 +15,7 @@ class TasksListsViewController: UIViewController {
     let sizeHeightScreen = UIScreen.main.bounds.size.height
     var editTaskList: UIBarButtonItem!
     var signOut: UIBarButtonItem!
-    lazy var warningLabel: UILabel = {
+    private lazy var warningLabel: UILabel = { [unowned self] in
         let label = UILabel()
         label.center = view.center
         label.bounds.size.height = 100
@@ -61,13 +61,6 @@ class TasksListsViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
         signOut.isEnabled = true
     }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-      //  tabBarController?.setMyTabBar(tabBarController: tabBarController!)
-    }
 }
 
 // MARK: - Metods
@@ -88,7 +81,6 @@ extension TasksListsViewController {
         collectionView.dataSource = self
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: TasksCollectionViewCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
-        
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
     }
@@ -127,12 +119,12 @@ extension TasksListsViewController {
             tf.clearButtonMode = .always
             
         }
-        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [weak self] _ in
+        let saveButton = UIAlertAction(title: "Сохранить", style: .default) { [unowned self] _ in
             
             guard let tf = alertController.textFields?.first, tf.text != "" else { return }
-            let task = Task(title: tf.text!, notes: tf.text!, userID: (self?.user.uid)!)
-            let taskRef = self?.ref.child("\(task.notes)".lowercased())
-            taskRef?.setValue(["notes" : task.notes,
+            let task = Task(title: tf.text!, notes: tf.text!, userID: (user.uid))
+            let taskRef = ref.child("\(task.notes)".lowercased())
+            taskRef.setValue(["notes" : task.notes,
                                "userID" : task.userID,
                                "completed" : task.completed])
         }
@@ -179,12 +171,10 @@ extension TasksListsViewController {
     }
     
     func showTabBar(_ originX: Double, originY: Double) {
-
             UIView.animate(withDuration: 1, delay: 0.7, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: .curveEaseInOut) {
                 self.tabBarController?.tabBar.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             }
         }
-    
     
     func displayMode() {
         if sizeHeightScreen > 850 {
@@ -233,7 +223,6 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         
         if editTaskList.title == "Готово" {
             cell.showButton()
-            
             collectionView.isEditing = true
             cell.colorView.backgroundColor = .systemOrange
             cell.deleteButton.isHidden = false
@@ -261,7 +250,6 @@ extension TasksListsViewController: UICollectionViewDelegate, UICollectionViewDa
         taskTableViewController.path = task
         
         self.navigationController?.pushViewController(taskTableViewController, animated: true)
-        
         dismiss(animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

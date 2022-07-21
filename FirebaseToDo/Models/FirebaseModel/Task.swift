@@ -11,14 +11,13 @@ struct Task {
     let ref: DatabaseReference?
     var completed: Bool = false
     
-    // создаем данные
     init(title: String, notes: String, userID: String) {
         
         self.userID = userID
         self.notes = notes
         self.ref = nil
     }
-    // получаем данные
+    
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String : AnyObject]
         userID = snapshotValue["userID"] as! String
