@@ -9,9 +9,6 @@ extension UIButton {
         pulse.fromValue = fromValue
         pulse.toValue = 1
         pulse.initialVelocity = 0.5
-        //pulse.autoreverses = true
-        //pulse.repeatDuration = .greatestFiniteMagnitude
-        //pulse.damping = 1
         layer.add(pulse, forKey: nil)
     }
     

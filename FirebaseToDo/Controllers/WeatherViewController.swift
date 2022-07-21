@@ -6,6 +6,7 @@ import CoreLocation
 protocol WeatherViewControllerDelegate {
     func showErrorAlert()
 }
+
 class WeatherViewController: UIViewController {
     
     var weatherDetail = [String]()
