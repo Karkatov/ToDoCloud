@@ -40,7 +40,6 @@ class CustomValuteCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //contentView.layer.borderWidth = 0.5
         contentView.backgroundColor = .white
         contentView.addSubview(flagImageView)
         contentView.addSubview(nameLabel)

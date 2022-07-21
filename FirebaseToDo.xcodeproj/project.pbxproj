@@ -135,6 +135,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FA6B3C3E2889E1D200FC5125 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AFD0C27D6C49400A2C42E /* Constans.swift */,
+				FA82252327CD712E00920730 /* AppDelegate.swift */,
+				FA82252527CD712E00920730 /* SceneDelegate.swift */,
+				FA58737827CEABEE00BF7ED7 /* GoogleService-Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		FA82251727CD712E00920730 = {
 			isa = PBXGroup;
 			children = (
@@ -156,11 +167,12 @@
 		FA82252227CD712E00920730 /* FirebaseToDo */ = {
 			isa = PBXGroup;
 			children = (
-				FAA06DBF27DBBE530005F327 /* Helpers */,
 				FAA4497127D12C4200D327FA /* Models */,
 				FAA06DC027DBC8AD0005F327 /* View */,
 				FAA4496F27D12BF100D327FA /* Controllers */,
 				FAA4497027D12C1E00D327FA /* Services */,
+				FA6B3C3E2889E1D200FC5125 /* Supporting files */,
+				FAA06DBF27DBBE530005F327 /* Helpers */,
 				FA82253127CD712E00920730 /* Info.plist */,
 			);
 			path = FirebaseToDo;
@@ -241,10 +253,6 @@
 			children = (
 				FA24672027D80A60003232FD /* NetworkRateManager.swift */,
 				FA91ADE5282546C000E58399 /* StorageManager.swift */,
-				FA9AFD0C27D6C49400A2C42E /* Constans.swift */,
-				FA82252327CD712E00920730 /* AppDelegate.swift */,
-				FA82252527CD712E00920730 /* SceneDelegate.swift */,
-				FA58737827CEABEE00BF7ED7 /* GoogleService-Info.plist */,
 				FA2EC305286A660900ED1910 /* DataFetcherService.swift */,
 			);
 			path = Services;

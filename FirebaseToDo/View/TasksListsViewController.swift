@@ -86,7 +86,7 @@ extension TasksListsViewController {
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "TasksCollectionViewCell")
+        collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: TasksCollectionViewCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         
         collectionView.backgroundColor = .clear

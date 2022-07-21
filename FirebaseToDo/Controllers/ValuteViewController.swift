@@ -37,7 +37,7 @@ class ValuteViewController: UIViewController {
     }
     
     private func setTableView() {
-        tableView.register(CustomValuteCell.self, forCellReuseIdentifier: "CustomTableViewCell")
+        tableView.register(CustomValuteCell.self, forCellReuseIdentifier: CustomValuteCell.idenrifire)
         if UIScreen.main.bounds.size.height < 670 {
             tableView.frame = CGRect(x: 20, y: 70, width: view.frame.size.width - 40,
                                      height: view.frame.size.height - 150)
@@ -100,7 +100,7 @@ extension ValuteViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomValuteCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomValuteCell.idenrifire, for: indexPath) as! CustomValuteCell
         
         let object = valutes[indexPath.row]
         cell.setCell(object: object)
