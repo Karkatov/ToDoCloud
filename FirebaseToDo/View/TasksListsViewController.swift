@@ -15,7 +15,7 @@ class TasksListsViewController: UIViewController {
     let sizeHeightScreen = UIScreen.main.bounds.size.height
     var editTaskList: UIBarButtonItem!
     var signOut: UIBarButtonItem!
-    private lazy var warningLabel: UILabel = { [unowned self] in
+    private lazy var warningLabel: UILabel = {
         let label = UILabel()
         label.center = view.center
         label.bounds.size.height = 100

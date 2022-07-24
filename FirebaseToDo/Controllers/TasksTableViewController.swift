@@ -22,14 +22,14 @@ class TasksTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ref.observe(.value) { [weak self] (snapshot) in
+        ref.observe(.value) { [unowned self] (snapshot) in
             var _tasks = Array<Task>()
             for item in snapshot.children {
                 let task = Task(snapshot: item as! DataSnapshot)
                 _tasks.append(task)
             }
-            self?.tasks = _tasks
-            self?.tableView.reloadData()
+            self.tasks = _tasks
+            self.tableView.reloadData()
         }
     }
     override func viewDidDisappear(_ animated: Bool) {
