@@ -272,7 +272,14 @@ extension WeatherViewController {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
             backgroundImageView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: +65),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            searchCityButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: locationButton.bottomAnchor, multiplier: 1),
+            searchCityButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            searchCityButton.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            searchCityButton.widthAnchor.constraint(equalToConstant: 45),
+            searchCityButton.heightAnchor.constraint(equalToConstant: 45),
+            searchCityButton.leadingAnchor.constraint(equalToSystemSpacingAfter: cityLabel.trailingAnchor, multiplier: 1),
             
             cityLabel.centerYAnchor.constraint(equalTo: searchCityButton.centerYAnchor),
             cityLabel.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
@@ -288,7 +295,7 @@ extension WeatherViewController {
             detailButton.widthAnchor.constraint(equalToConstant: 45),
             detailButton.heightAnchor.constraint(equalToConstant: 45),
             
-            searchCityButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: locationButton.bottomAnchor, multiplier: 1),
+            
             locationButton.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             locationButton.widthAnchor.constraint(equalToConstant: 45),
             locationButton.heightAnchor.constraint(equalToConstant: 45),
@@ -304,12 +311,6 @@ extension WeatherViewController {
             
             temperatureLabel.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: weatherIconImageView.bottomAnchor, multiplier: 10),
             temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            searchCityButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            searchCityButton.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            searchCityButton.widthAnchor.constraint(equalToConstant: 45),
-            searchCityButton.heightAnchor.constraint(equalToConstant: 45),
-            searchCityButton.leadingAnchor.constraint(equalToSystemSpacingAfter: cityLabel.trailingAnchor, multiplier: 1),
             
             feelsLikeTemperatureLabel.topAnchor.constraint(equalToSystemSpacingBelow: temperatureLabel.bottomAnchor, multiplier: 1),
             feelsLikeTemperatureLabel.centerXAnchor.constraint(equalTo: temperatureLabel.centerXAnchor),

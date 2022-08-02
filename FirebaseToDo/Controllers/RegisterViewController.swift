@@ -229,6 +229,7 @@ extension RegisterViewController {
             loginViewController.passwordTF.text = passwordTF.text
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.dismiss(animated: true)
+                self.loginViewController.loginTapped()
             }
         }
     }
