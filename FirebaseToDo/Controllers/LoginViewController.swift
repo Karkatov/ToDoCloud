@@ -4,10 +4,17 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController {
-    
+
     let tasksVC = TasksListsViewController()
     var check = false
     let ud = UserDefaults.standard
+    
+    let scrollView: UIScrollView = {
+       let scroll = UIScrollView()
+        scroll.backgroundColor = .red
+        scroll.showsVerticalScrollIndicator = false
+        return scroll
+    }()
     let spiner: UIActivityIndicatorView = {
         let spin = UIActivityIndicatorView()
         spin.color = .white
@@ -94,8 +101,9 @@ class LoginViewController: UIViewController {
     
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "blur")
+        let image = UIImage(named: "weather")
         imageView.image = image
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
@@ -103,7 +111,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         checkUser()
         navigationItem.hidesBackButton = true
-        
+        passwordTF.delegate = self
+        emailTF.delegate = self
         atributtedTextName()
         showStartAnimation()
     }
@@ -118,6 +127,7 @@ class LoginViewController: UIViewController {
         loginButton.isEnabled = true
         navigationController?.navigationBar.barStyle = UIBarStyle.black
         tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.isHidden = true
     }
 }
 
@@ -190,6 +200,7 @@ extension LoginViewController {
         loginButton.isEnabled = false
         guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
             displayWarning(withText: "Ошибка")
+            loginButton.isEnabled = true
             spiner.stopAnimating()
             return }
         
@@ -256,58 +267,92 @@ extension LoginViewController {
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 1, delay: 0, options: []) {
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 80)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }
+
         view.endEditing(true)
     }
     
+    
+    
     func setLayout() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(nameAppLabel)
-        view.addSubview(emailTF)
-        view.addSubview(passwordTF)
-        view.addSubview(loginButton)
-        view.addSubview(warningTextLabel)
-        view.addSubview(registerButton)
-        view.addSubview(spiner)
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.backgroundColor = .systemGray
+        
+        scrollView.addSubview(backgroundImageView)
+        scrollView.addSubview(nameAppLabel)
+        scrollView.addSubview(emailTF)
+        scrollView.addSubview(passwordTF)
+        scrollView.addSubview(loginButton)
+        scrollView.addSubview(warningTextLabel)
+        scrollView.addSubview(registerButton)
+        scrollView.addSubview(spiner)
+        
+        
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.view.frame.size.height)
         
         backgroundImageView.frame = CGRect(x: 0,
-                                           y: 0,
-                                           width: view.bounds.size.width,
-                                           height: UIScreen.main.bounds.size.height)
+                                           y: -41,
+                                           width: scrollView.frame.size.width,
+                                           height: scrollView.frame.size.height)
         
-        nameAppLabel.frame = CGRect(x: view.bounds.size.width / 2 - 155,
-                                    y: view.bounds.size.height / 7,
+        nameAppLabel.frame = CGRect(x: scrollView.bounds.size.width / 2 - 155,
+                                    y: scrollView.bounds.size.height / 7,
                                     width: 310,
                                     height: 150)
         
-        emailTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
-                               y: view.bounds.size.height / 2 - 25,
+        emailTF.frame = CGRect(x: scrollView.bounds.size.width / 2 - 150,
+                               y: scrollView.bounds.size.height / 2 - 25,
                                width: 300,
                                height: 40)
         
-        passwordTF.frame = CGRect(x: view.bounds.size.width / 2 - 150,
-                                  y: view.bounds.size.height / 2 + 25,
+        passwordTF.frame = CGRect(x: scrollView.bounds.size.width / 2 - 150,
+                                  y: scrollView.bounds.size.height / 2 + 25,
                                   width: 300,
                                   height: 40)
         
-        warningTextLabel.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+        warningTextLabel.frame = CGRect(x: scrollView.bounds.size.width / 2 - 150,
                                         y: passwordTF.frame.origin.y + 50,
                                         width: 300,
                                         height: 30)
         
-        loginButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+        loginButton.frame = CGRect(x: scrollView.bounds.size.width / 2 - 150,
                                    y: passwordTF.frame.origin.y + 100 ,
                                    width: 300,
                                    height: 40)
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         
-        registerButton.frame = CGRect(x: view.bounds.size.width / 2 - 150,
+        registerButton.frame = CGRect(x: scrollView.bounds.size.width / 2 - 150,
                                       y: passwordTF.frame.origin.y + 150,
                                       width: 300,
                                       height: 40)
         registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         
-        spiner.frame = CGRect(x: view.bounds.size.width / 2 - 25 , y: view.bounds.size.height / 3 + 15, width: 50, height: 50)
-        view.addSubview(spiner)
+        spiner.frame = CGRect(x: scrollView.bounds.size.width / 2 - 25 , y: scrollView.bounds.size.height / 3 + 15, width: 50, height: 50)
+        scrollView.addSubview(spiner)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: []) {
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 100)
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: []) {
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 100)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
     }
 }
 

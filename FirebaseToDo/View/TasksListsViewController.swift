@@ -40,6 +40,7 @@ class TasksListsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barStyle = UIBarStyle.default
         ref.observe(.value) { [unowned self] (snapshot) in
             var _tasks = Array<Task>()
